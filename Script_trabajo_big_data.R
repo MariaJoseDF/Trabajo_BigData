@@ -322,6 +322,118 @@ Criptomonedas<-rename(Criptomonedas,"Cantidad.maxima ($) (M)"="Cantidad.maxima")
 Criptomonedas[["Cantidad.maxima ($) (M)"]]<-as.numeric(Criptomonedas[["Cantidad.maxima ($) (M)"]])
 typeof(Criptomonedas[["Cantidad.maxima ($) (M)"]])
 
-##############################################################################################################################
-# 3 paginas juntas 
-##############################################################################################################################
+######################################## JUNTANDO LAS DISTINTAS BASES DE DATOS ###############################
+
+#Realizando cambios en las bases de datos para poder juntarlas
+
+##Ordenamiento burbuja de la base de datos ig.com
+
+tmp <- Tabla_comparativa[3,]
+Tabla_comparativa[3,] <- Tabla_comparativa[2,]
+Tabla_comparativa[2,] <- tmp
+
+tmp <- Tabla_comparativa[5,]
+Tabla_comparativa[5,] <- Tabla_comparativa[3,]
+Tabla_comparativa[3,] <- tmp
+
+tmp <- Tabla_comparativa[4,]
+Tabla_comparativa[4,] <- c("Polkadot (DOT)",NA,NA,NA,NA,NA,NA,NA)
+Tabla_comparativa <- rbind(Tabla_comparativa,tmp)
+
+tmp <- Tabla_comparativa[5,]
+Tabla_comparativa[5,] <- Tabla_comparativa[9,]
+Tabla_comparativa[9,] <- tmp
+
+tmp <- Tabla_comparativa[6,]
+Tabla_comparativa[6,] <- c("Binance coin (BNB)",NA,NA,NA,NA,NA,NA,NA)
+Tabla_comparativa <- rbind(Tabla_comparativa,tmp)
+
+tmp <- Tabla_comparativa[7,]
+Tabla_comparativa[7,] <- Tabla_comparativa[9,]
+Tabla_comparativa[9,] <- tmp
+Tabla_comparativa[9,] <- tmp
+
+tmp <- Tabla_comparativa[8,]
+Tabla_comparativa[8,] <- c("Tether (USDt)",NA,NA,NA,NA,NA,NA,NA)
+Tabla_comparativa <- rbind(Tabla_comparativa,tmp)
+
+tmp <- Tabla_comparativa[9,]
+Tabla_comparativa[9,] <- c("Chainlink (LINK)",NA,NA,NA,NA,NA,NA,NA)
+Tabla_comparativa <- rbind(Tabla_comparativa,tmp)
+
+tmp <- Tabla_comparativa[10,]
+Tabla_comparativa[10,] <- c("Cardano (ADA)",NA,NA,NA,NA,NA,NA,NA)
+Tabla_comparativa <- rbind(Tabla_comparativa,tmp)
+
+tmp <- Tabla_comparativa[11,]
+Tabla_comparativa[11,] <- c("Libra",NA,NA,NA,NA,NA,NA,NA)
+Tabla_comparativa <- rbind(Tabla_comparativa,tmp)
+
+tmp <- Tabla_comparativa[12,]
+Tabla_comparativa[12,] <- Tabla_comparativa[13,]
+Tabla_comparativa[13,] <- tmp
+
+tmp <- Tabla_comparativa[13,]
+Tabla_comparativa[13,] <- c("Monero (XMR)",NA,NA,NA,NA,NA,NA,NA)
+Tabla_comparativa <- rbind(Tabla_comparativa,tmp)
+
+tmp <- Tabla_comparativa[14,]
+Tabla_comparativa[14,] <- Tabla_comparativa[15,]
+Tabla_comparativa[15,] <- tmp
+
+tmp <- Tabla_comparativa[15,]
+Tabla_comparativa[15,] <- c("Tron (TRX)",NA,NA,NA,NA,NA,NA,NA)
+Tabla_comparativa <- rbind(Tabla_comparativa,tmp)
+
+##Ordenamiento burbuja de la base de datos de broker.com
+
+tmp <- Criptomonedas[15,]
+Criptomonedas[15,] <- c("Neo (NEO)",NA,NA,NA)
+Criptomonedas <- rbind(Criptomonedas,tmp)
+
+tmp <- Criptomonedas[15,]
+Criptomonedas[15,] <- Criptomonedas[16,]
+Criptomonedas[16,] <- tmp
+
+##Ordamiento burbuja de la base de datos de investing.com
+
+tmp <- tCPCL[3,]
+tCPCL[3,] <- tCPCL[4,]
+tCPCL[4,] <- tmp
+
+tmp <- tCPCL[4,]
+tCPCL[4,] <- tCPCL[7,]
+tCPCL[7,] <- tmp
+
+tmp <- tCPCL[6,]
+tCPCL[6,] <- tCPCL[9,]
+tCPCL[9,] <- tmp
+
+tmp <- tCPCL[7,]
+tCPCL[7,] <- tCPCL[9,]
+tCPCL[9,] <- tmp
+
+tmp <- tCPCL[8,]
+tCPCL[8,] <- tCPCL[9,]
+tCPCL[9,] <- tmp
+
+tmp <- tCPCL[9,]
+tCPCL[9,] <- tCPCL[10,]
+tCPCL[10,] <- tmp
+
+###Agregando filas con las criptomonedas restantes a la base de datos de investing.com
+
+Libra <- c("Libra",NA,NA,NA,NA,NA,NA,NA)
+Eos <- c("Eos","EOS",NA,NA,NA,NA,NA,NA)
+Monero <- c("Monero","XMR",NA,NA,NA,NA,NA,NA)
+Stellar <- c("Stellar","XLM",NA,NA,NA,NA,NA,NA)
+Tron <- c("Tron","TRX",NA,NA,NA,NA,NA,NA)
+Neo <- c("Neo","NEO",NA,NA,NA,NA,NA,NA)
+
+tCPCL <- rbind(tCPCL,Libra,Eos,Monero,Stellar,Tron,Neo)
+
+#Juntando las columnas de las bases de datos
+
+Criptomonedas <- cbind(Criptomonedas,Tabla_comparativa$`Cantidad en circulación (>M)`,Tabla_comparativa$`Ratio de minado/emisión`,
+                       Tabla_comparativa$`Transacciones por sg`,Tabla_comparativa$Red,Tabla_comparativa$`Tiempo para un bloque (sg)`,
+                       tCPCL$`Precio (USD)`,tCPCL$`Vol. (24h)`,tCPCL$`Vol. total`,tCPCL$`Var. (24h)`,tCPCL$`Var. (7d)`)
