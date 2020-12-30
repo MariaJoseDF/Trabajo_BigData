@@ -22,6 +22,7 @@ print(textoHtml)
 # Sacar tabla real hecha
 tCPCL <- html_table(pagina)[[1]]
 
+
 # Eliminar columna 1 que contenia NA representando una imagen
 tCPCL <- tCPCL[,-1]
 
