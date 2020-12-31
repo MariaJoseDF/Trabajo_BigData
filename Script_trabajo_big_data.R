@@ -1,6 +1,6 @@
 ####################################### IG.COM ################################################################
 
-setwd("C:/Users/maria/OneDrive/Escritorio/ICI Cuarto año/Segundo semestre/Big data/Trabajo_BigData")
+#setwd("C:/Users/maria/OneDrive/Escritorio/ICI Cuarto año/Segundo semestre/Big data/Trabajo_BigData")
 
 #Instalando paquetes
 install.packages("rvest")
@@ -92,18 +92,18 @@ Tabla_comparativa <- rename(Tabla_comparativa, "Cantidad en circulación (>M)" = 
                             "Transacciones por sg" = Transacciones.por.segundo, "Tiempo para un bloque (sg)" = Tiempo.para.un.bloque..segundos.)
 
 ########################################### INVESTING. COM ########################################################
-setwd("C:/Users/theca/OneDrive/Escritorio/Trabajo_BigData")
+#setwd("C:/Users/theca/OneDrive/Escritorio/Trabajo_BigData")
 # Cargar pagina 
 # Borrando variables de entorno 
-rm(list = ls())
+#rm(list = ls())
 
 # Instalando librerias
-install.packages('rvest')
-install.packages('gdata')
+#install.packages('rvest')
+#install.packages('gdata')
 
 # Importando librerias
-library('rvest')
-library('gdata')
+#library('rvest')
+#library('gdata')
 
 # Creando variable
 pagina <- read_html('https://es.investing.com/crypto/')
@@ -122,8 +122,8 @@ tCPCL <- tCPCL[,-1]
 
 
 # Cambiar simbolos a la fila de caracteristicas
-install.packages("dplyr")
-library("dplyr")
+#install.packages("dplyr")
+#library("dplyr")
 tCPCL <- rename(tCPCL, "Cap. mercado ($) (M)" = "Cap. mercado")
 tCPCL <- rename(tCPCL, "Vol. (24h) ($) (M)" = "Vol. (24h)")
 tCPCL <- rename(tCPCL, "Vol. total (%)" = "Vol. total")
@@ -183,15 +183,15 @@ tCPCL[10,5] <- tCPCL[10,5]*1000
 
 #############################################BROKERONLINE.ES###############################################
 ##Instalando los paquetes 
-install.packages(rvest)
-install.packages(gdata)
-install.packages(dylyr)
+#install.packages(rvest)
+#install.packages(gdata)
+#install.packages(dylyr)
 
 
 ##Corriendo los paquetes
-library(rvest)
-library(gdata)
-library(dplyr)
+#library(rvest)
+#library(gdata)
+#library(dplyr)
 
 
 #Lectura de pagina con la informacion requerida
@@ -437,3 +437,14 @@ tCPCL <- rbind(tCPCL,Libra,Eos,Monero,Stellar,Tron,Neo)
 Criptomonedas <- cbind(Criptomonedas,Tabla_comparativa$`Cantidad en circulación (>M)`,Tabla_comparativa$`Ratio de minado/emisión`,
                        Tabla_comparativa$`Transacciones por sg`,Tabla_comparativa$Red,Tabla_comparativa$`Tiempo para un bloque (sg)`,
                        tCPCL$`Precio (USD)`,tCPCL$`Vol. (24h)`,tCPCL$`Vol. total`,tCPCL$`Var. (24h)`,tCPCL$`Var. (7d)`)
+
+#Corrigiendo errores en los nombres de las columnas
+
+Criptomonedas <- rename(Criptomonedas, "Capacidad de mercado (%)" = "Capacidad.de.mercado (%)", "Cantidad máxima ($) (M)" = "Cantidad.maxima ($) (M)", 
+                        "Cantidad en circulación (>M)" = "Tabla_comparativa$`Cantidad en circulación (>M)`", 
+                        "Ratio de minado/emisión" = "Tabla_comparativa$`Ratio de minado/emisión`",
+                        "Transacciones por sg" = "Tabla_comparativa$`Transacciones por sg`",
+                        "Red" = "Tabla_comparativa$Red", "Tiempo para un bloque (sg)" = "Tabla_comparativa$`Tiempo para un bloque (sg)`",
+                        "Precio (USD)" = "tCPCL$`Precio (USD)`", "Vol. (24h) ($) (M)" = "tCPCL$`Vol. (24h)`", 
+                        "Vol. Total (%)" = "tCPCL$`Vol. total`", "Var. (24h) (%)" = "tCPCL$`Var. (24h)`",
+                        "Var. (7d) (%)" = "tCPCL$`Var. (7d)`")
