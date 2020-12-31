@@ -448,3 +448,61 @@ Criptomonedas <- rename(Criptomonedas, "Capacidad de mercado (%)" = "Capacidad.d
                         "Precio (USD)" = "tCPCL$`Precio (USD)`", "Vol. (24h) ($) (M)" = "tCPCL$`Vol. (24h)`", 
                         "Vol. Total (%)" = "tCPCL$`Vol. total`", "Var. (24h) (%)" = "tCPCL$`Var. (24h)`",
                         "Var. (7d) (%)" = "tCPCL$`Var. (7d)`")
+
+############################################### ESTABLECIENDO LAS OPCIONES PARA LA OBTENCION DE DATOS ######################################
+
+#AÑO DE LANZAMIENTO
+
+  ##El mas reciente
+  ##El mas antiguo
+
+#Capacidad de mercado
+
+  ##Rangos de 10 en 10 (%)
+
+#Cantidad Maxima
+
+  ##El max
+  ##El min
+
+#Cantidad en circulacion
+
+  ##El max
+  ##El min
+
+#Ratio de minado/emision
+
+  ##Todas las variables son opcion -> Arroje la criptomoneda correspondiente
+
+#Transacciones por sg
+
+  ##Rangos de: 0 - 999 ; 1000 - 1999 ; 2000 - 2999
+
+#Tiempo para un bloque (sg)
+
+  ##El max
+  ##El min
+
+#Precio
+
+  ##Rangos de: 0 - 100 ; 101 - 1000 ; 1001 - 10000 ; 10001 - 100000
+
+#Vol. 24hr
+
+  ##Rangos de: 0 - 1000 ; 1001 - 2000 ; 2001 - 3000 ; 3001 - 4000 ; 4001 - 5000 ; 5001 - 6000 ; 6001 - 7000 ; 7001 - 8000 ; 8001 - 9000 ; 9001 - 10000 ; 10001 - 30000 ; 30001 - 60000 ; 60001 - 100000
+
+#Vol total (%)
+
+  ##Rangos de 10 en 10 (%)
+
+##Var (42h)
+
+  ##El max
+  ##El min
+
+##Var (7d)
+
+  ##El max
+  ##El min
+
+
