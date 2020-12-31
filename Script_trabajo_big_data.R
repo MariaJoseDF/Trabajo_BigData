@@ -88,3 +88,504 @@ Tabla_comparativa[,4] <- as.numeric(Tabla_comparativa[,4])
 Tabla_comparativa <- rename(Tabla_comparativa, "Cantidad en circulación (>M)" = Cantidad.en.circulación...M., 
                             "Oferta máxima (M)" = Oferta.máxima..M., "Ratio de minado/emisión" = Ratio.de.minado.emisión,
                             "Transacciones por sg" = Transacciones.por.segundo, "Tiempo para un bloque (sg)" = Tiempo.para.un.bloque..segundos.)
+
+########################################### INVESTING. COM ########################################################
+#setwd("C:/Users/theca/OneDrive/Escritorio/Trabajo_BigData")
+# Cargar pagina 
+# Borrando variables de entorno 
+#rm(list = ls())
+
+# Instalando librerias
+#install.packages('rvest')
+#install.packages('gdata')
+
+# Importando librerias
+#library('rvest')
+#library('gdata')
+
+# Creando variable
+pagina <- read_html('https://es.investing.com/crypto/')
+
+# Saca el texto del html 
+textoHtml <- html_text(pagina)
+print(textoHtml)
+
+# Sacar informacion de la tabla
+# Sacar tabla real hecha
+tCPCL <- html_table(pagina)[[1]]
+
+
+# Eliminar columna 1 que contenia NA representando una imagen
+tCPCL <- tCPCL[,-1]
+
+
+# Cambiar simbolos a la fila de caracteristicas
+#install.packages("dplyr")
+#library("dplyr")
+tCPCL <- rename(tCPCL, "Cap. mercado ($) (M)" = "Cap. mercado")
+tCPCL <- rename(tCPCL, "Vol. (24h) ($) (M)" = "Vol. (24h)")
+tCPCL <- rename(tCPCL, "Vol. total (%)" = "Vol. total")
+tCPCL <- rename(tCPCL, "Var. (24h) (%)" = "Var. (24h)")
+tCPCL <- rename(tCPCL, "Var. (7d) (%)" = "Var. (7d)")
+
+# Eliminar signos en las columnas
+tCPCL[,3] <- gsub("[.]", "", tCPCL[,3])
+tCPCL[,3] <- gsub("[,]", ".", tCPCL[,3])
+tCPCL[,4] <- gsub("[$]","", tCPCL[,4])
+tCPCL[,4] <- gsub("[,]", ".", tCPCL[,4])
+tCPCL[,4] <- gsub("[B]", "", tCPCL[,4])
+tCPCL[,5] <- gsub("[$]", "", tCPCL[,5])
+tCPCL[,5] <- gsub("[,]", ".", tCPCL[,5])
+tCPCL[,5] <- gsub("[B]", "", tCPCL[,5])
+tCPCL[,5] <- gsub("[M]", "", tCPCL[,5])
+tCPCL[,6] <- gsub("[%]", "", tCPCL[,6])
+tCPCL[,6] <- gsub("[,]", ".", tCPCL[,6])
+tCPCL[,7] <- gsub("[%]", "", tCPCL[,7])
+tCPCL[,7] <- gsub("[,]", ".", tCPCL[,7])
+tCPCL[,8] <- gsub("[%]", "", tCPCL[,8])
+tCPCL[,8] <- gsub("[,]", ".", tCPCL[,8])
+
+# Conocer que tipo de variable corresponden las de la tabla
+typeof(tCPCL[["Nombre"]])
+typeof(tCPCL[["Precio (USD)"]])
+typeof(tCPCL[["Cap. mercado ($) (M)"]])
+typeof(tCPCL[["Vol. (24h) ($) (M)"]])
+typeof(tCPCL[["Vol. total (%)"]])
+typeof(tCPCL[["Var. (24h) (%)"]])
+typeof(tCPCL[["Var. (7d) (%)"]])
+
+#Cambiar tipo de variable de caracter a numero 
+tCPCL[["Precio (USD)"]] <- as.numeric(tCPCL[["Precio (USD)"]])
+typeof(tCPCL[["Precio (USD)"]])
+
+tCPCL[["Cap. mercado ($) (M)"]] <- as.numeric(tCPCL[["Cap. mercado ($) (M)"]])
+typeof(tCPCL[["Cap. mercado ($) (M)"]])
+
+tCPCL[["Vol. (24h) ($) (M)"]] <- as.numeric(tCPCL[["Vol. (24h) ($) (M)"]])
+typeof(tCPCL[["Vol. (24h) ($) (M)"]])
+
+tCPCL[["Vol. total (%)"]] <- as.numeric(tCPCL[["Vol. total (%)"]])
+typeof(tCPCL[["Vol. total (%)"]])
+
+# Cambiar variable 4 a millones
+tCPCL[,4] <- tCPCL[,4]*1000
+tCPCL[1,5] <- tCPCL[1,5]*1000
+tCPCL[2,5] <- tCPCL[2,5]*1000
+tCPCL[3,5] <- tCPCL[3,5]*1000
+tCPCL[4,5] <- tCPCL[4,5]*1000
+tCPCL[5,5] <- tCPCL[5,5]*1000
+tCPCL[6,5] <- tCPCL[6,5]*1000
+tCPCL[7,5] <- tCPCL[7,5]*1000
+tCPCL[8,5] <- tCPCL[8,5]*1000
+tCPCL[10,5] <- tCPCL[10,5]*1000
+
+#############################################BROKERONLINE.ES###############################################
+##Instalando los paquetes 
+#install.packages(rvest)
+#install.packages(gdata)
+#install.packages(dylyr)
+
+
+##Corriendo los paquetes
+#library(rvest)
+#library(gdata)
+#library(dplyr)
+
+
+#Lectura de pagina con la informacion requerida
+broker <- read_html("https://www.brokeronline.es/criptomonedas/ranking/")
+
+#Creando variable que contiene la informacion a obtener
+contenedoranking <- html_nodes(broker,xpath = "//*[@id=\"post-13673\"]/div")
+
+#Obetiendo divs con la informacion a extraer
+InfoRanking <- html_nodes(contenedoranking, css = ".td-width-content")
+
+#Creando variables booleanas para la extraccion de la informacion
+Lanzamiento <- FALSE
+CapMercado <- FALSE
+CantMax <- FALSE
+
+#Creando variables para el almacenamiento de la informacion extraida
+LaunchDate <- c()
+MarketShare <- c()
+Quantity <- c()
+
+#Obteniendo nombres de criptomonedas
+N <- html_nodes(contenedoranking, css = ".col-xs-12.text-center")
+##Transformando a texto los nombres extraidos
+TxtN <- html_text(N)
+##Limpiando la información
+TxtN <- gsub("\n","",TxtN)
+TxtN <- gsub("\t","", TxtN)
+
+##Eliminando espacios vacios dentro del vector de nombres por medio de un Loop
+for (i in 1:length(TxtN)) {
+  if(TxtN[i] == ""){
+    TxtN <- TxtN[-i]
+  }
+}
+
+#Creación de Loop para la extracción de la información
+for (i in InfoRanking) {
+  L <- html_nodes(i, css = ".col-xs-12 > p")
+  for (a in L) {
+    Txta <- html_text(a)
+    if(Lanzamiento){
+      print(Txta)
+      LaunchDate <- c(LaunchDate,Txta)
+      Lanzamiento <- FALSE
+    }
+    if(Txta == "Lanzamiento"){
+      Lanzamiento <- TRUE
+    }
+  }
+  for (b in L) {
+    Txtb <- html_text(b)
+    if(CapMercado){
+      print(Txtb)
+      MarketShare <- c(MarketShare,Txtb)
+      CapMercado <- FALSE
+    }
+    if(Txtb == "Capacidad de mercado"){
+      CapMercado <- TRUE
+    }
+  }
+  for (c in L) {
+    Txtc <- html_text(c)
+    if(CantMax){
+      print(Txtc)
+      Quantity <- c(Quantity,Txtc)
+      CantMax <- FALSE
+    }
+    if(Txtc == "Cantidad máxima"){
+      CantMax <- TRUE
+    }
+  }
+}
+
+#Creacion de data frame con la informacion extraída
+Criptomonedas <- data.frame("Criptomoneda" = TxtN,"Lanzamiento" = LaunchDate, "Capacidad de mercado" = MarketShare, "Cantidad maxima" = Quantity)
+
+#Cambiando las variables capacacidad de mercado por numeros enteros
+Criptomonedas[,3]<-gsub("En torno al","",Criptomonedas[,3])
+Criptomonedas[,3]<-gsub("Menos del","",Criptomonedas[,3])
+Criptomonedas [,3]<-gsub("[%]","",Criptomonedas[,3])
+
+#Cambiando nombre de la tabla Capacodad.de.mercado por Capacidad.de.mercado (%)
+Criptomonedas<-rename(Criptomonedas,"Capacidad.de.mercado (%)"="Capacidad.de.mercado")
+
+#Cambiando numeros a as.numeric
+Criptomonedas[["Capacidad.de.mercado (%)"]]<-as.numeric(Criptomonedas[["Capacidad.de.mercado (%)"]])
+typeof(Criptomonedas[["Capacidad.de.mercado (%)"]])
+
+#Cambiar las variable Lanzamiento por solo año
+Criptomonedas[,2]<-gsub("03.01.2009","2009",Criptomonedas[,2])
+Criptomonedas[,2]<-gsub("30.07.2015","2015",Criptomonedas[,2])
+Criptomonedas[,2]<-gsub("26.05.2020","2020",Criptomonedas[,2])
+Criptomonedas[,2]<-gsub("7.10.2011","2011",Criptomonedas[,2])
+Criptomonedas[,2]<-gsub("27.06.2017","2017",Criptomonedas[,2])
+Criptomonedas[,2]<-gsub("27.07.2017","2017",Criptomonedas[,2])
+Criptomonedas[,2]<-gsub("Noviembre 2014","2014",Criptomonedas[,2])
+Criptomonedas[,2]<-gsub("Septiembre 2017","2017",Criptomonedas[,2])
+Criptomonedas[,2]<-gsub("29.09.2017","2017",Criptomonedas[,2])
+Criptomonedas[,2]<-gsub("Planeado en 2020","2020",Criptomonedas[,2])
+Criptomonedas[,2]<-gsub("26.06.2017","2017",Criptomonedas[,2])
+Criptomonedas[,2]<-gsub("Abril 2014","2014",Criptomonedas[,2])
+Criptomonedas[,2]<-gsub("09.09.2017","2017",Criptomonedas[,2])
+
+#Cambiando nombre de la tabla lanzamiento por lanzamiento (año)
+Criptomonedas<-rename(Criptomonedas,"Lanzamiento (año)"="Lanzamiento")
+
+
+#Cambiando los billones y millones por millones
+Criptomonedas[,4]<-gsub("21 millones BTC","21",Criptomonedas[,4])
+Criptomonedas[,4]<-gsub("Sin límites","N/A",Criptomonedas[,4])
+Criptomonedas[,4]<-gsub("100 millones XRP","100",Criptomonedas[,4])
+Criptomonedas[,4]<-gsub("1.000 Millones DOTs","1.000",Criptomonedas[,4])
+Criptomonedas[,4]<-gsub("84 millones LTC","84",Criptomonedas[,4])
+Criptomonedas[,4]<-gsub("200 millones BNB","200",Criptomonedas[,4])
+Criptomonedas[,4]<-gsub("21.000.000 BCH","21",Criptomonedas[,4])
+Criptomonedas[,4]<-gsub("2.580.109.970 USDt","2.580",Criptomonedas[,4])
+Criptomonedas[,4]<-gsub("1 Billón LINKs","1000",Criptomonedas[,4])
+Criptomonedas[,4]<-gsub("45.000 millones ADA","45.000",Criptomonedas[,4])
+Criptomonedas[,4]<-gsub("Sin datos","0",Criptomonedas[,4])
+Criptomonedas[,4]<-gsub("1 billón EOS","1.000",Criptomonedas[,4])
+Criptomonedas[,4]<-gsub("18,4 millones XMRs","18.4",Criptomonedas[,4])
+Criptomonedas[,4]<-gsub("100.000.000.000 TRX","100.000",Criptomonedas[,4])
+
+#Cambiar Cantidad.maxima por Cantidad.maxima ($) (M)
+Criptomonedas<-rename(Criptomonedas,"Cantidad.maxima ($) (M)"="Cantidad.maxima")
+#Cambiando numeros como as.nemeric
+Criptomonedas[["Cantidad.maxima ($) (M)"]]<-as.numeric(Criptomonedas[["Cantidad.maxima ($) (M)"]])
+typeof(Criptomonedas[["Cantidad.maxima ($) (M)"]])
+
+######################################## JUNTANDO LAS DISTINTAS BASES DE DATOS ###############################
+
+#Realizando cambios en las bases de datos para poder juntarlas
+
+##Ordenamiento burbuja de la base de datos ig.com
+
+tmp <- Tabla_comparativa[3,]
+Tabla_comparativa[3,] <- Tabla_comparativa[2,]
+Tabla_comparativa[2,] <- tmp
+
+tmp <- Tabla_comparativa[5,]
+Tabla_comparativa[5,] <- Tabla_comparativa[3,]
+Tabla_comparativa[3,] <- tmp
+
+tmp <- Tabla_comparativa[4,]
+Tabla_comparativa[4,] <- c("Polkadot (DOT)",NA,NA,NA,NA,NA,NA,NA)
+Tabla_comparativa <- rbind(Tabla_comparativa,tmp)
+
+tmp <- Tabla_comparativa[5,]
+Tabla_comparativa[5,] <- Tabla_comparativa[9,]
+Tabla_comparativa[9,] <- tmp
+
+tmp <- Tabla_comparativa[6,]
+Tabla_comparativa[6,] <- c("Binance coin (BNB)",NA,NA,NA,NA,NA,NA,NA)
+Tabla_comparativa <- rbind(Tabla_comparativa,tmp)
+
+tmp <- Tabla_comparativa[7,]
+Tabla_comparativa[7,] <- Tabla_comparativa[9,]
+Tabla_comparativa[9,] <- tmp
+Tabla_comparativa[9,] <- tmp
+
+tmp <- Tabla_comparativa[8,]
+Tabla_comparativa[8,] <- c("Tether (USDt)",NA,NA,NA,NA,NA,NA,NA)
+Tabla_comparativa <- rbind(Tabla_comparativa,tmp)
+
+tmp <- Tabla_comparativa[9,]
+Tabla_comparativa[9,] <- c("Chainlink (LINK)",NA,NA,NA,NA,NA,NA,NA)
+Tabla_comparativa <- rbind(Tabla_comparativa,tmp)
+
+tmp <- Tabla_comparativa[10,]
+Tabla_comparativa[10,] <- c("Cardano (ADA)",NA,NA,NA,NA,NA,NA,NA)
+Tabla_comparativa <- rbind(Tabla_comparativa,tmp)
+
+tmp <- Tabla_comparativa[11,]
+Tabla_comparativa[11,] <- c("Libra",NA,NA,NA,NA,NA,NA,NA)
+Tabla_comparativa <- rbind(Tabla_comparativa,tmp)
+
+tmp <- Tabla_comparativa[12,]
+Tabla_comparativa[12,] <- Tabla_comparativa[13,]
+Tabla_comparativa[13,] <- tmp
+
+tmp <- Tabla_comparativa[13,]
+Tabla_comparativa[13,] <- c("Monero (XMR)",NA,NA,NA,NA,NA,NA,NA)
+Tabla_comparativa <- rbind(Tabla_comparativa,tmp)
+
+tmp <- Tabla_comparativa[14,]
+Tabla_comparativa[14,] <- Tabla_comparativa[15,]
+Tabla_comparativa[15,] <- tmp
+
+tmp <- Tabla_comparativa[15,]
+Tabla_comparativa[15,] <- c("Tron (TRX)",NA,NA,NA,NA,NA,NA,NA)
+Tabla_comparativa <- rbind(Tabla_comparativa,tmp)
+
+##Ordenamiento burbuja de la base de datos de broker.com
+
+tmp <- Criptomonedas[15,]
+Criptomonedas[15,] <- c("Neo (NEO)",NA,NA,NA)
+Criptomonedas <- rbind(Criptomonedas,tmp)
+
+tmp <- Criptomonedas[15,]
+Criptomonedas[15,] <- Criptomonedas[16,]
+Criptomonedas[16,] <- tmp
+
+##Ordamiento burbuja de la base de datos de investing.com
+
+tmp <- tCPCL[3,]
+tCPCL[3,] <- tCPCL[4,]
+tCPCL[4,] <- tmp
+
+tmp <- tCPCL[4,]
+tCPCL[4,] <- tCPCL[7,]
+tCPCL[7,] <- tmp
+
+tmp <- tCPCL[6,]
+tCPCL[6,] <- tCPCL[9,]
+tCPCL[9,] <- tmp
+
+tmp <- tCPCL[7,]
+tCPCL[7,] <- tCPCL[9,]
+tCPCL[9,] <- tmp
+
+tmp <- tCPCL[8,]
+tCPCL[8,] <- tCPCL[9,]
+tCPCL[9,] <- tmp
+
+tmp <- tCPCL[9,]
+tCPCL[9,] <- tCPCL[10,]
+tCPCL[10,] <- tmp
+
+###Agregando filas con las criptomonedas restantes a la base de datos de investing.com
+
+Libra <- c("Libra",NA,NA,NA,NA,NA,NA,NA)
+Eos <- c("Eos","EOS",NA,NA,NA,NA,NA,NA)
+Monero <- c("Monero","XMR",NA,NA,NA,NA,NA,NA)
+Stellar <- c("Stellar","XLM",NA,NA,NA,NA,NA,NA)
+Tron <- c("Tron","TRX",NA,NA,NA,NA,NA,NA)
+Neo <- c("Neo","NEO",NA,NA,NA,NA,NA,NA)
+
+tCPCL <- rbind(tCPCL,Libra,Eos,Monero,Stellar,Tron,Neo)
+
+#Juntando las columnas de las bases de datos
+
+Criptomonedas <- cbind(Criptomonedas,Tabla_comparativa$`Cantidad en circulación (>M)`,Tabla_comparativa$`Ratio de minado/emisión`,
+                       Tabla_comparativa$`Transacciones por sg`,Tabla_comparativa$Red,Tabla_comparativa$`Tiempo para un bloque (sg)`,
+                       tCPCL$`Precio (USD)`,tCPCL$`Vol. (24h)`,tCPCL$`Vol. total`,tCPCL$`Var. (24h)`,tCPCL$`Var. (7d)`)
+
+#Corrigiendo errores en los nombres de las columnas
+
+Criptomonedas <- rename(Criptomonedas, "Capacidad de mercado (%)" = "Capacidad.de.mercado (%)", "Cantidad máxima ($) (M)" = "Cantidad.maxima ($) (M)", 
+                        "Cantidad en circulación (>M)" = "Tabla_comparativa$`Cantidad en circulación (>M)`", 
+                        "Ratio de minado/emisión" = "Tabla_comparativa$`Ratio de minado/emisión`",
+                        "Transacciones por sg" = "Tabla_comparativa$`Transacciones por sg`",
+                        "Red" = "Tabla_comparativa$Red", "Tiempo para un bloque (sg)" = "Tabla_comparativa$`Tiempo para un bloque (sg)`",
+                        "Precio (USD)" = "tCPCL$`Precio (USD)`", "Vol. (24h) ($) (M)" = "tCPCL$`Vol. (24h)`", 
+                        "Vol. Total (%)" = "tCPCL$`Vol. total`", "Var. (24h) (%)" = "tCPCL$`Var. (24h)`",
+                        "Var. (7d) (%)" = "tCPCL$`Var. (7d)`")
+
+#Convalidando informacion perdida
+Criptomonedas[16,2] <- Tabla_comparativa[16,2]
+Criptomonedas[16,4] <- Tabla_comparativa[16,4]
+
+#Corrigiendo errores en la transformacion de las columnas
+
+Criptomonedas[,3] <- as.numeric(Criptomonedas[,3])
+Criptomonedas[,4] <- as.numeric(Criptomonedas[,4])
+
+typeof(Criptomonedas[,3])
+typeof(Criptomonedas[,4])
+
+#Reemplazando NA´s por valores fuera de los limites para permitir el trabajo con la tabla
+
+Criptomonedas[16,3] <- NA
+
+################################ PROBANDO EL FUNCIONAMIENTO DE LA BASE DE DATOS ################################
+
+#Creando funcion que obtiene la criptomoneda de lanzamiento mas reciente
+
+Año <- function(Año){
+  Maximo <- max(Criptomonedas$`Lanzamiento (año)`)
+  Cmax <- c()
+  for (i in 1:nrow(Criptomonedas)) {
+    if(Criptomonedas[i,2] == Maximo)
+      Cmax <- c(Cmax,Criptomonedas[i,1])
+  }
+  print(paste("La criptomoneda con fecha de lanzamiento mas reciente es:", Cmax, ", en el año", Maximo))
+}
+
+##Probando dicha funcion
+Año(Año)
+
+################################ DRAFT DE LA FUNCION FINAL A USAR ############################################
+
+Cript <- function(a){
+  ChosenCapacity <- c()
+  CriptCapacity <- c()
+  Criptomonedas <- Criptomonedas[-16,]
+  if(a == "0 - 10%"){
+    for (i in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[i,3] >= 0 && Criptomonedas[i,3] <= 10){
+        ChosenCapacity <- c(ChosenCapacity,Criptomonedas[i,3])
+        CriptCapacity <- c(CriptCapacity,Criptomonedas[i,1])
+      }
+    }
+  }
+  else if(a == "10 - 20%"){
+    for (i in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[i,3] >= 10 && Criptomonedas[i,3] <= 20){
+        ChosenCapacity <- c(ChosenCapacity,Criptomonedas[i,3])
+        CriptCapacity <- c(CriptCapacity,Criptomonedas[i,1])
+      }
+    }
+  }
+  else if(a == "20 - 30%"){
+    for (i in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[i,3] >= 20 && Criptomonedas[i,3] <= 30){
+        ChosenCapacity <- c(ChosenCapacity,Criptomonedas[i,3])
+        CriptCapacity <- c(CriptCapacity,Criptomonedas[i,1])
+      }
+    }
+  }
+  else if(a == "30 - 40%"){
+    for (i in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[i,3] >= 30 && Criptomonedas[i,3] <= 40){
+        ChosenCapacity <- c(ChosenCapacity,Criptomonedas[i,3])
+        CriptCapacity <- c(CriptCapacity,Criptomonedas[i,1])
+      }
+    }
+  }
+  else if(a == "40 - 50%"){
+    for (i in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[i,3] >= 40 && Criptomonedas[i,3] <= 50){
+        ChosenCapacity <- c(ChosenCapacity,Criptomonedas[i,3])
+        CriptCapacity <- c(CriptCapacity,Criptomonedas[i,1])
+      }
+    }
+  }
+  else if(a == "50 - 60%"){
+    for (i in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[i,3] >= 50 && Criptomonedas[i,3] <= 60){
+        ChosenCapacity <- c(ChosenCapacity,Criptomonedas[i,3])
+        CriptCapacity <- c(CriptCapacity,Criptomonedas[i,1])
+      }
+    }
+  }
+  else if(a == "60 - 70%"){
+    for (i in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[i,3] >= 60 && Criptomonedas[i,3] <= 70){
+        ChosenCapacity <- c(ChosenCapacity,Criptomonedas[i,3])
+        CriptCapacity <- c(CriptCapacity,Criptomonedas[i,1])
+      }
+    }
+  }
+  else if(a == "70 - 80%"){
+    for (i in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[i,3] >= 70 && Criptomonedas[i,3] <= 80){
+        ChosenCapacity <- c(ChosenCapacity,Criptomonedas[i,3])
+        CriptCapacity <- c(CriptCapacity,Criptomonedas[i,1])
+      }
+    }
+  }
+  else if(a == "80 - 90%"){
+    for (i in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[i,3] >= 80 && Criptomonedas[i,3] <= 90){
+        ChosenCapacity <- c(ChosenCapacity,Criptomonedas[i,3])
+        CriptCapacity <- c(CriptCapacity,Criptomonedas[i,1])
+      }
+    }
+  }
+  else if(a == "90 - 100%"){
+    for (i in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[i,3] >= 90 && Criptomonedas[i,3] <= 100){
+        ChosenCapacity <- c(ChosenCapacity,Criptomonedas[i,3])
+        CriptCapacity <- c(CriptCapacity,Criptomonedas[i,1])
+      }
+    }
+  }else{
+    print("No hay criptomoneda alguna con la capacidad de mercado señalada")
+  }
+  print(paste("La criptomoneda con con una capacidad de mercado entre", a, "es:", CriptCapacity, "especificamente con una capacidad de mercado de un", ChosenCapacity, "%"))
+}
+
+#Probando funcion
+Cript("0 - 10%")
+      
+Criptomonedas[16,3] <- as.numeric(Criptomonedas[16,3])
+print(Criptomonedas[16,3])
+
+complete.cases(Criptomonedas[16,3])
+
+
+Criptomonedas[16,3] <- complete.cases(Criptomonedas[16,3])
+
+drop.na <- c(Criptomonedas[,3])
+Criptomonedas <- Criptomonedas[complete.cases(Criptomonedas[,!(names(Criptomonedas))%in%drop.na]),]
+
+is.na(Criptomonedas)
+which(is.na(Criptomonedas))
+
+New <- Criptomonedas[-c(which(apply(Criptomonedas, 1, function(Criptomonedas) sum(is.na(Criptomonedas))>= 1))),]
