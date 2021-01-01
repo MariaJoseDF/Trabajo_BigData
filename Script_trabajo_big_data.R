@@ -266,7 +266,7 @@ for (i in InfoRanking) {
 
 #Creacion de data frame con la informacion extraída
 Criptomonedas <- data.frame("Criptomoneda" = TxtN,"Lanzamiento" = LaunchDate, "Capacidad de mercado" = MarketShare, "Cantidad maxima" = Quantity)
-
+#################################################################################33
 #Cambiando las variables capacacidad de mercado por numeros enteros
 Criptomonedas[,3]<-gsub("En torno al","",Criptomonedas[,3])
 Criptomonedas[,3]<-gsub("Menos del","",Criptomonedas[,3])
@@ -447,6 +447,8 @@ Criptomonedas <- rename(Criptomonedas, "Capacidad de mercado (%)" = "Capacidad.d
                         "Vol. Total (%)" = "tCPCL$`Vol. total`", "Var. (24h) (%)" = "tCPCL$`Var. (24h)`",
                         "Var. (7d) (%)" = "tCPCL$`Var. (7d)`")
 
+###################################################################3
+
 #Convalidando informacion perdida
 Criptomonedas[16,2] <- Tabla_comparativa[16,2]
 Criptomonedas[16,4] <- Tabla_comparativa[16,4]
@@ -455,19 +457,37 @@ Criptomonedas[16,4] <- Tabla_comparativa[16,4]
 
 Criptomonedas[,3] <- as.numeric(Criptomonedas[,3])
 Criptomonedas[,4] <- as.numeric(Criptomonedas[,4])
+Criptomonedas[,7] <- as.numeric(Criptomonedas[,7])
 
 typeof(Criptomonedas[,3])
 typeof(Criptomonedas[,4])
+typeof(Criptomonedas[,7])
 
-#Reemplazando NA´s por valores fuera de los limites para permitir el trabajo con la tabla
+Criptomonedas[,4] <- Criptomonedas[,4] * 1000
 
-Criptomonedas[16,3] <- NA
+#Corrigiendo errores en la data producidos por el cambio de año
 
-################################ PROBANDO EL FUNCIONAMIENTO DE LA BASE DE DATOS ################################
+Criptomonedas <- Criptomonedas[-11,]
 
-#Creando funcion que obtiene la criptomoneda de lanzamiento mas reciente
+#Creando vector con la numeracion de filas para facilitar su posterior trabajo
+
+Rows <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15)
+Criptomonedas <- data.frame(Criptomonedas, row.names = Rows)
+
+#Cambiando el nombre de las columnas debido a error producido con el cambio de filas
+
+Headers <- c("Criptomoneda","Lanzamiento (año)","Capacidad de mercado (%)", "Cantidad máxima ($) (M)", 
+             "Cantidad en circulación (>M)", "Ratio de minado/emisión", "Transacciones por sg",
+             "Red", "Tiempo para un bloque (sg)","Precio (USD)", "Vol. (24h) ($) (M)", 
+             "Vol. Total (%)", "Var. (24h) (%)","Var. (7d) (%)")
+colnames(Criptomonedas) <- Headers
+
+####################### DRAFT DE LAS FUNCIONES A UNIR PARA LA FUNCION FINAL #############################
+
+#Creando funcion que obtiene la criptomoneda de lanzamiento mas reciente o más antigua
 
 Año <- function(Año){
+  if(Año == "Más reciente"){
   Maximo <- max(Criptomonedas$`Lanzamiento (año)`)
   Cmax <- c()
   for (i in 1:nrow(Criptomonedas)) {
@@ -475,17 +495,27 @@ Año <- function(Año){
       Cmax <- c(Cmax,Criptomonedas[i,1])
   }
   print(paste("La criptomoneda con fecha de lanzamiento mas reciente es:", Cmax, ", en el año", Maximo))
+  }
+  else if(Año == "Más antigua"){
+    Minimo <- min(Criptomonedas$`Lanzamiento (año)`)
+    Cmin <- c()
+    for (b in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[b,2] == Minimo)
+        Cmin <- c(Cmin,Criptomonedas[b,1])
+    }
+    print(paste("La criptomoneda con fecha de lanzamiento mas antigua es:", Cmin, ", en el año", Minimo))
+  }
 }
 
 ##Probando dicha funcion
-Año(Año)
+Año("Más reciente")
 
-################################ DRAFT DE LA FUNCION FINAL A USAR ############################################
+#Creando funcion que obtiene la criptomoneda acorde a los rangos de capacidad de mercado solicitados
 
 Cript <- function(a){
   ChosenCapacity <- c()
   CriptCapacity <- c()
-  Criptomonedas <- Criptomonedas[-16,]
+  Criptomonedas <- Criptomonedas[-15,]
   if(a == "0 - 10%"){
     for (i in 1:nrow(Criptomonedas)) {
       if(Criptomonedas[i,3] >= 0 && Criptomonedas[i,3] <= 10){
@@ -565,27 +595,91 @@ Cript <- function(a){
         CriptCapacity <- c(CriptCapacity,Criptomonedas[i,1])
       }
     }
-  }else{
-    print("No hay criptomoneda alguna con la capacidad de mercado señalada")
   }
   print(paste("La criptomoneda con con una capacidad de mercado entre", a, "es:", CriptCapacity, "especificamente con una capacidad de mercado de un", ChosenCapacity, "%"))
 }
 
-#Probando funcion
+##Probando funcion
 Cript("0 - 10%")
       
-Criptomonedas[16,3] <- as.numeric(Criptomonedas[16,3])
-print(Criptomonedas[16,3])
+#Criptomonedas[16,3] <- as.numeric(Criptomonedas[16,3])
+#print(Criptomonedas[16,3])
 
-complete.cases(Criptomonedas[16,3])
+#complete.cases(Criptomonedas[16,3])
 
 
-Criptomonedas[16,3] <- complete.cases(Criptomonedas[16,3])
+#Criptomonedas[16,3] <- complete.cases(Criptomonedas[16,3])
 
-drop.na <- c(Criptomonedas[,3])
-Criptomonedas <- Criptomonedas[complete.cases(Criptomonedas[,!(names(Criptomonedas))%in%drop.na]),]
+#drop.na <- c(Criptomonedas[,3])
+#Criptomonedas <- Criptomonedas[complete.cases(Criptomonedas[,!(names(Criptomonedas))%in%drop.na]),]
 
-is.na(Criptomonedas)
-which(is.na(Criptomonedas))
+#is.na(Criptomonedas)
+#which(is.na(Criptomonedas))
 
-New <- Criptomonedas[-c(which(apply(Criptomonedas, 1, function(Criptomonedas) sum(is.na(Criptomonedas))>= 1))),]
+#New <- Criptomonedas[-c(which(apply(Criptomonedas, 1, function(Criptomonedas) sum(is.na(Criptomonedas))>= 1))),]
+
+#Creando funcion que obtiene las criptomonedas acorde a los rangos establecidos de transacciones por segundos
+
+Transg <- function(rango){
+  SelectedTran <- c()
+  CorrespondentCript <- c()
+  Criptomonedas <- Criptomonedas[-c(4,6,8,9,10,12,14),]
+  if(rango == "0 - 999"){
+    for (i in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[i,7] >= 0 && Criptomonedas[i,7] <= 999){
+        SelectedTran <- c(SelectedTran,Criptomonedas[i,7])
+        CorrespondentCript <- c(CorrespondentCript,Criptomonedas[i,1])
+      }
+    }
+  }
+  else if(rango == "1000 - 1999"){
+    for (i in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[i,7] >= 1000 && Criptomonedas[i,7] <= 1999){
+        SelectedTran <- c(SelectedTran,Criptomonedas[i,7])
+        CorrespondentCript <- c(CorrespondentCript,Criptomonedas[i,1])
+      }
+    }
+  }
+  else if(rango == "2000 - 2999"){
+    for (i in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[i,7] >= 2000 && Criptomonedas[i,7] <= 2999){
+        SelectedTran <- c(SelectedTran,Criptomonedas[i,7])
+        CorrespondentCript <- c(CorrespondentCript,Criptomonedas[i,1])
+      }
+    }
+  }
+  print(paste("La criptomoneda", CorrespondentCript, "con", SelectedTran,"transacciones por segundo se encuentra en el rango seleccionado de", rango))
+}
+
+##Probando funcion
+
+Transg("2000 - 2999")
+
+#Creando funcion que obtiene la criptomoneda con menor o mayor tiempo en segundos requeridos por bloque
+
+TimeBloque <- function(Tiempo){
+  Criptomonedas <- Criptomonedas[-c(4,6,8,9,10,12,14),]
+  if(Tiempo == "Mayor"){
+    Mayor <- max(Criptomonedas$`Tiempo para un bloque (sg)`)
+    Cmayor <- c()
+    for (f in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[f,9] == Mayor)
+        Cmayor <- c(Cmayor,Criptomonedas[f,1])
+    }
+    print(paste("La criptomoneda con mayor tiempo requerido por bloque es:", Cmayor, ", con un tiempo de", Mayor, "segundos"))
+  }
+  else if(Tiempo == "Menor"){
+    Menor <- min(Criptomonedas$`Tiempo para un bloque (sg)`)
+    Cmenor <- c()
+    for (c in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[c,2] == Menor)
+        Cmenor <- c(Cmenor,Criptomonedas[c,1])
+    }
+    print(paste("La criptomoneda con menor tiempor requerido por bloque es:", Cmenor, ", con un tiempo de", Menor, "segundos"))
+  }
+}
+
+##Probando funcion
+
+TimeBloque("Mayor")
+
