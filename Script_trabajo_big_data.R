@@ -1192,8 +1192,75 @@ Filtrar("Variación 7d %","Mayor")
 
 #Se obtendrá:
 
-##Media - Moda - Desviación estándar - Máximo - Mínimo
+# Media
+# Moda library(modeest)
+# Mediana
 
+# Máximo  max()
+# Mínimo = min()
+
+# Desviación estándar
+# Varianza
+
+
+# Estadistica Precio (USD)
+install.packages("modeest")
+library("modeest")
+
+mediaPrecioUSD <- mean(Criptomonedas$`Precio (USD)`, na.rm = TRUE)
+modaPrecioUSD <- mfv(Criptomonedas$`Precio (USD)`, na_rm = TRUE)
+medianaPrecioUSD <- median(Criptomonedas$`Precio (USD)`, na.rm = TRUE)
+maximoPrecioUSD <- max(Criptomonedas$`Precio (USD)`, na.rm = TRUE)
+minimoPrecioUSD <- min(Criptomonedas$`Precio (USD)`, na.rm = TRUE)
+desviacionEstandarPrecioUSD <- sd(Criptomonedas$`Precio (USD)`, na.rm = TRUE)
+varianzaPrecioUSD <- var(Criptomonedas$`Precio (USD)`, na.rm = TRUE)
+ 
+EstPrecioUSD <- c(mediaPrecioUSD, NA, medianaPrecioUSD, maximoPrecioUSD, minimoPrecioUSD, desviacionEstandarPrecioUSD, varianzaPrecioUSD)
+
+# Estadistica Vol. (24h) ($) (M)
+mediaVol24h <- mean(Criptomonedas$`Vol. (24h) ($) (M)`, na.rm = TRUE)
+modaVol24h <- mfv(Criptomonedas$`Vol. (24h) ($) (M)`)
+medianaVol24h <- median(Criptomonedas$`Vol. (24h) ($) (M)`, na.rm = TRUE)
+maximoVol24h <- max(Criptomonedas$`Vol. (24h) ($) (M)`, na.rm = TRUE)
+minimoVol24h <- min(Criptomonedas$`Vol. (24h) ($) (M)`, na.rm = TRUE)
+desviacionEstandarVol24h <- sd(Criptomonedas$`Vol. (24h) ($) (M)`, na.rm = TRUE)
+varianzaVol24h <- var(Criptomonedas$`Vol. (24h) ($) (M)`, na.rm = TRUE)
+
+EstVol24h <- c(mediaVol24h, NA, medianaVol24h, maximoVol24h, minimoVol24h, desviacionEstandarVol24h, varianzaVol24h)
+
+# Estadistica Vol. total (%) 
+mediaVoltotal <- mean(Criptomonedas$`Vol. Total (%)`, na.rm = TRUE)
+modaVoltotal <- mfv(Criptomonedas$`Vol. Total (%)`)
+medianaVoltotal <- median(Criptomonedas$`Vol. Total (%)`, na.rm = TRUE)
+maximoVoltotal <- max(Criptomonedas$`Vol. Total (%)`, na.rm = TRUE)
+minimoVoltotal <- min(Criptomonedas$`Vol. Total (%)`, na.rm = TRUE)
+desviacionEstandarVoltotal <- sd(Criptomonedas$`Vol. Total (%)`, na.rm = TRUE)
+varianzatVoltotal <- var(Criptomonedas$`Vol. Total (%)`, na.rm = TRUE)
+
+EstVoltotal <- c(mediaVoltotal, NA, medianaVoltotal, maximoVoltotal, minimoVoltotal, desviacionEstandarVoltotal, varianzatVoltotal)
+
+
+# Estadistica Var. (24h) (%) 
+mediaVar24h <- mean(Criptomonedas$`Var. (24h) (%)`, na.rm = TRUE)
+modaVar24h <- mfv(Criptomonedas$`Var. (24h) (%)`)
+medianaVar24h <- median(Criptomonedas$`Var. (24h) (%)`, na.rm = TRUE)
+maximoVar24h <- max(Criptomonedas$`Var. (24h) (%)`, na.rm = TRUE)
+minimoVar24h <- min(Criptomonedas$`Var. (24h) (%)`, na.rm = TRUE)
+desviacionEstandarVar24h <- sd(Criptomonedas$`Var. (24h) (%)`, na.rm = TRUE)
+varianzatVar24h <- var(Criptomonedas$`Var. (24h) (%)`, na.rm = TRUE)
+
+EstVar24h <- c(mediaVar24h, NA, medianaVar24h, maximoVar24h, minimoVar24h, desviacionEstandarVar24h, varianzatVar24h)
+
+# Estadistica Var. (7d) (%) 
+mediaVar7d <- mean(Criptomonedas$`Var. (7d) (%)`, na.rm = TRUE)
+modaVar7d <- mfv(Criptomonedas$`Var. (7d) (%)`)
+medianaVar7d <- median(Criptomonedas$`Var. (7d) (%)`, na.rm = TRUE)
+maximoVar7d <- max(Criptomonedas$`Var. (7d) (%)`, na.rm = TRUE)
+minimoVar7d <- min(Criptomonedas$`Var. (7d) (%)`, na.rm = TRUE)
+desviacionEstandarVar7d <- sd(Criptomonedas$`Var. (7d) (%)`, na.rm = TRUE)
+varianzatVar7d <- var(Criptomonedas$`Var. (7d) (%)`, na.rm = TRUE)
+
+EstVar7d <- c(mediaVar7d, NA, medianaVar7d, maximoVar7d, minimoVar7d, desviacionEstandarVar7d, varianzatVar7d)
 
 
 
