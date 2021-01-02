@@ -1187,3 +1187,9 @@ Filtrar <- function(variable,opcion){
 
 ##Probando la funcion
 Filtrar("Variación 7d %","Mayor")
+
+####################################### OBTENIENDO ESTADISTICAS ###########################################
+
+#Se obtendrá:
+
+##Media - Moda - Desviación estándar - Máximo - Mínimo
