@@ -1312,4 +1312,41 @@ VarTran <- var(Criptomonedas$`Transacciones por sg`, na.rm = T)
 
 EstTransactions <- c(PromedioTran,ModaTran,MedianTran,MaxTran,MinTran,DesvEstTran,VarTran)
 
+#Estadisticas tiempo para un bloque
+
+PromedioTime <- mean(Criptomonedas$`Tiempo para un bloque (sg)`, na.rm = T)
+ModaTime <- mfv(Criptomonedas$`Tiempo para un bloque (sg)`, na_rm = T)
+MedianTime <- median(Criptomonedas$`Tiempo para un bloque (sg)`, na.rm = T)
+MaxTime <- max(Criptomonedas$`Tiempo para un bloque (sg)`, na.rm = T)
+MinTime <- min(Criptomonedas$`Tiempo para un bloque (sg)`, na.rm = T)
+DesvEstTime <- sd(Criptomonedas$`Tiempo para un bloque (sg)`, na.rm = T)
+VarTime <- var(Criptomonedas$`Tiempo para un bloque (sg)`, na.rm = T)
+MediaModaTime <- mean(ModaTime)
+
+EstTiempoBloque <- c(PromedioTime,MediaModaTime,MedianTime,MaxTime,MinTime,DesvEstTime,VarTime)
+
 ####################################### UNIENDO LAS ESTADISTICAS OBTENIDAS #################################
+
+#Creando data frame con los vectores estadisticos
+
+Estadistica <- data.frame(EstLanzamiento,EstCapacidadMercado,EstQuantityMax,EstCircQuantity,EstTransactions,EstTiempoBloque,EstPrecioUSD,EstVol24h,EstVoltotal,EstVar24h,EstVar7d)
+
+#Cambiando filas por columnas
+
+Estadistica <- as.data.frame(t(Estadistica))
+
+#Creando vector con los nombres de las columnas
+
+Head <- c("Media","Moda","Mediana","Máximo","Mínimo","Desviación Estándar","Varianza")
+
+#Cambiando el nommbre de las columnas
+
+colnames(Estadistica) <- Head
+
+#Creando vector con los nombres de las filas
+
+Fil <- c("Lanzamiento (año)","Capacidad de mercado (%)","Cantidad máxima $M","Cantidad en circulación (>M)","Transacciones por sg","Tiempo para un bloque (sg)","Precio $USD","Volumen $M (24h)","Volumen total (%)","Variación 24h (%)","Variación 7d (%)")
+
+#Cambiando el nombre de las filas
+
+Estadistica <- data.frame(Estadistica, row.names = Fil)
