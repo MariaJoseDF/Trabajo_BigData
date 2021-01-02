@@ -458,10 +458,15 @@ Criptomonedas[16,4] <- Tabla_comparativa[16,4]
 Criptomonedas[,3] <- as.numeric(Criptomonedas[,3])
 Criptomonedas[,4] <- as.numeric(Criptomonedas[,4])
 Criptomonedas[,7] <- as.numeric(Criptomonedas[,7])
+Criptomonedas[,2] <- as.numeric(Criptomonedas[,2])
+Criptomonedas[,5] <- as.numeric(Criptomonedas[,5])
+Criptomonedas[,9] <- as.numeric(Criptomonedas[,9])
+Criptomonedas[,10] <- as.numeric(Criptomonedas[,10])
+Criptomonedas[,11] <- as.numeric(Criptomonedas[,11])
+Criptomonedas[,12] <- as.numeric(Criptomonedas[,12])
+Criptomonedas[,13] <- as.numeric(Criptomonedas[,13])
+Criptomonedas[,14] <- as.numeric(Criptomonedas[,14])
 
-typeof(Criptomonedas[,3])
-typeof(Criptomonedas[,4])
-typeof(Criptomonedas[,7])
 
 Criptomonedas[,4] <- Criptomonedas[,4] * 1000
 
@@ -737,3 +742,69 @@ Mining <- function(h){
 
 ##Probando la funcion
 Mining("1.000 millones al mes")
+
+########################################### ESTADISTICA #################################################
+
+#Instalando paquete para la obtencion de la moda
+install.packages("modeest")
+library("modeest")
+
+#Estadisticas año de lanzamiento
+
+MaxYear <- max(Criptomonedas$`Lanzamiento (año)`)
+MinYear <- min(Criptomonedas$`Lanzamiento (año)`)
+ModaYear <- mfv(Criptomonedas$`Lanzamiento (año)`)
+MedianYear <- median(Criptomonedas$`Lanzamiento (año)`, na.rm = TRUE)
+PromedioYear <- mean(Criptomonedas$`Lanzamiento (año)`, na.rm = TRUE)
+DesvEstYear <- sd(Criptomonedas$`Lanzamiento (año)`, na.rm = TRUE)
+VarYear <- var(Criptomonedas$`Lanzamiento (año)`, na.rm = TRUE)
+
+EstLanzamiento <- c(PromedioYear,ModaYear,MedianYear,MaxYear,MinYear,DesvEstYear,VarYear)
+
+#Estadisticas capacidad de mercado
+
+PromedioCapacity <- mean(Criptomonedas$`Capacidad de mercado (%)`, na.rm = TRUE)
+ModaCapacity <- mfv(Criptomonedas$`Capacidad de mercado (%)`, na_rm = TRUE)
+MedianCapacity <- median(Criptomonedas$`Capacidad de mercado (%)`, na.rm = TRUE)
+MaxCapacity <- max(Criptomonedas$`Capacidad de mercado (%)`, na.rm = TRUE)
+MinCapacity <- min(Criptomonedas$`Capacidad de mercado (%)`, na.rm = TRUE)
+DesvEstCapacity <- sd(Criptomonedas$`Capacidad de mercado (%)`, na.rm = TRUE)
+VarCapacity <- var(Criptomonedas$`Capacidad de mercado (%)`, na.rm = TRUE)
+
+EstCapacidadMercado <- c(PromedioCapacity,ModaCapacity,MedianCapacity,MaxCapacity,MinCapacity,DesvEstCapacity,VarCapacity)
+
+#Estadisticas cantidad máxima
+
+PromedioQuantityMax <- mean(Criptomonedas$`Cantidad máxima ($) (M)`, na.rm = TRUE)
+ModaQuantityMax <- mfv(Criptomonedas$`Cantidad máxima ($) (M)`, na.rm = TRUE)
+MedianQuantityMax <- median(Criptomonedas$`Cantidad máxima ($) (M)`, na.rm = T)
+MaxQuantityMax <- max(Criptomonedas$`Cantidad máxima ($) (M)`, na.rm = T)
+MinQuantityMax <- min(Criptomonedas$`Cantidad máxima ($) (M)`, na.rm = T)
+DesvEstQuantityMax <- sd(Criptomonedas$`Cantidad máxima ($) (M)`, na.rm = T)
+VarQuantityMax <- var(Criptomonedas$`Cantidad máxima ($) (M)`, na.rm = T)
+
+EstQuantityMax <- c(PromedioQuantityMax,ModaQuantityMax,MedianQuantityMax,MaxQuantityMax,MinQuantityMax,DesvEstQuantityMax,VarQuantityMax)
+
+#Estadisticas cantidad en circulacion
+
+PromedioCircQuant <- mean(Criptomonedas$`Cantidad en circulación (>M)`, na.rm = T)
+ModaCircQuantity <- mfv(Criptomonedas$`Cantidad en circulación (>M)`, na_rm = T)
+MedianCircQuantity <- median(Criptomonedas$`Cantidad en circulación (>M)`, na.rm = T)
+MaxCircQuantity <- max(Criptomonedas$`Cantidad en circulación (>M)`, na.rm = T)
+MinCircQuantity <- min(Criptomonedas$`Cantidad en circulación (>M)`, na.rm = T)
+DesvEstCircQuantity <- sd(Criptomonedas$`Cantidad en circulación (>M)`, na.rm = T)
+VarCircQuantity <- var(Criptomonedas$`Cantidad en circulación (>M)`, na.rm = T)
+
+EstCircQuantity <- c(PromedioCircQuant,ModaCircQuantity,MedianCircQuantity,MaxCircQuantity,MinCircQuantity,DesvEstCircQuantity,VarCircQuantity)
+
+#Estadisticas transacciones por segundo
+
+PromedioTran <- mean(Criptomonedas$`Transacciones por sg`, na.rm = T)
+ModaTran <- mfv(Criptomonedas$`Transacciones por sg`, na_rm = T)
+MedianTran <- median(Criptomonedas$`Transacciones por sg`, na.rm = T)
+MaxTran <- max(Criptomonedas$`Transacciones por sg`, na.rm = T)
+MinTran <- min(Criptomonedas$`Transacciones por sg`, na.rm = T)
+DesvEstTran <- sd(Criptomonedas$`Transacciones por sg`, na.rm = T)
+VarTran <- var(Criptomonedas$`Transacciones por sg`, na.rm = T)
+
+EstTransactions <- c(PromedioTran,ModaTran,MedianTran,MaxTran,MinTran,DesvEstTran,VarTran)
