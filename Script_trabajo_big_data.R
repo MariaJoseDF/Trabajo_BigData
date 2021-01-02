@@ -1059,3 +1059,29 @@ volTotalPorcentaje("80 - 90%")
 volTotalPorcentaje("90 - 100%")
 
 
+#Creando funcion que obtiene la criptomoneda con la mayor o menor Var. (7d) (%)
+
+variacionDiasPorcentaje <- function(variacion){
+  Criptomonedas <- Criptomonedas[-c(11,12,13,14,15),]
+  if(variacion == "Mayor"){
+    vad <- max(Criptomonedas$`Var. (7d) (%)`)
+    vac <- c()
+    for (yy in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[yy,14] == vad)
+        vac <- c(vac,Criptomonedas[yy,1])
+    }
+    print(paste("La criptomoneda con una mayor variacion en 7 dias (%) es  :", vac, ", con ", vad))
+  }
+  else if(variacion == "Menor"){
+    vid <- min(Criptomonedas$`Var. (7d) (%)`)
+    vic <- c()
+    for (ee in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[ee,14] == vid)
+        vic <- c(vic,Criptomonedas[ee,1])
+    }
+    print(paste("La criptomoneda con una menor variacion en 7 dias (%) es :", vic, ", con ", vid))
+  }
+}
+## Probando funcion 
+variacionDiasPorcentaje("Mayor")
+variacionDiasPorcentaje("Menor")
