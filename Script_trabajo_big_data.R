@@ -1358,3 +1358,20 @@ Estadistica <- data.frame(Estadistica, row.names = Fil)
 ## Capacidad de mercado -> Torta
 ## Precio USD -> Barra
 ## Media geometrica de la variacion de 7d
+
+
+
+
+
+# Grafico: Tiempo para un bloque (sg)
+TiempoBloque <- c(Criptomonedas$`Tiempo para un bloque (sg)`)
+TiempoBloque <- TiempoBloque[-c(4,6,8,9,10,12,14)]
+
+Nombres <- c(Criptomonedas$Criptomoneda)
+Nombres <- gsub("[()]","",Nombres)
+Nombres <- Nombres[-c(4,6,8,9,10,12,14)]
+
+GraficoTiempoBloque <- barplot(height = TiempoBloque, names.arg = Nombres, main = "Tiempo de bloque (sg) por Criptomoneda", ylab = "Tiempo de bloque (sg)", xlab = "Criptomoneda", col = rainbow(8))
+
+
+
