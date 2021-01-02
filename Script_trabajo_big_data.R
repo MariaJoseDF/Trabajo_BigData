@@ -1140,3 +1140,50 @@ Mining <- function(h){
 
 ##Probando la funcion
 Mining("1.000 millones al mes")
+
+############################################### CREANDO FUNCION FINAL #####################################################
+
+Filtrar <- function(variable,opcion){
+  y <- opcion
+  if(variable == "año"){
+    Año(y)
+  }
+  else if(variable == "capacidad de mercado"){
+    Cript(y)
+  }
+  else if(variable == "Cantidad máxima $M"){
+    Mill(y)
+  }
+  else if(variable == "Cantidad en circulación"){
+    Circulacion(y)
+  }
+  else if(variable == "Ratio de minado/emisión"){
+    Mining(y)
+  }
+  else if(variable == "Transacciones por segundo"){
+    Transg(y)
+  }
+  else if(variable == "Tiempo para el minado de un bloque"){
+    TimeBloque(y)
+  }
+  else if(variable == "Precio USD"){
+    PrecioUSD(y)
+  }
+  else if(variable == "Volumen 24hr $M"){
+    valorHr(y)
+  }
+  else if(variable == "Volumen total %"){
+    volTotalPorcentaje(y)
+  }
+  else if(variable == "Variación 24hr %"){
+    Varhr(y)
+  }
+  else if(variable == "Variación 7d %"){
+    variacionDiasPorcentaje(y)
+  }else{
+    print("No es posible filtrar acorde a la opcion indicada")
+  }
+}
+
+##Probando la funcion
+Filtrar("Variación 7d %","Mayor")
