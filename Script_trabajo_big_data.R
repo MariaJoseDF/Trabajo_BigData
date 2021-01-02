@@ -782,3 +782,280 @@ Circulacion <- function(Circulacion){
 ## Probando funcion 
 
 Circulacion("Menor")
+
+# Creando funcion: Precio (USD). Que calcule en intervalos.  
+
+Criptomonedas$`Precio (USD)` <- as.numeric(Criptomonedas$`Precio (USD)`)
+
+PrecioUSD <- function(x){
+  cx <- c()
+  xp <- c()
+  Criptomonedas <- Criptomonedas[-11:-15,]
+  if(x == "0 - 100"){
+    for (xx in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[xx,10] >= 0.000 && Criptomonedas[xx,10] <= 100.000){
+        cx <- c(cx,Criptomonedas[xx,10])
+        xp <- c(xp,Criptomonedas[xx,1])
+      }
+    }
+  }
+  else if(x == "101 - 1000"){
+    for (xx in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[xx,10] >= 101.000 && Criptomonedas[xx,10] <= 1000.000){
+        cx <- c(cx,Criptomonedas[xx,10])
+        xp <- c(xp,Criptomonedas[xx,1])
+      }
+    }
+  }
+  else if(x == "1001 - 10000"){
+    for (xx in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[xx,10] >= 1001.000 && Criptomonedas[xx,10] <= 10000.000){
+        cx <- c(cx,Criptomonedas[xx,10])
+        xp <- c(xp,Criptomonedas[xx,1])
+      }
+    }
+  }
+  else if(x == "10001 - 100000"){
+    for (xx in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[xx,10] >= 10001.000 && Criptomonedas[xx,10] <= 100000.000){
+        cx <- c(cx,Criptomonedas[xx,10])
+        xp <- c(xp,Criptomonedas[xx,1])
+      }
+    }
+  }
+  print(paste("La criptomoneda que tiene un precio (USD) entre", x, "es:", xp, "representando especificamente un precio de", cx, "USD"))
+}
+
+
+#Probando funcion
+PrecioUSD("0 - 100")
+PrecioUSD("101 - 1000")
+PrecioUSD("1001 - 10000")
+PrecioUSD("10001 - 100000")
+
+# Creando funcion: Vol. (24h) ($) (M). Que calcule en intervalos. 
+
+Criptomonedas$`Vol. (24h) ($) (M)` <- as.numeric(Criptomonedas$`Vol. (24h) ($) (M)`)
+
+valorHr <- function(xd){
+  cxx <- c()
+  xpp <- c()
+  Criptomonedas <- Criptomonedas[-11:-15,]
+  if(xd == "0 - 1000"){
+    for (xxx in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[xxx,11] >= 0.000 && Criptomonedas[xxx,11] <= 1000.000){
+        cxx <- c(cxx,Criptomonedas[xxx,11])
+        xpp <- c(xpp,Criptomonedas[xxx,1])
+      }
+    }
+  }
+  else if(xd == "1001 - 2000"){
+    for (xxx in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[xxx,11] >= 1001.000 && Criptomonedas[xxx,11] <= 2000.000){
+        cxx <- c(cxx,Criptomonedas[xxx,11])
+        xpp <- c(xpp,Criptomonedas[xxx,1])
+      }
+    }
+  }
+  else if(xd == "2001 - 3000"){
+    for (xxx in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[xxx,11] >= 2001.000 && Criptomonedas[xxx,11] <= 3000.000){
+        cxx <- c(cxx,Criptomonedas[xxx,11])
+        xpp <- c(xpp,Criptomonedas[xxx,1])
+      }
+    }
+  }
+  else if(xd == "3001 - 4000"){
+    for (xxx in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[xxx,11] >= 3001.000 && Criptomonedas[xxx,11] <= 4000.000){
+        cxx <- c(cxx,Criptomonedas[xxx,11])
+        xpp <- c(xpp,Criptomonedas[xxx,1])
+      }
+    }
+  }
+  else if(xd == "4001 - 5000"){
+    for (xxx in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[xxx,11] >= 4001.000 && Criptomonedas[xxx,11] <= 5000.000){
+        cxx <- c(cxx,Criptomonedas[xxx,11])
+        xpp <- c(xpp,Criptomonedas[xxx,1])
+      }
+    }
+  }
+  else if(xd == "5001 - 6000"){
+    for (xxx in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[xxx,11] >= 5001.000 && Criptomonedas[xxx,11] <= 6000.000){
+        cxx <- c(cxx,Criptomonedas[xxx,11])
+        xpp <- c(xpp,Criptomonedas[xxx,1])
+      }
+    }
+  }
+  else if(xd == "6001 - 7000"){
+    for (xxx in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[xxx,11] >= 6001.000 && Criptomonedas[xxx,11] <= 7000.000){
+        cxx <- c(cxx,Criptomonedas[xxx,11])
+        xpp <- c(xpp,Criptomonedas[xxx,1])
+      }
+    }
+  }
+  else if(xd == "8001 - 9000"){
+    for (xxx in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[xxx,11] >= 8001.000 && Criptomonedas[xxx,11] <= 9000.000){
+        cxx <- c(cxx,Criptomonedas[xxx,11])
+        xpp <- c(xpp,Criptomonedas[xxx,1])
+      }
+    }
+  }
+  else if(xd == "9001 - 10000"){
+    for (xxx in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[xxx,11] >= 9001.000 && Criptomonedas[xxx,11] <= 10000.000){
+        cxx <- c(cxx,Criptomonedas[xxx,11])
+        xpp <- c(xpp,Criptomonedas[xxx,1])
+      }
+    }
+  }
+  else if(xd == "10001 - 30000"){
+    for (xxx in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[xxx,11] >= 10001.000 && Criptomonedas[xxx,11] <= 30000.000){
+        cxx <- c(cxx,Criptomonedas[xxx,11])
+        xpp <- c(xpp,Criptomonedas[xxx,1])
+      }
+    }
+  }
+  else if(xd == "30001 - 60000"){
+    for (xxx in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[xxx,11] >= 30001.000 && Criptomonedas[xxx,11] <= 60000.000){
+        cxx <- c(cxx,Criptomonedas[xxx,11])
+        xpp <- c(xpp,Criptomonedas[xxx,1])
+      }
+    }
+  }
+  else if(xd == "60001 - 100000"){
+    for (xxx in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[xxx,11] >= 60001.000 && Criptomonedas[xxx,11] <= 100000.000){
+        cxx <- c(cxx,Criptomonedas[xxx,11])
+        xpp <- c(xpp,Criptomonedas[xxx,1])
+      }
+    }
+  }
+  print(paste("La criptomoneda que tiene una variacion (24h) ($) entre", xd, "es:", xpp, "representando una variacion (24h) de", cxx, "($) (M)"))
+}
+
+
+#Probando funcion
+valorHr("0 - 1000")
+valorHr("1001 - 2000")
+valorHr("2001 - 3000")
+valorHr("3001 - 4000")
+valorHr("4001 - 5000")
+valorHr("5001 - 6000")
+valorHr("6001 - 7000")
+valorHr("8001 - 9000")
+valorHr("9001 - 10000")
+valorHr("10001 - 30000")
+valorHr("30001 - 60000")
+valorHr("60001 - 100000")
+
+# Creando funcion: Vol. total (%). Que calcule en intervalos.  
+
+Criptomonedas$`Vol. Total (%)` <- as.numeric(Criptomonedas$`Vol. Total (%)`)
+
+volTotalPorcentaje <- function(b){
+  cb <- c()
+  xb <- c()
+  Criptomonedas <- Criptomonedas[-c(11,12,13,14,15),]
+  if(b == "0 - 10%"){
+    for (bb in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[bb,12] >= 0 && Criptomonedas[bb,12] <= 10){
+        cb <- c(cb,Criptomonedas[bb,12])
+        xb <- c(xb,Criptomonedas[bb,1])
+      }
+    }
+  }
+  else if(b == "10 - 20%"){
+    for (bb in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[bb,12] >= 10 && Criptomonedas[bb,12] <= 20){
+        cb <- c(cb,Criptomonedas[bb,12])
+        xb <- c(xb,Criptomonedas[bb,1])
+      }
+    }
+  }
+  else if(b == "20 - 30%"){
+    for (bb in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[bb,12] >= 20 && Criptomonedas[bb,12] <= 30){
+        cb <- c(cb,Criptomonedas[bb,12])
+        xb <- c(xb,Criptomonedas[bb,1])
+      }
+    }
+  }
+  else if(b == "30 - 40%"){
+    for (bb in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[bb,12] >= 30 && Criptomonedas[bb,12] <= 40){
+        cb <- c(cb,Criptomonedas[bb,12])
+        xb <- c(xb,Criptomonedas[bb,1])
+      }
+    }
+  }
+  else if(b == "40 - 50%"){
+    for (bb in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[bb,12] >= 40 && Criptomonedas[bb,12] <= 50){
+        cb <- c(cb,Criptomonedas[bb,12])
+        xb <- c(xb,Criptomonedas[bb,1])
+      }
+    }
+  }
+  else if(b == "50 - 60%"){
+    for (bb in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[bb,12] >= 50 && Criptomonedas[bb,12] <= 60){
+        cb <- c(cb,Criptomonedas[bb,12])
+        xb <- c(xb,Criptomonedas[bb,1])
+      }
+    }
+  }
+  else if(b == "60 - 70%"){
+    for (bb in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[bb,12] >= 60 && Criptomonedas[bb,12] <= 70){
+        cb <- c(cb,Criptomonedas[bb,12])
+        xb <- c(xb,Criptomonedas[bb,1])
+      }
+    }
+  }
+  else if(b == "70 - 80%"){
+    for (bb in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[bb,12] >= 70 && Criptomonedas[bb,12] <= 80){
+        cb <- c(cb,Criptomonedas[bb,12])
+        xb <- c(xb,Criptomonedas[bb,1])
+      }
+    }
+  }
+  else if(b == "80 - 90%"){
+    for (bb in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[bb,12] >= 80 && Criptomonedas[bb,12] <= 90){
+        cb <- c(cb,Criptomonedas[bb,12])
+        xb <- c(xb,Criptomonedas[bb,1])
+      }
+    }
+  }
+  else if(b == "90 - 100%"){
+    for (bb in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[bb,12] >= 90 && Criptomonedas[bb,12] <= 100){
+        cb <- c(cb,Criptomonedas[bb,12])
+        xb <- c(xb,Criptomonedas[bb,1])
+      }
+    }
+  }
+  print(paste("La criptomoneda con vol. total (%) entre", b, "es:", xb, "especificamente con un vol. total de", cb, "%"))
+}
+
+#Probando funcion
+volTotalPorcentaje("0 - 10%")
+volTotalPorcentaje("10 - 20%")
+volTotalPorcentaje("20 - 30%")
+volTotalPorcentaje("30 - 40%")
+volTotalPorcentaje("40 - 50%")
+volTotalPorcentaje("50 - 60%")
+volTotalPorcentaje("60 - 70%")
+volTotalPorcentaje("70 - 80%")
+volTotalPorcentaje("80 - 90%")
+volTotalPorcentaje("90 - 100%")
+
+
