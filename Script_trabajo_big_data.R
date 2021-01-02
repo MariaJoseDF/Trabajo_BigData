@@ -830,7 +830,7 @@ Etiquetas <- paste(Etiquetas,CapacidadMercado)
 Etiquetas <- paste(Etiquetas, "%", sep = "")
 
 ##Creando grafico de torta
-pie(CapacidadMercado, Etiquetas, main = "Capacidad de mercado", sub = "Evaluación de las distintas criptomonedas")
+pie(CapacidadMercado, Etiquetas,main = "Capacidad de mercado", sub = "Evaluación de las distintas criptomonedas", col = rainbow(14), cex = 0.7)
 
 #Graficando la variacion 7d de las criptomonedas en un histograma
 
