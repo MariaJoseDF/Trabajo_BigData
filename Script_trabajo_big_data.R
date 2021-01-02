@@ -808,3 +808,69 @@ DesvEstTran <- sd(Criptomonedas$`Transacciones por sg`, na.rm = T)
 VarTran <- var(Criptomonedas$`Transacciones por sg`, na.rm = T)
 
 EstTransactions <- c(PromedioTran,ModaTran,MedianTran,MaxTran,MinTran,DesvEstTran,VarTran)
+
+############################################################# GRAFICOS
+
+#Graficando la capacidad de mercado de las criptomonedas en un grafico de tortas
+
+##Creando vector que almacena los porcentajes de cada criptomoneda
+CapacidadMercado <- c(Criptomonedas$`Capacidad de mercado (%)`)
+###Eliminando valor NA
+CapacidadMercado <- CapacidadMercado[-15]
+
+##Creando vector con los nombres de las criptomonedas asociadas a los porcentajes
+Etiquetas <- c(Criptomonedas$Criptomoneda)
+###Eliminando valor NA
+Etiquetas <- Etiquetas[-15]
+
+##Uniendo los valores con la criptomoneda correspondiente 
+Etiquetas <- paste(Etiquetas,CapacidadMercado)
+
+##Agregando el simbolo de porcentaje a los valores
+Etiquetas <- paste(Etiquetas, "%", sep = "")
+
+##Creando grafico de torta
+pie(CapacidadMercado, Etiquetas, main = "Capacidad de mercado", sub = "Evaluación de las distintas criptomonedas")
+
+#Graficando la variacion 7d de las criptomonedas en un histograma
+
+##Creando variable con las distintas variaciones
+Variaciondias <- c(Criptomonedas$`Var. (7d) (%)`)
+##Eliminando las filas que contienen NA
+Variaciondias <- Variaciondias[-c(11,12,13,14,15)]
+
+##Creando variable que almacena los nombres de las criptomonedas correspondientes
+Names <- c(Criptomonedas$Criptomoneda)
+##Eliminando las filas que contienen Na's
+Names <- Names[-c(11,12,13,14,15)]
+##Editando la variable de nombres para que solo permanezcan las abreviaciones de cada criptomoneda
+Names <- gsub("[()]","",Names)
+Names <- gsub("BITCOIN","",Names)
+Names <- gsub("ETHEREUM","",Names)
+Names <- gsub("RIPPLE","",Names)
+Names <- gsub("Polkadot","",Names)
+Names <- gsub("LITECOIN","",Names)
+Names <- gsub("Binance Coin","",Names)
+Names <- gsub("Bitcoin Cash","",Names)
+Names <- gsub("Tether","",Names)
+Names <- gsub("USDt","",Names)
+Names <- gsub("Chainlink","",Names)
+Names <- gsub("CARDANO","",Names)
+Names <- gsub("[,]","",Names)
+Names <- trim(Names)
+
+##Creando data frame que contendra los datos para la creación del gráfico
+data <- data.frame(Names,Variaciondias)
+
+##Instalando paquetes para la creacion y edicion personalizada del gráfico
+install.packages("ggplot2")
+library("ggplot2")
+install.packages("extrafont")
+library("extrafont")
+
+##Creando el gráfico de lineas
+ggplot(data, aes(x=Names,y=Variaciondias))+geom_point( size=2, shape=21, fill="white", colour="red") + 
+  geom_line(colour = "red",group = FALSE) + 
+  theme(text = element_text(size = 10)) +
+  ggtitle("Variación % del precio de las distintas criptomonedas en periodos de 7 días") + theme(plot.title = element_text(hjust = 0.5)) + 
+  labs(x = "Criptomonedas (Abreviación)", y ="Variación (%)")
