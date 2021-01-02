@@ -1350,3 +1350,11 @@ Fil <- c("Lanzamiento (año)","Capacidad de mercado (%)","Cantidad máxima $M","Ca
 #Cambiando el nombre de las filas
 
 Estadistica <- data.frame(Estadistica, row.names = Fil)
+
+##################################### GRAFICANDO INFORMACION OBTENIDA ##########################################################
+
+#Informacion a graficar:
+
+## Capacidad de mercado -> Torta
+## Precio USD -> Barra
+## Media geometrica de la variacion de 7d
