@@ -1190,18 +1190,8 @@ Filtrar("Variación 7d %","Mayor")
 
 ####################################### OBTENIENDO ESTADISTICAS ###########################################
 
-#Se obtendrá:
-
-# Media
-# Moda library(modeest)
-# Mediana
-
-# Máximo  max()
-# Mínimo = min()
-
-# Desviación estándar
-# Varianza
-
+#Se obtendrá, orden: 
+# media, moda, mediana, maximo, minimo, desviacion estandar y varianza
 
 # Estadistica Precio (USD)
 install.packages("modeest")
@@ -1214,7 +1204,7 @@ maximoPrecioUSD <- max(Criptomonedas$`Precio (USD)`, na.rm = TRUE)
 minimoPrecioUSD <- min(Criptomonedas$`Precio (USD)`, na.rm = TRUE)
 desviacionEstandarPrecioUSD <- sd(Criptomonedas$`Precio (USD)`, na.rm = TRUE)
 varianzaPrecioUSD <- var(Criptomonedas$`Precio (USD)`, na.rm = TRUE)
- 
+
 EstPrecioUSD <- c(mediaPrecioUSD, NA, medianaPrecioUSD, maximoPrecioUSD, minimoPrecioUSD, desviacionEstandarPrecioUSD, varianzaPrecioUSD)
 
 # Estadistica Vol. (24h) ($) (M)
@@ -1262,11 +1252,119 @@ varianzatVar7d <- var(Criptomonedas$`Var. (7d) (%)`, na.rm = TRUE)
 
 EstVar7d <- c(mediaVar7d, NA, medianaVar7d, maximoVar7d, minimoVar7d, desviacionEstandarVar7d, varianzatVar7d)
 
+#Estadisticas año de lanzamiento
 
+MaxYear <- max(Criptomonedas$`Lanzamiento (año)`)
+MinYear <- min(Criptomonedas$`Lanzamiento (año)`)
+ModaYear <- mfv(Criptomonedas$`Lanzamiento (año)`)
+MedianYear <- median(Criptomonedas$`Lanzamiento (año)`, na.rm = TRUE)
+PromedioYear <- mean(Criptomonedas$`Lanzamiento (año)`, na.rm = TRUE)
+DesvEstYear <- sd(Criptomonedas$`Lanzamiento (año)`, na.rm = TRUE)
+VarYear <- var(Criptomonedas$`Lanzamiento (año)`, na.rm = TRUE)
 
+EstLanzamiento <- c(PromedioYear,ModaYear,MedianYear,MaxYear,MinYear,DesvEstYear,VarYear)
 
+#Estadisticas capacidad de mercado
 
+PromedioCapacity <- mean(Criptomonedas$`Capacidad de mercado (%)`, na.rm = TRUE)
+ModaCapacity <- mfv(Criptomonedas$`Capacidad de mercado (%)`, na_rm = TRUE)
+MedianCapacity <- median(Criptomonedas$`Capacidad de mercado (%)`, na.rm = TRUE)
+MaxCapacity <- max(Criptomonedas$`Capacidad de mercado (%)`, na.rm = TRUE)
+MinCapacity <- min(Criptomonedas$`Capacidad de mercado (%)`, na.rm = TRUE)
+DesvEstCapacity <- sd(Criptomonedas$`Capacidad de mercado (%)`, na.rm = TRUE)
+VarCapacity <- var(Criptomonedas$`Capacidad de mercado (%)`, na.rm = TRUE)
 
+EstCapacidadMercado <- c(PromedioCapacity,ModaCapacity,MedianCapacity,MaxCapacity,MinCapacity,DesvEstCapacity,VarCapacity)
 
+#Estadisticas cantidad máxima
 
+PromedioQuantityMax <- mean(Criptomonedas$`Cantidad máxima ($) (M)`, na.rm = TRUE)
+ModaQuantityMax <- mfv(Criptomonedas$`Cantidad máxima ($) (M)`, na.rm = TRUE)
+MedianQuantityMax <- median(Criptomonedas$`Cantidad máxima ($) (M)`, na.rm = T)
+MaxQuantityMax <- max(Criptomonedas$`Cantidad máxima ($) (M)`, na.rm = T)
+MinQuantityMax <- min(Criptomonedas$`Cantidad máxima ($) (M)`, na.rm = T)
+DesvEstQuantityMax <- sd(Criptomonedas$`Cantidad máxima ($) (M)`, na.rm = T)
+VarQuantityMax <- var(Criptomonedas$`Cantidad máxima ($) (M)`, na.rm = T)
 
+EstQuantityMax <- c(PromedioQuantityMax,ModaQuantityMax,MedianQuantityMax,MaxQuantityMax,MinQuantityMax,DesvEstQuantityMax,VarQuantityMax)
+
+#Estadisticas cantidad en circulacion
+
+PromedioCircQuant <- mean(Criptomonedas$`Cantidad en circulación (>M)`, na.rm = T)
+ModaCircQuantity <- mfv(Criptomonedas$`Cantidad en circulación (>M)`, na_rm = T)
+MedianCircQuantity <- median(Criptomonedas$`Cantidad en circulación (>M)`, na.rm = T)
+MaxCircQuantity <- max(Criptomonedas$`Cantidad en circulación (>M)`, na.rm = T)
+MinCircQuantity <- min(Criptomonedas$`Cantidad en circulación (>M)`, na.rm = T)
+DesvEstCircQuantity <- sd(Criptomonedas$`Cantidad en circulación (>M)`, na.rm = T)
+VarCircQuantity <- var(Criptomonedas$`Cantidad en circulación (>M)`, na.rm = T)
+
+EstCircQuantity <- c(PromedioCircQuant,ModaCircQuantity,MedianCircQuantity,MaxCircQuantity,MinCircQuantity,DesvEstCircQuantity,VarCircQuantity)
+
+#Estadisticas transacciones por segundo
+
+PromedioTran <- mean(Criptomonedas$`Transacciones por sg`, na.rm = T)
+ModaTran <- mfv(Criptomonedas$`Transacciones por sg`, na_rm = T)
+MedianTran <- median(Criptomonedas$`Transacciones por sg`, na.rm = T)
+MaxTran <- max(Criptomonedas$`Transacciones por sg`, na.rm = T)
+MinTran <- min(Criptomonedas$`Transacciones por sg`, na.rm = T)
+DesvEstTran <- sd(Criptomonedas$`Transacciones por sg`, na.rm = T)
+VarTran <- var(Criptomonedas$`Transacciones por sg`, na.rm = T)
+
+EstTransactions <- c(PromedioTran,ModaTran,MedianTran,MaxTran,MinTran,DesvEstTran,VarTran)
+
+#Estadisticas tiempo para un bloque
+
+PromedioTime <- mean(Criptomonedas$`Tiempo para un bloque (sg)`, na.rm = T)
+ModaTime <- mfv(Criptomonedas$`Tiempo para un bloque (sg)`, na_rm = T)
+MedianTime <- median(Criptomonedas$`Tiempo para un bloque (sg)`, na.rm = T)
+MaxTime <- max(Criptomonedas$`Tiempo para un bloque (sg)`, na.rm = T)
+MinTime <- min(Criptomonedas$`Tiempo para un bloque (sg)`, na.rm = T)
+DesvEstTime <- sd(Criptomonedas$`Tiempo para un bloque (sg)`, na.rm = T)
+VarTime <- var(Criptomonedas$`Tiempo para un bloque (sg)`, na.rm = T)
+MediaModaTime <- mean(ModaTime)
+
+EstTiempoBloque <- c(PromedioTime,MediaModaTime,MedianTime,MaxTime,MinTime,DesvEstTime,VarTime)
+
+####################################### UNIENDO LAS ESTADISTICAS OBTENIDAS #################################
+
+#Creando data frame con los vectores estadisticos
+
+Estadistica <- data.frame(EstLanzamiento,EstCapacidadMercado,EstQuantityMax,EstCircQuantity,EstTransactions,EstTiempoBloque,EstPrecioUSD,EstVol24h,EstVoltotal,EstVar24h,EstVar7d)
+
+#Cambiando filas por columnas
+
+Estadistica <- as.data.frame(t(Estadistica))
+
+#Creando vector con los nombres de las columnas
+
+Head <- c("Media","Moda","Mediana","Máximo","Mínimo","Desviación Estándar","Varianza")
+
+#Cambiando el nommbre de las columnas
+
+colnames(Estadistica) <- Head
+
+#Creando vector con los nombres de las filas
+
+Fil <- c("Lanzamiento (año)","Capacidad de mercado (%)","Cantidad máxima $M","Cantidad en circulación (>M)","Transacciones por sg","Tiempo para un bloque (sg)","Precio $USD","Volumen $M (24h)","Volumen total (%)","Variación 24h (%)","Variación 7d (%)")
+
+#Cambiando el nombre de las filas
+
+Estadistica <- data.frame(Estadistica, row.names = Fil)
+
+##################################### GRAFICANDO INFORMACION OBTENIDA ##########################################################
+
+#Informacion a graficar:
+
+# Capacidad de mercado -> Torta
+# Precio USD -> Barra <3 Media geometrica 
+#  variacion de 7d
+
+############################################################################
+TiempoBloque <- c(Criptomonedas$`Tiempo para un bloque (sg)`)
+TiempoBloque <- TiempoBloque[-c(4,6,8,9,10,12,14)]
+
+Nombres <- c(Criptomonedas$Criptomoneda)
+Nombres <- gsub("[()]","",Nombres)
+Nombres <- Nombres[-c(4,6,8,9,10,12,14)]
+
+GraficoTiempoBloque <- barplot(height = TiempoBloque, names.arg = Nombres, main = "Tiempo de bloque (sg) por Criptomoneda", ylab = "Tiempo de bloque (sg)", xlab = "Criptomoneda", col = rainbow(8))
