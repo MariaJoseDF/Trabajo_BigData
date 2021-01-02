@@ -727,3 +727,58 @@ TimeBloque <- function(Tiempo){
 ##Probando funcion
 
 TimeBloque("Mayor")
+
+#Creando funcion que obtiene la criptomoneda con la cantidad maxima o minima
+
+Mill <- function(Mil){
+  Criptomonedas <- Criptomonedas[-c(2),]
+  if(Mil == "Mayor"){
+    Ma <- max(Criptomonedas$`Cantidad máxima ($) (M)`)
+    Cma <- c()
+    for (i in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[i,4] == Ma)
+        Cma <- c(Cma,Criptomonedas[i,1])
+    }
+    print(paste("La criptomoneda con una mayor Cantidad Maxima es :", Cma, ", con US (M)", Ma))
+  }
+  else if(Mil == "Menor"){
+    Mi <- min(Criptomonedas$`Cantidad máxima ($) (M)`)
+    Cmi <- c()
+    for (b in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[b,4] == Mi)
+        Cmi <- c(Cmi,Criptomonedas[b,1])
+    }
+    print(paste("La criptomoneda con una menor Cantidad Maxima es :", Cmi, ", con US (M)", Mi))
+  }
+}
+
+##Probando la funcion 
+
+Mill("Mayor")
+
+#Creando funcion que obtiene la criptomoneda con la mayor o menor cantidad en cirulacion
+
+Circulacion <- function(Circulacion){
+  Criptomonedas <- Criptomonedas[-c(4,6,8,9,10,12,14),]
+  if(Circulacion == "Mayor"){
+    MaC <- max(Criptomonedas$`Cantidad en circulación (>M)`)
+    CmaC <- c()
+    for (i in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[i,5] == MaC)
+        CmaC <- c(CmaC,Criptomonedas[i,1])
+    }
+    print(paste("La criptomoneda con una mayor  :", CmaC, ", con (>M)", MaC))
+  }
+  else if(Circulacion == "Menor"){
+    MiC <- min(Criptomonedas$`Cantidad en circulación (>M)`)
+    CmiC <- c()
+    for (b in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[b,5] == MiC)
+        CmiC <- c(CmiC,Criptomonedas[b,1])
+    }
+    print(paste("La criptomoneda con una menor Cantidad en circulacion es :", CmiC, ", con  (>M)", MiC))
+  }
+}
+## Probando funcion 
+
+Circulacion("Menor")
