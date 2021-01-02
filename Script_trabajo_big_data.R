@@ -1085,3 +1085,58 @@ variacionDiasPorcentaje <- function(variacion){
 ## Probando funcion 
 variacionDiasPorcentaje("Mayor")
 variacionDiasPorcentaje("Menor")
+
+#Creando funcion que obtiene la criptomoneda con menor o mayor variacion en 24 horas
+
+Varhr <- function(Coin){
+  Criptomonedas <- Criptomonedas[-c(11,12,13,14,15),]
+  if(Coin == "Mayor"){
+    Biggest <- max(Criptomonedas$`Var. (24h) (%)`)
+    MonedaMa <- c()
+    for (z in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[z,13] == Biggest){
+        MonedaMa <- c(MonedaMa,Criptomonedas[z,1])
+      }
+    }
+    print(paste("La criptomoneda con la mayor variacion en 24 horas es:", MonedaMa, "con una variación de un", Biggest, "%"))
+  }
+  else if(Coin == "Menor"){
+    Smaller <- min(Criptomonedas$`Var. (24h) (%)`)
+    MonedaMe <- c()
+    for (z in 1:nrow(Criptomonedas)) {
+      if(Criptomonedas[z,13] == Smaller){
+        MonedaMe <- c(MonedaMe,Criptomonedas[z,1])
+      }
+    }
+    print(paste("La criptomoneda con la menor variacion en 24 horas es:", MonedaMe, "con una variación de un", Smaller, "%"))
+  }
+}
+
+##Probando la funcion
+
+Varhr("Menor")
+
+#Creando funcion que obtiene la moneda correspondienten al ratio de minado/emision solicitado
+
+Mining <- function(h){
+  if(h == "12,5 por bloque"){
+    print(paste("Las criptomonedas con el ratio de minado/emision de", h, "son:",Criptomonedas[1,1] ,"y",Criptomonedas[7,1] ))
+  }else if(h == "3 por bloque"){
+    print(paste("La criptomoneda con el ratio de minado/emision de", h, "es:",Criptomonedas[2,1]))
+  }else if(h == "1.000 millones al mes"){
+    print(paste("La criptomoneda con el ratio de minado/emision de", h, "es:",Criptomonedas[3,1]))
+  }else if(h == "25 por bloque"){
+    print(paste("La criptomoneda con el ratio de minado/emision de", h, "es:",Criptomonedas[5,1]))
+  }else if(h == "Hasta un 5% de inflación por año"){
+    print(paste("La criptomoneda con el ratio de minado/emision de", h, "es:",Criptomonedas[11,1]))
+  }else if(h == "Hasta un 1% de inflación por año"){
+    print(paste("La criptomoneda con el ratio de minado/emision de", h, "es:",Criptomonedas[13,1]))
+  }else if(h == "Hasta 15 millones por año"){
+    print(paste("La criptomoneda con el ratio de minado/emision de", h, "es:",Criptomonedas[15,1]))
+  }else{
+    print("No hay criptomoneda alguna con el ratio de minado/emision inidicado")
+  }
+}
+
+##Probando la funcion
+Mining("1.000 millones al mes")
