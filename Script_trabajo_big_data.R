@@ -921,17 +921,29 @@ Circulacion <- function(Circulacion){
 
 Circulacion("Menor")
 
-# Creando funcion: Precio (USD). Que calcule en intervalos.  
+# Se crea la función de Precio (USD).
+# Se desarrolla una función respecto a la tabla general llamada "Criptomonedas" que recibe una variable encontrada como condición en intervalos personalizados específicamente y designados que se encuentran 
+# sujetos a recorrer la columna 10 (Precio (USD)) identificada por un for correspondiente, reconociendo a la vez su columna 1 como base.
+# Es entonces que dará como resultado el precio (USD) que se encuentra en el intervalo que se solicite.
+# PrecioUSD: String -> String
+# Ejemplo: Entra: "0 - 100" -> Salida: "La criptomoneda que tiene un precio (USD) entre 0 - 100 es: RIPPLE (XRP) representando específicamente un precio de 0.23314 USD" ...
 
+# Se transforma la columna 10 a valores numéricos.
 Criptomonedas$`Precio (USD)` <- as.numeric(Criptomonedas$`Precio (USD)`)
 
+# Creación de la función y establecimiento de su nombre.
 PrecioUSD <- function(x){
+  # Se establecen vectores para almacenar la información.
   cx <- c()
   xp <- c()
+  # Se elimina las filas que no debe considerar (aquellas que contienen NA en la posición de la columna)
   Criptomonedas <- Criptomonedas[-11:-15,]
+  # Condicionales personalizadas respecto a las necesidades. 
   if(x == "0 - 100"){
+    # Se estable el for que recorre la tabla principal a trabajar.
     for (xx in 1:nrow(Criptomonedas)) {
       if(Criptomonedas[xx,10] >= 0.000 && Criptomonedas[xx,10] <= 100.000){
+        # Se indica que información se almacena en los vectores.
         cx <- c(cx,Criptomonedas[xx,10])
         xp <- c(xp,Criptomonedas[xx,1])
       }
@@ -961,27 +973,40 @@ PrecioUSD <- function(x){
       }
     }
   }
-  print(paste("La criptomoneda que tiene un precio (USD) entre", x, "es:", xp, "representando especificamente un precio de", cx, "USD"))
+  # Se establece y redacta el print que dará la respuesta de la función. 
+  print(paste("La criptomoneda que tiene un precio (USD) entre", x, "es:", xp, "representando específicamente un precio de", cx, "USD"))
 }
 
 
-#Probando funcion
+# Se consolida y prueba la función con todas sus opciones.
 PrecioUSD("0 - 100")
 PrecioUSD("101 - 1000")
 PrecioUSD("1001 - 10000")
 PrecioUSD("10001 - 100000")
 
-# Creando funcion: Vol. (24h) ($) (M). Que calcule en intervalos. 
+# Se crea la función de Vol. (24h) ($) (M).
+# Se desarrolla una función respecto a la tabla general llamada "Criptomonedas" que recibe una variable encontrada como condición en intervalos personalizados específicamente y designados que se encuentran 
+# sujetos a recorrer la columna 11 (Vol. (24h) ($) (M)) identificada por un for correspondiente, reconociendo a la vez su columna 1 como base.
+# Es entonces que dará como resultado el Vol. (24h) ($) (M) que se encuentra en el intervalo que se solicite.
+# ValorHr: String -> String
+# Ejemplo: Entra: "0 - 1000" -> Salida: La criptomoneda que tiene una variación (24h) ($) entre 0 - 1000 es: Binance Coin (BNB) representando una variación (24h) de 750.39 ($) (M)" ...
 
+# Se transforma la columna 11 a valores numéricos.
 Criptomonedas$`Vol. (24h) ($) (M)` <- as.numeric(Criptomonedas$`Vol. (24h) ($) (M)`)
 
+# Creación de la función y establecimiento de su nombre.
 valorHr <- function(xd){
+  # Se establecen vectores para almacenar la información.
   cxx <- c()
   xpp <- c()
+  # Se elimina las filas que no debe considerar (aquellas que contienen NA en la posición de la columna).
   Criptomonedas <- Criptomonedas[-11:-15,]
+  # Condicionales personalizadas respecto a las necesidades. 
   if(xd == "0 - 1000"){
+    # Se estable el for que recorre la tabla principal a trabajar.
     for (xxx in 1:nrow(Criptomonedas)) {
       if(Criptomonedas[xxx,11] >= 0.000 && Criptomonedas[xxx,11] <= 1000.000){
+        # Se indica que información se almacena en los vectores.
         cxx <- c(cxx,Criptomonedas[xxx,11])
         xpp <- c(xpp,Criptomonedas[xxx,1])
       }
@@ -1075,11 +1100,12 @@ valorHr <- function(xd){
       }
     }
   }
-  print(paste("La criptomoneda que tiene una variacion (24h) ($) entre", xd, "es:", xpp, "representando una variacion (24h) de", cxx, "($) (M)"))
+  # Se establece y redacta el print que dará la respuesta de la función. 
+  print(paste("La criptomoneda que tiene una variación (24h) ($) entre", xd, "es:", xpp, "representando una variación (24h) de", cxx, "($) (M)"))
 }
 
 
-#Probando funcion
+# Se consolida y prueba la función con todas sus opciones.
 valorHr("0 - 1000")
 valorHr("1001 - 2000")
 valorHr("2001 - 3000")
@@ -1093,17 +1119,29 @@ valorHr("10001 - 30000")
 valorHr("30001 - 60000")
 valorHr("60001 - 100000")
 
-# Creando funcion: Vol. total (%). Que calcule en intervalos.  
+# Se crea la función de Vol. Total (%).
+# Se desarrolla una función respecto a la tabla general llamada "Criptomonedas" que recibe una variable encontrada como condición en intervalos específicos en el orden lógico porcentual y designados que se encuentran 
+# sujetos a recorrer la columna 12 (Vol. Total (%)) identificada por un for correspondiente, reconociendo a la vez su columna 1 como base.
+# Es entonces que dará como resultado el Vol. Total (%) que se encuentra en el intervalo que se solicite.
+# VolTotalPorcentaje: String -> String
+# Ejemplo: Entra: "0 - 10%" -> Salida: "La criptomoneda con vol. total (%) entre 0 - 10% es: RIPPLE (XRP) especificamente con un vol. total de 1.74 %" ...
 
+# Se transforma la columna 12 a valores numéricos.
 Criptomonedas$`Vol. Total (%)` <- as.numeric(Criptomonedas$`Vol. Total (%)`)
 
+# Creación de la función y establecimiento de su nombre.
 volTotalPorcentaje <- function(b){
+  # Se establecen vectores para almacenar la información.
   cb <- c()
   xb <- c()
+  # Se elimina las filas que no debe considerar (aquellas que contienen NA en la posición de la columna).
   Criptomonedas <- Criptomonedas[-c(11,12,13,14,15),]
+  # Condicionales personalizadas respecto a las necesidades. 
   if(b == "0 - 10%"){
+    # Se estable el for que recorre la tabla principal a trabajar.
     for (bb in 1:nrow(Criptomonedas)) {
       if(Criptomonedas[bb,12] >= 0 && Criptomonedas[bb,12] <= 10){
+        # Se indica que información se almacena en los vectores.
         cb <- c(cb,Criptomonedas[bb,12])
         xb <- c(xb,Criptomonedas[bb,1])
       }
@@ -1181,10 +1219,11 @@ volTotalPorcentaje <- function(b){
       }
     }
   }
+  # Se establece y redacta el print que dará la respuesta de la función. 
   print(paste("La criptomoneda con vol. total (%) entre", b, "es:", xb, "especificamente con un vol. total de", cb, "%"))
 }
 
-#Probando funcion
+# Se consolida y prueba la función con todas sus opciones.
 volTotalPorcentaje("0 - 10%")
 volTotalPorcentaje("10 - 20%")
 volTotalPorcentaje("20 - 30%")
@@ -1195,7 +1234,6 @@ volTotalPorcentaje("60 - 70%")
 volTotalPorcentaje("70 - 80%")
 volTotalPorcentaje("80 - 90%")
 volTotalPorcentaje("90 - 100%")
-
 
 #Se crea un función que obtiene la criptomoneda con la mayor o menor variación en 7 días (%)
 #variacionDiasPorcentaje: Entrada: String -> Salida: String
