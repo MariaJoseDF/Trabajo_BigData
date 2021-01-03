@@ -1,48 +1,57 @@
-####################################### IG.COM ################################################################
+#######################################  SCRIPT DEL PROYECYO: CRIPTOMONEDAS.  ################################################################
 
-#setwd("C:/Users/maria/OneDrive/Escritorio/ICI Cuarto año/Segundo semestre/Big data/Trabajo_BigData")
+# Se consideran paquetes de utilidad y uso en la ejecución del desarrollo.
 
-#Instalando paquetes
+# Instalando paquetes.
+# Instalación paquete "rvest" ya que permite extraer y manipular datos de las páginas webs.
 install.packages("rvest")
 library("rvest")
+
+# Instalación paquete "dplyr" dado a que permite ágilmente manejar los datos.
 install.packages("dplyr")
 library("dplyr")
+
+# Instalación paquete "gdta" debido a que permite manipular la data con diversas herramientas que provee.
 install.packages("gdata")
 library("gdata")
 
-#Lectura de pagina con la informacion requerida
+#######################################  EXTRACCION DE DATOS DE LA PAGINA WEB: IG.COM  ################################################################
+
+# Se realiza la lectura de la página web respecto a la información seleccionada por el equipo.
 ig <- read_html("https://www.ig.com/es/trading-de-criptomonedas/comparativa-criptomonedas#information-banner-dismiss")
 
-#Extrayendo tabla comparativa de criptomonedas
+# Se extrae la tabla comparativa que contiene la información requerida y se establece su nombre.
 Tabla_comparativa <- html_table(ig)[[2]]
 
-#Cambiando filas por columnas
+# Por orden se decide cambiar la posición de filas por columnas.
 Tabla_comparativa <- as.data.frame(t(Tabla_comparativa))
 
-#Renombrando columnas
-
+# Se renombran las columnas.
 Tabla_comparativa <- rename(Tabla_comparativa, "Criptomoneda" = V1, "Lanzamiento" = V2, "Cantidad en circulación (>M)" = V3,
                             "Oferta máxima (M)" = V4, "Ratio de minado/emisión" = V5, "Transacciones por segundo" = V6,
                             "Red" = V7, "Tiempo para un bloque (segundos)" = V8)
 
-#Eliminando fila sobrante
+# Se elimina una fila sobrante.
 Tabla_comparativa <- Tabla_comparativa[-1,]
 
-#Creando vector con los nombres de las filas
+# Se crea un vector que contenga los nombres de las filas.
 Filas <- list(1,2,3,4,5,6,7,8)
 
-#Reasignando los nombres de las filas
+# Se reasigna el nombre de las filas para su orden lógico.
 Tabla_comparativa <- data.frame(Tabla_comparativa, row.names = Filas)
 
-#Estableciendo loop que reemplazara por NA las variables sin datos
+# Se coordina la consolidación de las mediciones, tipo de dato, estética y orden del data que se utilizara en el trabajo.
+# Se realizan todos los cambios que se desean respecto a la estética y orden de la tabla, para su trabajo.
 
+# Se establece y diseña un loop que reemplaza por NA las variables que no contienen datos.
+# Diseño: for que recorre la columna 7 y reemplaza por NA.
 for (i in 1:nrow(Tabla_comparativa)) {
   if(Tabla_comparativa[i,7] == "n/a"){
     Tabla_comparativa[i,7] <- NA
   }
 }
 
-#Transformando el tiempo de la columna 8 en minutos por segundos y a valores numericos
+# Se transforma la medición de la columna 8: de minutos a segundos.
 Tabla_comparativa[1,8] <- 10*60
 Tabla_comparativa[2,8] <- 10*60
 Tabla_comparativa[3,8] <- 15
@@ -51,86 +60,82 @@ Tabla_comparativa[6,8] <- 0.5
 Tabla_comparativa[7,8] <- 5
 Tabla_comparativa[8,8] <- 15
 Tabla_comparativa[5,8] <- 0.1
+
+# Se transforma la columna 8 de la tabla a valor numérico.
 Tabla_comparativa[,8] <- as.numeric(Tabla_comparativa[,8])
 
-#Tranformando la columna 6 a valores numericos
+# Se transforma la medición de la columna 6: cambio de puntos para el correcto reconocimiento numérico. 
 Tabla_comparativa[,6] <- gsub("[.]","",Tabla_comparativa[,6])
+
+# Se transforma la columna 6 de la tabla a valor numérico.
 Tabla_comparativa[,6] <- as.numeric(Tabla_comparativa[,6])
 
-#Transformando las variables de la columna 3
+# Se transforma la medición de la columna 3: cambio de signos y medición valórica para el correcto reconocimiento numérico. 
 Tabla_comparativa[,3] <- gsub("[>]","",Tabla_comparativa[,3])
 Tabla_comparativa[,3] <- gsub("millones","",Tabla_comparativa[,3])
 Tabla_comparativa[,3] <- gsub("[.]","",Tabla_comparativa[,3])
+
+# Se transforma la columna 3 de la tabla a valor numérico.
 Tabla_comparativa[,3] <- as.numeric(Tabla_comparativa[,3])
 
-#Transformando las variables de la columna 2
+# Se transforma la columna 2 de la tabla a valor numérico.
 Tabla_comparativa[,2] <- as.numeric(Tabla_comparativa[,2])
 
-#Transformando las variables de la columna 1
+# Se transforma la medición de la columna 1: cambio de designación numérica. 
 Tabla_comparativa[,1] <- gsub("1","",Tabla_comparativa[,1])
 Tabla_comparativa[,1] <- gsub("2","",Tabla_comparativa[,1])
 Tabla_comparativa[,1] <- gsub("3","",Tabla_comparativa[,1])
 Tabla_comparativa[,1] <- gsub("4","",Tabla_comparativa[,1])
 Tabla_comparativa[,1] <- gsub("5","",Tabla_comparativa[,1])
 
-#Reemplazando las variables de la columna 4 que indican sin limite por NA
+# Se establece y diseña un loop que reemplaza por NA las variables que indican que no tiene límite.
+# Diseño: for que recorre la columna 4 y reemplaza por NA.
 for (i in 1:nrow(Tabla_comparativa)) {
   if(Tabla_comparativa[i,4] == "Sin límite máximo"){
     Tabla_comparativa[i,4] <- NA
   }
 }
-#Transformando la columna 4 a valores numericos
+
+# Se transforma la medición de la columna 4: cambio de signos y texto para el correcto reconocimiento numérico. 
+# Luego se transforma la columna 4 de la tabla a valor numérico.
 Tabla_comparativa[,4] <- gsub("millones","",Tabla_comparativa[,4])
 Tabla_comparativa[,4] <- gsub("(preminados)","",Tabla_comparativa[,4])
 Tabla_comparativa[,4] <- gsub("[()]","",Tabla_comparativa[,4])
 Tabla_comparativa[,4] <- gsub("[.]","",Tabla_comparativa[,4])
 Tabla_comparativa[,4] <- as.numeric(Tabla_comparativa[,4])
 
-#Corrigiendo error en la sintaxis de las columnas
+# Se detecta un error de sintaxis de las columnas por nuevo diseño de medición común.
+# Se Corrigiendo el error de sintaxis renombrando las variables en las columnas.
 Tabla_comparativa <- rename(Tabla_comparativa, "Cantidad en circulación (>M)" = Cantidad.en.circulación...M., 
                             "Oferta máxima (M)" = Oferta.máxima..M., "Ratio de minado/emisión" = Ratio.de.minado.emisión,
                             "Transacciones por sg" = Transacciones.por.segundo, "Tiempo para un bloque (sg)" = Tiempo.para.un.bloque..segundos.)
 
-########################################### INVESTING. COM ########################################################
-#setwd("C:/Users/theca/OneDrive/Escritorio/Trabajo_BigData")
-# Cargar pagina 
-# Borrando variables de entorno 
-#rm(list = ls())
+#######################################  EXTRACCION DE DATOS DE LA PAGINA WEB: INVESTING.COM  ################################################################
 
-# Instalando librerias
-#install.packages('rvest')
-#install.packages('gdata')
-
-# Importando librerias
-#library('rvest')
-#library('gdata')
-
-# Creando variable
+# Se realiza la lectura de la página web respecto a la información seleccionada por el equipo.
 pagina <- read_html('https://es.investing.com/crypto/')
 
-# Saca el texto del html 
+# Se extrae el texto de toda la página html para ver su contenido total. 
 textoHtml <- html_text(pagina)
 print(textoHtml)
 
-# Sacar informacion de la tabla
-# Sacar tabla real hecha
+# Se extrae la tabla comparativa que contiene la información requerida y se establece su nombre.
 tCPCL <- html_table(pagina)[[1]]
 
-
-# Eliminar columna 1 que contenia NA representando una imagen
+# Se elimina una fila sobrante.
 tCPCL <- tCPCL[,-1]
 
-
-# Cambiar simbolos a la fila de caracteristicas
-#install.packages("dplyr")
-#library("dplyr")
+# Se renombran las columnas.
 tCPCL <- rename(tCPCL, "Cap. mercado ($) (M)" = "Cap. mercado")
 tCPCL <- rename(tCPCL, "Vol. (24h) ($) (M)" = "Vol. (24h)")
 tCPCL <- rename(tCPCL, "Vol. total (%)" = "Vol. total")
 tCPCL <- rename(tCPCL, "Var. (24h) (%)" = "Var. (24h)")
 tCPCL <- rename(tCPCL, "Var. (7d) (%)" = "Var. (7d)")
 
-# Eliminar signos en las columnas
+# Se coordina la consolidación de las mediciones, tipo de dato, estética y orden del data que se utilizara en el trabajo.
+# Se realizan todos los cambios que se desean respecto a la estética y orden de la tabla, para su trabajo.
+
+# Se transforma la medición de las columnas 3,4,5,6,7,8: cambio de signos y medición valórica para el correcto reconocimiento numérico. 
 tCPCL[,3] <- gsub("[.]", "", tCPCL[,3])
 tCPCL[,3] <- gsub("[,]", ".", tCPCL[,3])
 tCPCL[,4] <- gsub("[$]","", tCPCL[,4])
@@ -147,7 +152,7 @@ tCPCL[,7] <- gsub("[,]", ".", tCPCL[,7])
 tCPCL[,8] <- gsub("[%]", "", tCPCL[,8])
 tCPCL[,8] <- gsub("[,]", ".", tCPCL[,8])
 
-# Conocer que tipo de variable corresponden las de la tabla
+# Se desarrolla la ejecución de typeof para conocer el tipo de variable de la tabla.
 typeof(tCPCL[["Nombre"]])
 typeof(tCPCL[["Precio (USD)"]])
 typeof(tCPCL[["Cap. mercado ($) (M)"]])
@@ -156,21 +161,20 @@ typeof(tCPCL[["Vol. total (%)"]])
 typeof(tCPCL[["Var. (24h) (%)"]])
 typeof(tCPCL[["Var. (7d) (%)"]])
 
-#Cambiar tipo de variable de caracter a numero 
+# Se transforman algunas columnas de la tabla a valor numérico. Y se confirma su cambio.
 tCPCL[["Precio (USD)"]] <- as.numeric(tCPCL[["Precio (USD)"]])
 typeof(tCPCL[["Precio (USD)"]])
-
 tCPCL[["Cap. mercado ($) (M)"]] <- as.numeric(tCPCL[["Cap. mercado ($) (M)"]])
 typeof(tCPCL[["Cap. mercado ($) (M)"]])
-
 tCPCL[["Vol. (24h) ($) (M)"]] <- as.numeric(tCPCL[["Vol. (24h) ($) (M)"]])
 typeof(tCPCL[["Vol. (24h) ($) (M)"]])
-
 tCPCL[["Vol. total (%)"]] <- as.numeric(tCPCL[["Vol. total (%)"]])
 typeof(tCPCL[["Vol. total (%)"]])
 
-# Cambiar variable 4 a millones
+# Se transforma la medición de la columna 4: de billones a millones. 
 tCPCL[,4] <- tCPCL[,4]*1000
+
+# Se transforma la medición de la columna 5 respecto a casi todas sus filas necesarias al cambio: de billones a millones. 
 tCPCL[1,5] <- tCPCL[1,5]*1000
 tCPCL[2,5] <- tCPCL[2,5]*1000
 tCPCL[3,5] <- tCPCL[3,5]*1000
@@ -181,58 +185,56 @@ tCPCL[7,5] <- tCPCL[7,5]*1000
 tCPCL[8,5] <- tCPCL[8,5]*1000
 tCPCL[10,5] <- tCPCL[10,5]*1000
 
-#############################################BROKERONLINE.ES###############################################
-##Instalando los paquetes 
-#install.packages(rvest)
-#install.packages(gdata)
-#install.packages(dylyr)
+#######################################  EXTRACCION DE DATOS DE LA PAGINA WEB: BROKERONLINE.ES  ################################################################
 
-
-##Corriendo los paquetes
-#library(rvest)
-#library(gdata)
-#library(dplyr)
-
-
-#Lectura de pagina con la informacion requerida
+# Se realiza la lectura de la página web respecto a la información seleccionada por el equipo.
 broker <- read_html("https://www.brokeronline.es/criptomonedas/ranking/")
 
-#Creando variable que contiene la informacion a obtener
+# Se crea la variable que contendrá la información específica a obtener. Se busca y extrae la información directamente con xpath.
 contenedoranking <- html_nodes(broker,xpath = "//*[@id=\"post-13673\"]/div")
 
-#Obetiendo divs con la informacion a extraer
+# Se obtienen los divs que contienen la clase con la información deseada a extraer. Se extrae aquella por medio de css. 
 InfoRanking <- html_nodes(contenedoranking, css = ".td-width-content")
 
-#Creando variables booleanas para la extraccion de la informacion
+# Se crean variables booleanas para la extracción de la información.
 Lanzamiento <- FALSE
 CapMercado <- FALSE
 CantMax <- FALSE
 
-#Creando variables para el almacenamiento de la informacion extraida
+# Se crea el almacenamiento de la información que se extrae por medio de variables.
 LaunchDate <- c()
 MarketShare <- c()
 Quantity <- c()
 
-#Obteniendo nombres de criptomonedas
+# Inicio de la extracción de la información por data especifica. 
+# Se obtienen los nombres de las criptomonedas por medio de su clase con css.
 N <- html_nodes(contenedoranking, css = ".col-xs-12.text-center")
-##Transformando a texto los nombres extraidos
+
+# Se transforman los nombres extraídos a texto.
 TxtN <- html_text(N)
-##Limpiando la información
+
+# Se limpian los nombres extraídos.
 TxtN <- gsub("\n","",TxtN)
 TxtN <- gsub("\t","", TxtN)
 
-##Eliminando espacios vacios dentro del vector de nombres por medio de un Loop
+# Se establece y diseña un loop que elimina los espacios vacíos que se encuentran dentro del vector de los nombres.
+# Diseño: for que recorre el vector para eliminar los espacios vacíos.
 for (i in 1:length(TxtN)) {
   if(TxtN[i] == ""){
     TxtN <- TxtN[-i]
   }
 }
 
-#Creación de Loop para la extracción de la información
+# Se observa y reconoce que la clase que contiene la información deseada a extraer es general compartiendo el mismo nombre con otra data en su misma página web.
+# Se establece y diseña un loop que extrae de la clase toda la información en definitiva deseada de los nombres anteriormente obtenidos.
+# Diseño: for que recorre la variable designada de la página en su lectura. 
 for (i in InfoRanking) {
+  # Se indica la clase a considerar.
   L <- html_nodes(i, css = ".col-xs-12 > p")
   for (a in L) {
+    # Se almacena la informacion.
     Txta <- html_text(a)
+    # Condicionales para la extracción de la información únicamente de los nombres designados.
     if(Lanzamiento){
       print(Txta)
       LaunchDate <- c(LaunchDate,Txta)
@@ -266,22 +268,25 @@ for (i in InfoRanking) {
   }
 }
 
-#Creacion de data frame con la informacion extraída
+# Se crea un data frame en forma de tabla con la información extraída de las 3 variables (su nombre).
 Criptomonedas <- data.frame("Criptomoneda" = TxtN,"Lanzamiento" = LaunchDate, "Capacidad de mercado" = MarketShare, "Cantidad maxima" = Quantity)
 
-#Cambiando las variables capacacidad de mercado por numeros enteros
+# Se coordina la consolidación de las mediciones, tipo de dato, estética y orden del data que se utilizara en el trabajo.
+# Se realizan todos los cambios que se desean respecto a la estética y orden de la tabla, para su trabajo.
+
+#Se transforma la medición de la columna 3: cambio de signos y texto para el correcto reconocimiento numérico. 
 Criptomonedas[,3]<-gsub("En torno al","",Criptomonedas[,3])
 Criptomonedas[,3]<-gsub("Menos del","",Criptomonedas[,3])
 Criptomonedas [,3]<-gsub("[%]","",Criptomonedas[,3])
 
-#Cambiando nombre de la tabla Capacodad.de.mercado por Capacidad.de.mercado (%)
+# Se cambia nombre de la variable de la columna.
 Criptomonedas<-rename(Criptomonedas,"Capacidad.de.mercado (%)"="Capacidad.de.mercado")
 
-#Cambiando numeros a as.numeric
+# Se transforma la columna de la tabla a valor numérico. Y se confirma su cambio con typeof.
 Criptomonedas[["Capacidad.de.mercado (%)"]]<-as.numeric(Criptomonedas[["Capacidad.de.mercado (%)"]])
 typeof(Criptomonedas[["Capacidad.de.mercado (%)"]])
 
-#Cambiar las variable Lanzamiento por solo año
+#Se transforma la medición de la columna 2: cambio de signos para el correcto reconocimiento numerico. 
 Criptomonedas[,2]<-gsub("03.01.2009","2009",Criptomonedas[,2])
 Criptomonedas[,2]<-gsub("30.07.2015","2015",Criptomonedas[,2])
 Criptomonedas[,2]<-gsub("26.05.2020","2020",Criptomonedas[,2])
