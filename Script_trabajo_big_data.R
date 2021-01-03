@@ -284,7 +284,6 @@ Criptomonedas<-rename(Criptomonedas,"Capacidad.de.mercado (%)"="Capacidad.de.mer
 
 # Se transforma la columna de la tabla a valor numérico. Y se confirma su cambio con typeof.
 Criptomonedas[["Capacidad.de.mercado (%)"]]<-as.numeric(Criptomonedas[["Capacidad.de.mercado (%)"]])
-typeof(Criptomonedas[["Capacidad.de.mercado (%)"]])
 
 #Se transforma la medición de la columna 2: cambio de signos para el correcto reconocimiento numerico. 
 Criptomonedas[,2]<-gsub("03.01.2009","2009",Criptomonedas[,2])
@@ -301,11 +300,10 @@ Criptomonedas[,2]<-gsub("26.06.2017","2017",Criptomonedas[,2])
 Criptomonedas[,2]<-gsub("Abril 2014","2014",Criptomonedas[,2])
 Criptomonedas[,2]<-gsub("09.09.2017","2017",Criptomonedas[,2])
 
-#Cambiando nombre de la tabla lanzamiento por lanzamiento (año)
+#Cambiando nombre de la tabla "Lanzamiento" por "Lanzamiento (año)".
 Criptomonedas<-rename(Criptomonedas,"Lanzamiento (año)"="Lanzamiento")
 
-
-#Cambiando los billones y millones por millones
+#Transformando a solo una conversión de dinero las cantidades que se muestran, en este caso todos pasan a millones con solo el monto que contiene.
 Criptomonedas[,4]<-gsub("21 millones BTC","21",Criptomonedas[,4])
 Criptomonedas[,4]<-gsub("Sin límites","N/A",Criptomonedas[,4])
 Criptomonedas[,4]<-gsub("100 millones XRP","100",Criptomonedas[,4])
@@ -321,18 +319,18 @@ Criptomonedas[,4]<-gsub("1 billón EOS","1.000",Criptomonedas[,4])
 Criptomonedas[,4]<-gsub("18,4 millones XMRs","18.4",Criptomonedas[,4])
 Criptomonedas[,4]<-gsub("100.000.000.000 TRX","100.000",Criptomonedas[,4])
 
-#Cambiar Cantidad.maxima por Cantidad.maxima ($) (M)
+#Cambiando "Cantidad.maxima" por "Cantidad.maxima ($) (M)".
 Criptomonedas<-rename(Criptomonedas,"Cantidad.maxima ($) (M)"="Cantidad.maxima")
-#Cambiando numeros como as.nemeric
+
+#Cambiando números como as.nemeric, específicamente double.
 Criptomonedas[["Cantidad.maxima ($) (M)"]]<-as.numeric(Criptomonedas[["Cantidad.maxima ($) (M)"]])
 typeof(Criptomonedas[["Cantidad.maxima ($) (M)"]])
 
 ######################################## JUNTANDO LAS DISTINTAS BASES DE DATOS ###############################
 
-#Realizando cambios en las bases de datos para poder juntarlas
+#Se juntaran las siguientes tablas a continuación Criptomonedas, Tabla_comparativa y tCPCL, en una sola tabla llamada Criptomonedas con el propósito de poder realizar las operaciones en conjunto.
 
-##Ordenamiento burbuja de la base de datos ig.com
-
+# Se realiza el ordenamiento burbuja de la base de datos ig.com, para que cada tabla se junte posteriormente en una sola tabla con toda la información recopilada. 
 tmp <- Tabla_comparativa[3,]
 Tabla_comparativa[3,] <- Tabla_comparativa[2,]
 Tabla_comparativa[2,] <- tmp
@@ -390,8 +388,7 @@ tmp <- Tabla_comparativa[15,]
 Tabla_comparativa[15,] <- c("Tron (TRX)",NA,NA,NA,NA,NA,NA,NA)
 Tabla_comparativa <- rbind(Tabla_comparativa,tmp)
 
-##Ordenamiento burbuja de la base de datos de broker.com
-
+#Se realiza el ordenamiento burbuja de la base de datos de broker.com, para que cada tabla se junte posteriormente en una sola tabla con toda la información recopilada. 
 tmp <- Criptomonedas[15,]
 Criptomonedas[15,] <- c("Neo (NEO)",NA,NA,NA)
 Criptomonedas <- rbind(Criptomonedas,tmp)
@@ -400,8 +397,7 @@ tmp <- Criptomonedas[15,]
 Criptomonedas[15,] <- Criptomonedas[16,]
 Criptomonedas[16,] <- tmp
 
-##Ordamiento burbuja de la base de datos de investing.com
-
+# Se realiza el ordamiento burbuja de la base de datos de investing.com, para que cada tabla se junte posteriormente en una sola tabla con toda la información recopilada. 
 tmp <- tCPCL[3,]
 tCPCL[3,] <- tCPCL[4,]
 tCPCL[4,] <- tmp
@@ -426,8 +422,7 @@ tmp <- tCPCL[9,]
 tCPCL[9,] <- tCPCL[10,]
 tCPCL[10,] <- tmp
 
-###Agregando filas con las criptomonedas restantes a la base de datos de investing.com
-
+#Agregando filas con las criptomonedas restantes a la base de datos de investing.com, esats se agregan con NA ya que la información no se encuentra.
 Libra <- c("Libra",NA,NA,NA,NA,NA,NA,NA)
 Eos <- c("Eos","EOS",NA,NA,NA,NA,NA,NA)
 Monero <- c("Monero","XMR",NA,NA,NA,NA,NA,NA)
@@ -437,14 +432,12 @@ Neo <- c("Neo","NEO",NA,NA,NA,NA,NA,NA)
 
 tCPCL <- rbind(tCPCL,Libra,Eos,Monero,Stellar,Tron,Neo)
 
-#Juntando las columnas de las bases de datos
-
+#Juntando las columnas de las bases de datos.
 Criptomonedas <- cbind(Criptomonedas,Tabla_comparativa$`Cantidad en circulación (>M)`,Tabla_comparativa$`Ratio de minado/emisión`,
                        Tabla_comparativa$`Transacciones por sg`,Tabla_comparativa$Red,Tabla_comparativa$`Tiempo para un bloque (sg)`,
                        tCPCL$`Precio (USD)`,tCPCL$`Vol. (24h)`,tCPCL$`Vol. total`,tCPCL$`Var. (24h)`,tCPCL$`Var. (7d)`)
 
-#Corrigiendo errores en los nombres de las columnas
-
+#Corrigiendo errores en los nombres de las columnas como los puntos o mayusculas.
 Criptomonedas <- rename(Criptomonedas, "Capacidad de mercado (%)" = "Capacidad.de.mercado (%)", "Cantidad máxima ($) (M)" = "Cantidad.maxima ($) (M)", 
                         "Cantidad en circulación (>M)" = "Tabla_comparativa$`Cantidad en circulación (>M)`", 
                         "Ratio de minado/emisión" = "Tabla_comparativa$`Ratio de minado/emisión`",
@@ -454,12 +447,11 @@ Criptomonedas <- rename(Criptomonedas, "Capacidad de mercado (%)" = "Capacidad.d
                         "Vol. Total (%)" = "tCPCL$`Vol. total`", "Var. (24h) (%)" = "tCPCL$`Var. (24h)`",
                         "Var. (7d) (%)" = "tCPCL$`Var. (7d)`")
 
-#Convalidando informacion perdida
+#Convalidando información perdida.
 Criptomonedas[16,2] <- Tabla_comparativa[16,2]
 Criptomonedas[16,4] <- Tabla_comparativa[16,4]
 
-#Corrigiendo errores en la transformacion de las columnas
-
+#Corrigiendo errores en la transformacion de las columnas.
 Criptomonedas[,3] <- as.numeric(Criptomonedas[,3])
 Criptomonedas[,4] <- as.numeric(Criptomonedas[,4])
 Criptomonedas[,7] <- as.numeric(Criptomonedas[,7])
@@ -474,17 +466,14 @@ Criptomonedas[,14] <- as.numeric(Criptomonedas[,14])
 
 Criptomonedas[,4] <- Criptomonedas[,4] * 1000
 
-#Corrigiendo errores en la data producidos por el cambio de año
-
+#Corrigiendo errores en la data producidos por el cambio de año, debido a que la Criptomoneda Libra fue pospuesta para el año 2021 y se tuvo que eliminar de la tabla.
 Criptomonedas <- Criptomonedas[-11,]
 
-#Creando vector con la numeracion de filas para facilitar su posterior trabajo
-
+#Creando vector con la numeración de filas para facilitar su posterior trabajo.
 Rows <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15)
 Criptomonedas <- data.frame(Criptomonedas, row.names = Rows)
 
-#Cambiando el nombre de las columnas debido a error producido con el cambio de filas
-
+#Cambiando el nombre de las columnas debido a error producido con el cambio de filas, específicamente la eliminación de la Criptomoneda Libra.
 Headers <- c("Criptomoneda","Lanzamiento (año)","Capacidad de mercado (%)", "Cantidad máxima ($) (M)", 
              "Cantidad en circulación (>M)", "Ratio de minado/emisión", "Transacciones por sg",
              "Red", "Tiempo para un bloque (sg)","Precio (USD)", "Vol. (24h) ($) (M)", 
@@ -494,59 +483,49 @@ colnames(Criptomonedas) <- Headers
 
 ############################################### ESTABLECIENDO LAS OPCIONES PARA LA OBTENCION DE DATOS ######################################
 
-#AÑO DE LANZAMIENTO
+#Los datos seran filtrados acorde los siguientes criterios:
 
-  ##El mas reciente
-  ##El mas antiguo
+#Año de lanzamiento:
+  #El mas reciente
+  #El mas antiguo
 
-#Capacidad de mercado
+#Capacidad de mercado:
+  #Rangos de 10 en 10 (%)
 
-  ##Rangos de 10 en 10 (%)
+#Cantidad máxima:
+  #El máximo
+  #El mínimo
 
-#Cantidad Maxima
+#Cantidad en circulación:
+  #El máximo
+  #El mínimo
 
-  ##El max
-  ##El min
+#Ratio de minado/emisión:
+  #Todas las variables son una opción a escoger
 
-#Cantidad en circulacion
+#Transacciones por sg:
+  #Rangos de: 0 - 999 ; 1000 - 1999 ; 2000 - 2999
 
-  ##El max
-  ##El min
+#Tiempo para un bloque (sg):
+  #El máximo
+  #El mínimo
 
-#Ratio de minado/emision
+#Precio:
+  #Rangos de: 0 - 100 ; 101 - 1000 ; 1001 - 10000 ; 10001 - 100000
 
-  ##Todas las variables son opcion -> Arroje la criptomoneda correspondiente
+#Vol. 24hr:
+  #Rangos de: 0 - 1000 ; 1001 - 2000 ; 2001 - 3000 ; 3001 - 4000 ; 4001 - 5000 ; 5001 - 6000 ; 6001 - 7000 ; 7001 - 8000 ; 8001 - 9000 ; 9001 - 10000 ; 10001 - 30000 ; 30001 - 60000 ; 60001 - 100000
 
-#Transacciones por sg
+#Vol total (%):
+  #Rangos de 10 en 10 (%)
 
-  ##Rangos de: 0 - 999 ; 1000 - 1999 ; 2000 - 2999
+#Var. (24h):
+  #El máximo
+  #El mínimo
 
-#Tiempo para un bloque (sg)
-
-  ##El max
-  ##El min
-
-#Precio
-
-  ##Rangos de: 0 - 100 ; 101 - 1000 ; 1001 - 10000 ; 10001 - 100000
-
-#Vol. 24hr
-
-  ##Rangos de: 0 - 1000 ; 1001 - 2000 ; 2001 - 3000 ; 3001 - 4000 ; 4001 - 5000 ; 5001 - 6000 ; 6001 - 7000 ; 7001 - 8000 ; 8001 - 9000 ; 9001 - 10000 ; 10001 - 30000 ; 30001 - 60000 ; 60001 - 100000
-
-#Vol total (%)
-
-  ##Rangos de 10 en 10 (%)
-
-##Var (42h)
-
-  ##El max
-  ##El min
-
-##Var (7d)
-
-  ##El max
-  ##El min
+#Var. (7d):
+  #El máximo
+  #El mínimo
 
 ################################################### ESTABLECIENDO SUBFUNCIONES ##############################################
 
@@ -866,59 +845,97 @@ TimeBloque <- function(Tiempo){
 
 TimeBloque("Menor")
 
-#Creando funcion que obtiene la criptomoneda con la cantidad maxima o minima
+#Se crea una función que obtiene la criptomoneda con la cantidad máxima mayor o menor
+#Mill: Entrada: String -> Salida: String
+#Ejemplo: Entrada: Mayor -> Salida: La criptomoneda con una mayor Cantidad Maxima es : Chainlink (LINK) , con US (M) 1e+06
 
+#Se crea la función
 Mill <- function(Mil){
+  #Se elimina la fila que contine el NA 
   Criptomonedas <- Criptomonedas[-c(2),]
+  #Se establece la primera condicional
   if(Mil == "Mayor"){
+    #Se obtiene la variación maxima
     Ma <- max(Criptomonedas$`Cantidad máxima ($) (M)`)
+    #Creando vector que almacenará el nombre de la criptomoneda con la variación máxima
     Cma <- c()
+    #Se inicia el LOOP 
     for (i in 1:nrow(Criptomonedas)) {
+      #Estableciendo la condicional que busca la criptomoneda correspondiente a la variación máxima
       if(Criptomonedas[i,4] == Ma)
+        #Almacenando el nombre de la criptomoneda que cumple con la condición
         Cma <- c(Cma,Criptomonedas[i,1])
     }
-    print(paste("La criptomoneda con una mayor Cantidad Maxima es :", Cma, ", con US (M)", Ma))
+    #Finaliza Loop 
+    #Se imprime el resultado
+    print(paste("La criptomoneda con una mayor cantidad máxima es :", Cma, ", con US (M)", Ma))
   }
+  #Estableciendo la segunda condicional
   else if(Mil == "Menor"){
+    #Obteniendo la variación mínima
     Mi <- min(Criptomonedas$`Cantidad máxima ($) (M)`)
+    #Creando vector que almacenará el nombre de la criptomoneda con la variación mínima
     Cmi <- c()
+    #Inicia un Loop
     for (b in 1:nrow(Criptomonedas)) {
+      #Estableciendo condicional que busca la criptomoneda correspondiente a la variacion mínima
       if(Criptomonedas[b,4] == Mi)
+        #Almacenando el nombre de la criptomoneda que cumple con la condición
         Cmi <- c(Cmi,Criptomonedas[b,1])
     }
-    print(paste("La criptomoneda con una menor Cantidad Maxima es :", Cmi, ", con US (M)", Mi))
+    #Finaliza Loop 
+    #Se imprime el resultado
+    print(paste("La criptomoneda con una menor cantidad máxima es :", Cmi, ", con US (M)", Mi))
   }
 }
 
-##Probando la funcion 
-
+#Probando la función.
 Mill("Mayor")
 
-#Creando funcion que obtiene la criptomoneda con la mayor o menor cantidad en cirulacion
+#Creando funcion que obtiene la criptomoneda con la mayor o menor cantidad en cirulación
+#Circulacion: Entrada: string -> Salida: string 
+#Ejemplo:Entrda:Menor ->Salida: La criptomoneda con una menor Cantidad en circulacion es : BITCOIN (BTC) , con  (>M) 17
 
+#Se crea la función
 Circulacion <- function(Circulacion){
+  #se eliminan las filas que contine el NA 
   Criptomonedas <- Criptomonedas[-c(4,6,8,9,10,12,14),]
+  #Se establece la primera condicional
   if(Circulacion == "Mayor"){
+    #Se obtiene la variación maxima
     MaC <- max(Criptomonedas$`Cantidad en circulación (>M)`)
+    #Creando vector que almacenará el nombre de la criptomoneda con la variación máxima
     CmaC <- c()
+    #Se inicia el LOOP
     for (i in 1:nrow(Criptomonedas)) {
+      #Estableciendo la condicional que busca la criptomoneda correspondiente a la variación máxima
       if(Criptomonedas[i,5] == MaC)
+        #Almacenando el nombre de la criptomoneda que cumple con la condición
         CmaC <- c(CmaC,Criptomonedas[i,1])
     }
+    #Finaliza Loop 
+    #Se imprime el resultado
     print(paste("La criptomoneda con una mayor  :", CmaC, ", con (>M)", MaC))
   }
+  #Estableciendo la segunda condicional
   else if(Circulacion == "Menor"){
+    #Obteniendo la variación mínima
     MiC <- min(Criptomonedas$`Cantidad en circulación (>M)`)
+    #Creando vector que almacenará el nombre de la criptomoneda con la variación mínima
     CmiC <- c()
+    #Inicia un Loop
     for (b in 1:nrow(Criptomonedas)) {
+      #Estableciendo condicional que busca la criptomoneda correspondiente a la variacion mínima
       if(Criptomonedas[b,5] == MiC)
+        #Almacenando el nombre de la criptomoneda que cumple con la condición
         CmiC <- c(CmiC,Criptomonedas[b,1])
     }
+    #Finaliza Loop 
+    #Se imprime el resultado
     print(paste("La criptomoneda con una menor Cantidad en circulacion es :", CmiC, ", con  (>M)", MiC))
   }
 }
-## Probando funcion 
-
+## Probando la función 
 Circulacion("Menor")
 
 # Creando funcion: Precio (USD). Que calcule en intervalos.  
