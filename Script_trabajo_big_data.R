@@ -1741,6 +1741,18 @@ GraficoVariacion <- ggplot(data, aes(x=Names,y=Variaciondias))+geom_point( size=
 
 ################################################# EXTRAYENDO BASE DE DATOS ##############################################
 
+#Agregando descripción a las distintas columnas de la base de datos criptomonedas
+attr(Criptomonedas$Criptomoneda, "Descripción") <- "Columna que contiene los nombres de las distintas criptomonedas obtenidas así como sus abreviaciones en paréntesis"
+attr(Criptomonedas$`Lanzamiento (año)`, "Descripción") <- "Columna que contiene los distintos años de lanzamiento de cada criptomoneda"
+attr(Criptomonedas$`Capacidad de mercado (%)`, "Descripción") <- "Columna que contiene las capacidades de mercado en porcentajes de cada criptomoneda, valores resultantes de la transformación a porcentajes de la capitalización de mercado de las criptomonedas donde se multiplican el precio de mercado actual con el número en circulación, mediante esta métrica se obtiene el tamaño relativo de una criptomoneda. Aquellas con NA significan que no se logró establecer dicha información"
+attr(Criptomonedas$`Cantidad máxima ($) (M)`, "Descripción") <- "Columna que contiene la cantidad máxima de de emisión o minado de cada criptomoneda, es decir su límite de oferta. Aquellas con NA significan que no poseen limite alguno"
+attr(Criptomonedas$`Cantidad en circulación (>M)`, "Descripción") <- "Columna que contiene la cantidad actual en circulación de criptomonedas, encontrándose estrechamente relacionada con la cantidad máxima. Aquellas con NA significan que no se logró obtener dicha información"
+attr(Criptomonedas$`Ratio de minado/emisión`, "Descripción") <- "Columna que contiene el ratio en que se minan y/o emiten nuevas criptomonedas, pudiendo ser: un ratio de minado por bloque, un ratio de emisión mensual/anual o descrito por un % de inflación anual. Aquellas con NA significan que no se logró obtener dicha información"
+attr(Criptomonedas$`Transacciones por sg`, "Descripción") <- "Columna que contiene el máximo de transacciones por segundo en la red que se pueden realizar con cada criptomoneda, donde a mayor el número mayor es la competitividad con los sistemas financieros habituales. Aquellas con NA significan que no se logró obtener dicha información"
+
+#Verificando las descripciones de cada columna en la base de datos criptomonedas
+lapply(Criptomonedas, attr, "Descripción")
+
 #Extrayendo la base de datos principal usada para la creacion de funciones
 write.csv(Criptomonedas, file="Base_de_datos_criptomonedas.csv")
 
