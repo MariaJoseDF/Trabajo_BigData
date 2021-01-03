@@ -1765,6 +1765,10 @@ lapply(Criptomonedas, attr, "Descripción")
 attr(Estadistica$Media, "Descripción") <- "Columna que contiene los resultados del cálculo de la media de las distintas columnas de la base de datos criptomonedas, donde se sumó la totalidad de variables en cada columna para posteriormente dividirla en el número de variables"
 attr(Estadistica$Moda, "Descripción") <- "Columna que contiene los resultados del cálculo de la moda de las distintas columnas de la base de datos criptomonedas, donde se seleciona el dato que se repite el mayor numero de veces dentro de la columna"
 attr(Estadistica$Mediana, "Descripción") <- "Columna que contiene los resultados del cálculo de la mediana de las distintas columnas de la base de datos criptomonedas, donde se obtiene el dato de posición central del conjunto de datos"
+attr(Estadistica$Máximo, "Descripción") <- "Columna que contiene el mayor valor alcanzado por el conjunto de datos de las columnas de la tabla llamada Criptomoneda."
+attr(Estadistica$Mínimo, "Descripción") <- "Columna que contiene el menor valor alcanzado por el conjunto de datos de las columnas de la tabla llamada Criptomoneda."
+attr(Estadistica$Desviación.Estándar, "Descripción") <- "Columna que contiene la desviación estándar por el conjunto de datos de las columnas de la tabla llamada Criptomoneda. Esta indica qué tan dispersos están los datos con respecto a la media, siendo la raíz de la varianza. Mientras mayor sea la desviación estándar, mayor será la dispersión de los datos."
+attr(Estadistica$Varianza, "Descripción") <- "Columna que contiene la Varianza por el conjunto de datos de las columnas de la tabla llamada Criptomoneda. Representa la variabilidad del conjunto de datos respecto a su media."
 
 #Verificando las descripciones de cada columna en la base de datos estadistica
 lapply(Estadistica, attr, "Descripción")
