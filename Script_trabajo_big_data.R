@@ -1756,3 +1756,13 @@ lapply(Criptomonedas, attr, "Descripción")
 
 #Extrayendo la base de datos que contiene la estadística recopilada en base a la base de datos principal
 write.csv(Estadistica, file="Base_de_datos_estadistica_criptomonedas.csv")
+
+
+attr(Estadistica$Máximo, "Descripción") <- "Columna que contiene el mayor valor alcanzado por el conjunto de datos de las columnas de la tabla llamada Criptomoneda."
+attr(Estadistica$Mínimo, "Descripción") <- "Columna que contiene el menor valor alcanzado por el conjunto de datos de las columnas de la tabla llamada Criptomoneda."
+attr(Estadistica$Desviación.Estándar, "Descripción") <- "Columna que contiene la desviación estándar por el conjunto de datos de las columnas de la tabla llamada Criptomoneda. Esta indica qué tan dispersos están los datos con respecto a la media, siendo la raíz de la varianza. Mientras mayor sea la desviación estándar, mayor será la dispersión de los datos."
+attr(Estadistica$Varianza, "Descripción") <- "Columna que contiene la Varianza por el conjunto de datos de las columnas de la tabla llamada Criptomoneda. Representa la variabilidad del conjunto de datos respecto a su media."
+lapply(Estadistica, attr, "Descripción")
+
+
+
