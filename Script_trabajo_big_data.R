@@ -552,186 +552,319 @@ colnames(Criptomonedas) <- Headers
 
 #Creando funcion que obtiene la criptomoneda de lanzamiento mas reciente o más antigua
 
+#Se crea un función que obtiene la criptomoneda con la fecha de lanzamaiento más reciente o más antigua segun lo especificado
+#Año: Entrada: String -> Salida: String
+#Ejemplo: Entrada: Más reciente -> Salida: La criptomoneda con fecha de lanzamiento mas reciente es: Polkadot (DOT) ,siendo en el año 2020
+
+#Creando función
 Año <- function(Año){
+  #Estableciendo primera condicional que aplica en caso de seleccionar la filtración por más reciente
   if(Año == "Más reciente"){
+    #Calculando y almacenado el máximo
     Maximo <- max(Criptomonedas$`Lanzamiento (año)`)
+    #Creando vector que almacenará el nombre de la criptomoneda asociada al valor máximo
     Cmax <- c()
+    #[Inicia loop]
     for (i in 1:nrow(Criptomonedas)) {
+      #Estableciendo condicional que busca la igualdad de la posición del recorrido y el valor máximo
       if(Criptomonedas[i,2] == Maximo)
+        #Almacenando el nombre de la criptomoneda asociada al valor máximo
         Cmax <- c(Cmax,Criptomonedas[i,1])
     }
-    print(paste("La criptomoneda con fecha de lanzamiento mas reciente es:", Cmax, ", en el año", Maximo))
+    #[Finaliza loop]
+    #Imprimiendo resultado
+    print(paste("La criptomoneda con fecha de lanzamiento mas reciente es:", Cmax, ",siendo en el año", Maximo))
   }
+  #Estableciendo segunda condicional que aplica en caso de seleccionar la filtración por mas antigua
   else if(Año == "Más antigua"){
+    #Calculando y almacenando el mínimo
     Minimo <- min(Criptomonedas$`Lanzamiento (año)`)
+    #Creando vector que almacenará el nombre de la criptomoneda asociada al valor mínimo
     Cmin <- c()
+    #[Inicia Loop]
     for (b in 1:nrow(Criptomonedas)) {
+      #Estableciendo condicional que busca la igualdad de la posición del recorrido y el valor mínimo
       if(Criptomonedas[b,2] == Minimo)
+        #Almacenando el nombre de la criptomoneda asociada al valor mínimo
         Cmin <- c(Cmin,Criptomonedas[b,1])
     }
-    print(paste("La criptomoneda con fecha de lanzamiento mas antigua es:", Cmin, ", en el año", Minimo))
+    #[Finaliza loop]
+    #Imprimiendo resultado
+    print(paste("La criptomoneda con fecha de lanzamiento mas antigua es:", Cmin, ",siendo en el año", Minimo))
   }
 }
 
-##Probando dicha funcion
+#Probando la función
 Año("Más reciente")
 
-#Creando funcion que obtiene la criptomoneda acorde a los rangos de capacidad de mercado solicitados
+#Se crea función que obtiene la criptomoneda acorde al rango de capacidad de mercado indicado
+#Cript: Entrada: String -> Salida: String
+#Ejemplo: Entrada: 40 - 50% -> Salida: La criptomoneda con con una capacidad de mercado entre 40 - 50% es: BITCOIN (BTC) específicamente con una capacidad de un 44 %
 
+#Creando función
 Cript <- function(a){
+  #Creando vector que almacenará la capacidad dentro del rango seleccionado
   ChosenCapacity <- c()
+  #Creando vector que almacenará el nombre de la criptomoneda correspondiente al las capacidades obtenidas
   CriptCapacity <- c()
+  #Eliminando filas con valores NA
   Criptomonedas <- Criptomonedas[-15,]
+  #Creando la primera condicional acorde a un rango de 0 - 10%
   if(a == "0 - 10%"){
+    #[Inicia loop]
     for (i in 1:nrow(Criptomonedas)) {
+      #Estableciendo condicional que busca la criptomoneda que se encuentre dentro del rango
       if(Criptomonedas[i,3] >= 0 && Criptomonedas[i,3] <= 10){
+        #Almacenando la capacidad de la criptomoneda que cumple con la condición
         ChosenCapacity <- c(ChosenCapacity,Criptomonedas[i,3])
+        #Almacenando el nombre de la criptomoneda que cumple con la condición
         CriptCapacity <- c(CriptCapacity,Criptomonedas[i,1])
       }
     }
+    #[Finaliza loop]
   }
+  #Creando la segunda condicional acorde a un rango de 10  20%
   else if(a == "10 - 20%"){
+    #[Inicia loop]
     for (i in 1:nrow(Criptomonedas)) {
+      #Estableciendo condicional que busca la criptomoneda que se encuentre dentro del rango
       if(Criptomonedas[i,3] >= 10 && Criptomonedas[i,3] <= 20){
+        #Almacenando la capacidad de la criptomoneda que cumple con la condición
         ChosenCapacity <- c(ChosenCapacity,Criptomonedas[i,3])
+        #Almacenando el nombre de la criptomoneda que cumple con la condición
         CriptCapacity <- c(CriptCapacity,Criptomonedas[i,1])
       }
     }
+    #[Finaliza loop]
   }
+  #Creando la tercera condicional acorde a un rango de 20 - 30%
   else if(a == "20 - 30%"){
+    #[Inicia loop]
     for (i in 1:nrow(Criptomonedas)) {
+      #Estableciendo condicional que busca la criptomoneda que se encuentre dentro del rango
       if(Criptomonedas[i,3] >= 20 && Criptomonedas[i,3] <= 30){
+        #Almacenado la capacidad de la criptomoneda que cumple con la condición
         ChosenCapacity <- c(ChosenCapacity,Criptomonedas[i,3])
+        #Almacenando el nombre de la criptomoneda que cumple con la condición
         CriptCapacity <- c(CriptCapacity,Criptomonedas[i,1])
       }
     }
+    #[Finaliza loop]
   }
+  #Creando al cuarta condicional acorde a un rango de 30 - 40%
   else if(a == "30 - 40%"){
+    #[Inicia loop]
     for (i in 1:nrow(Criptomonedas)) {
+      #Estableciendo la condicional que busca la criptomoneda que se encuentre dentro del rango
       if(Criptomonedas[i,3] >= 30 && Criptomonedas[i,3] <= 40){
+        #Almacenando la capacidad de la criptomoneda que cumple con la condición
         ChosenCapacity <- c(ChosenCapacity,Criptomonedas[i,3])
+        #Almacenando el nombre de la criptomoneda que cumple con la condición
         CriptCapacity <- c(CriptCapacity,Criptomonedas[i,1])
       }
     }
+    #[Finaliza loop]
   }
+  #Creando la quinta condicional acorde a un rango de 40 - 50%
   else if(a == "40 - 50%"){
+    #[Inicia loop]
     for (i in 1:nrow(Criptomonedas)) {
+      #Estableciendo condicional que busca la criptomoneda que se encuentre dentro del rango
       if(Criptomonedas[i,3] >= 40 && Criptomonedas[i,3] <= 50){
+        #Almacenando la capacidad de la criptomoneda que cumple con la condición
         ChosenCapacity <- c(ChosenCapacity,Criptomonedas[i,3])
+        #Almacenando el nombre de la criptomoneda que cumple con la condición
         CriptCapacity <- c(CriptCapacity,Criptomonedas[i,1])
       }
     }
+    #[Finaliza loop]
   }
+  #Estableciendo la sexta condicional acorde a un rango de 50 - 60%
   else if(a == "50 - 60%"){
+    #[Inicia loop]
     for (i in 1:nrow(Criptomonedas)) {
+      #Estableciendo condicional que busca la criptomoneda que se encuentre dentro del rango
       if(Criptomonedas[i,3] >= 50 && Criptomonedas[i,3] <= 60){
+        #Almacenando la capacidad de la criptomoneda que cumple con la condición
         ChosenCapacity <- c(ChosenCapacity,Criptomonedas[i,3])
+        #Almacenando el nombre de la criptomoneda que cumple con la condición
         CriptCapacity <- c(CriptCapacity,Criptomonedas[i,1])
       }
     }
+    #[Finaliza loop]
   }
+  #Estableciendo la séptima condicional acorde a un rango de 60 - 70%
   else if(a == "60 - 70%"){
+    #[Inicia loop]
     for (i in 1:nrow(Criptomonedas)) {
+      #Estableciendo condicional que busca la criptomoneda que se encuentre dentro del rango
       if(Criptomonedas[i,3] >= 60 && Criptomonedas[i,3] <= 70){
+        #Almacenando la capacidad de la criptomoneda que cumple con la condición
         ChosenCapacity <- c(ChosenCapacity,Criptomonedas[i,3])
+        #Almacenando el nombre de la criptomoneda que cumple con la condición
         CriptCapacity <- c(CriptCapacity,Criptomonedas[i,1])
       }
     }
+    #[Finaliza loop]
   }
+  #Estableciendo la octava condicional acorde a un rango de 70 - 80%
   else if(a == "70 - 80%"){
+    #[Inicia loop]
     for (i in 1:nrow(Criptomonedas)) {
+      #Estableciendo condicional que busca la criptomoneda que se encuentre dentro del rango
       if(Criptomonedas[i,3] >= 70 && Criptomonedas[i,3] <= 80){
+        #Almacenando la capacidad de la criptomoneda que cumple con la condición
         ChosenCapacity <- c(ChosenCapacity,Criptomonedas[i,3])
+        #Almacenando el nombre de la criptomoneda que cumple con la condición
         CriptCapacity <- c(CriptCapacity,Criptomonedas[i,1])
       }
     }
+    #[Finaliza loop]
   }
+  #Estableciendo la novena condicional acorde a un rango de 80 - 90%
   else if(a == "80 - 90%"){
+    #[Inicia loop]
     for (i in 1:nrow(Criptomonedas)) {
+      #Estableciendo la condicional que busca la criptomoneda que se encuentre dentro del rango
       if(Criptomonedas[i,3] >= 80 && Criptomonedas[i,3] <= 90){
+        #Almacenando la capacidad de la criptomoneda que cumple con la condición
         ChosenCapacity <- c(ChosenCapacity,Criptomonedas[i,3])
+        #Almacenando el nombre de la criptomoneda que cumple con la condición
         CriptCapacity <- c(CriptCapacity,Criptomonedas[i,1])
       }
     }
+    #[Finaliza loop]
   }
+  #Estableciendo la décima condicional acorde a un rango de 90 - 100%
   else if(a == "90 - 100%"){
+    #[Inicia loop]
     for (i in 1:nrow(Criptomonedas)) {
+      #Estableciendo condicional que busca la criptomoneda que se encuentre dentro del rango
       if(Criptomonedas[i,3] >= 90 && Criptomonedas[i,3] <= 100){
+        #Almacenando la capacidad de la criptomoneda que cumple con la condición
         ChosenCapacity <- c(ChosenCapacity,Criptomonedas[i,3])
+        #Almacenando el nombre de la criptomoneda que cumple con la condición
         CriptCapacity <- c(CriptCapacity,Criptomonedas[i,1])
       }
     }
+    #[Finaliza loop]
   }
-  print(paste("La criptomoneda con con una capacidad de mercado entre", a, "es:", CriptCapacity, "especificamente con una capacidad de mercado de un", ChosenCapacity, "%"))
+  #Imprimiendo resultado
+  print(paste("La criptomoneda con con una capacidad de mercado entre", a, "es:", CriptCapacity, "específicamente con una capacidad de un", ChosenCapacity, "%"))
 }
 
-##Probando funcion
-Cript("0 - 10%")
+#Probando la función
+Cript("40 - 50%")
 
-#Creando funcion que obtiene las criptomonedas acorde a los rangos establecidos de transacciones por segundos
+#Se crea función que obtiene las criptomonedas acorde a los rangos establecidos de transacciones por segundos
+#Transg: Entrada: String -> Salida: String
+#Ejemplo: Entrada: 2000 - 2999 -> Salida: La criptomoneda EOS (EOS) con 2800 transacciones por segundo se encuentra en el rango seleccionado de 2000 - 2999
 
+#Creando función
 Transg <- function(rango){
+  #Creando vector que almacenará las transacciones por segundo de la criptomoneda que corresponde al rango establecido
   SelectedTran <- c()
+  #Creando vector que almacenará el nombre de la criptomoneda correspondiente a las transacciones por segundo
   CorrespondentCript <- c()
+  #Eliminando filas con valores NA
   Criptomonedas <- Criptomonedas[-c(4,6,8,9,10,12,14),]
+  #Estableciendo la primera condicional acorde a un rango de 0 - 999
   if(rango == "0 - 999"){
+    #[Inicia loop]
     for (i in 1:nrow(Criptomonedas)) {
+      #Estableciendo condicional que busca la criptomoneda que se encuentre dentro del rango
       if(Criptomonedas[i,7] >= 0 && Criptomonedas[i,7] <= 999){
+        #Almacenando las transacciones por segundo de la criptomoneda que cumple con la condición
         SelectedTran <- c(SelectedTran,Criptomonedas[i,7])
+        #Almacenando el nombre de la criptomoneda que cumple con la condición
         CorrespondentCript <- c(CorrespondentCript,Criptomonedas[i,1])
       }
     }
+    #[Finaliza loop]
   }
+  #Estableciendo la segunda condicional acorde a un rango de 1000 - 1999
   else if(rango == "1000 - 1999"){
+    #[Inicia loop]
     for (i in 1:nrow(Criptomonedas)) {
+      #Estableciendo condicional que busca la criptomoneda que se encuentre dentro del rango
       if(Criptomonedas[i,7] >= 1000 && Criptomonedas[i,7] <= 1999){
+        #Almacenando las transacciones por segundo de la criptomoneda que cumple con la condición
         SelectedTran <- c(SelectedTran,Criptomonedas[i,7])
+        #Almacenando el nombre de la criptomoneda que cumple con la condición
         CorrespondentCript <- c(CorrespondentCript,Criptomonedas[i,1])
       }
     }
+    #[Finaliza loop]
   }
+  #Estableciendo al tercera condicional acorde a un rango de 2000 - 2999
   else if(rango == "2000 - 2999"){
+    #[Inicia loop]
     for (i in 1:nrow(Criptomonedas)) {
+      #Estableciendo condicional que busca la criptomoneda que se encuentre dentro del rango
       if(Criptomonedas[i,7] >= 2000 && Criptomonedas[i,7] <= 2999){
+        #Almacenando las transacciones por segundo de la criptomoneda que cumple con la condición
         SelectedTran <- c(SelectedTran,Criptomonedas[i,7])
+        #Almacenando el nombre de la criptomoneda que cumple con la condición
         CorrespondentCript <- c(CorrespondentCript,Criptomonedas[i,1])
       }
     }
+    #[Finaliza loop]
   }
+  #Imprimiendo resultado
   print(paste("La criptomoneda", CorrespondentCript, "con", SelectedTran,"transacciones por segundo se encuentra en el rango seleccionado de", rango))
 }
 
-##Probando funcion
+#Probando la función
 
 Transg("2000 - 2999")
 
-#Creando funcion que obtiene la criptomoneda con menor o mayor tiempo en segundos requeridos por bloque
+#Se crea una función que obtiene la criptomoneda con menor o mayor tiempo en segundos requeridos por bloque acorde a lo indicado
+#TimeBloque: Entrada: String -> Salida: String
+#Ejemplo: Entrada: Mayor -> Salida: La criptomoneda con menor tiempor requerido por bloque es: RIPPLE (XRP) , con un tiempo de 0.1 segundos
 
+#Creando la función
 TimeBloque <- function(Tiempo){
+  #Eliminando filas con valores NA
   Criptomonedas <- Criptomonedas[-c(4,6,8,9,10,12,14),]
+  #Estableciendo condicional ante la elección de la criptomoneda con el mayor tiempo
   if(Tiempo == "Mayor"){
+    #Obteniendo el tiempo máximo
     Mayor <- max(Criptomonedas$`Tiempo para un bloque (sg)`)
+    #Creando vector que almacenará la criptomoneda asociada al tiempo máximo
     Cmayor <- c()
+    #[Inicia loop]
     for (f in 1:nrow(Criptomonedas)) {
+      #Estableciendo condicional que busca la criptomoneda con mayor tiempo
       if(Criptomonedas[f,9] == Mayor)
+        #Almacenando el nombre de la criptomoneda que cumple con la condición
         Cmayor <- c(Cmayor,Criptomonedas[f,1])
     }
+    #[Finaliza loop]
+    #Imprimiendo resultado
     print(paste("La criptomoneda con mayor tiempo requerido por bloque es:", Cmayor, ", con un tiempo de", Mayor, "segundos"))
   }
+  #Estableciendo condicional ante la elección de la criptomoneda con el menor tiempo
   else if(Tiempo == "Menor"){
+    #Obteniendo el tiempo mínimo
     Menor <- min(Criptomonedas$`Tiempo para un bloque (sg)`)
+    #Creando vector que almacenará la criptomoneda asociada al tiempo mínimo
     Cmenor <- c()
+    #[Inicia loop]
     for (c in 1:nrow(Criptomonedas)) {
-      if(Criptomonedas[c,2] == Menor)
+      #Estableciendo condicional que busca la criptomoneda con el menor tiempo
+      if(Criptomonedas[c,9] == Menor)
+        #Almacenando el nombre de la criptomoneda que cumple con la condición
         Cmenor <- c(Cmenor,Criptomonedas[c,1])
     }
+    #[Finaliza loop]
+    #Imprimiendo resultado
     print(paste("La criptomoneda con menor tiempor requerido por bloque es:", Cmenor, ", con un tiempo de", Menor, "segundos"))
   }
 }
 
-##Probando funcion
+#Probando la función
 
-TimeBloque("Mayor")
+TimeBloque("Menor")
 
 #Creando funcion que obtiene la criptomoneda con la cantidad maxima o minima
 
@@ -1064,144 +1197,243 @@ volTotalPorcentaje("80 - 90%")
 volTotalPorcentaje("90 - 100%")
 
 
-#Creando funcion que obtiene la criptomoneda con la mayor o menor Var. (7d) (%)
+#Se crea un función que obtiene la criptomoneda con la mayor o menor variación en 7 días (%)
+#variacionDiasPorcentaje: Entrada: String -> Salida: String
+#Ejemplo: Entrada: Mayor -> Salida: La criptomoneda con una mayor variación en 7 días (%) es  : Bitcoin Cash (BCH) , con  82.44
 
+#Creando la función
 variacionDiasPorcentaje <- function(variacion){
+  #Eliminando filas con valores NA
   Criptomonedas <- Criptomonedas[-c(11,12,13,14,15),]
+  #Estableciendo la primera condicional
   if(variacion == "Mayor"){
+    #Obteniendo la variación máxima
     vad <- max(Criptomonedas$`Var. (7d) (%)`)
+    #Creando vector que almacenará el nombre de la criptomoneda con la variación máxima
     vac <- c()
+    #[Inicia loop]
     for (yy in 1:nrow(Criptomonedas)) {
+      #Estableciendo la condicional que busca la criptomoneda correspondiente a la variación máxima
       if(Criptomonedas[yy,14] == vad)
+        #Almacenando el nombre de la criptomoneda que cumple con la condición
         vac <- c(vac,Criptomonedas[yy,1])
     }
-    print(paste("La criptomoneda con una mayor variacion en 7 dias (%) es  :", vac, ", con ", vad))
+    #[Finaliza loop]
+    #Imprimiendo resultado
+    print(paste("La criptomoneda con una mayor variación en 7 días (%) es  :", vac, ", con ", vad))
   }
+  #Estableciendo la segunda condicional
   else if(variacion == "Menor"){
+    #Obteniendo la variación mínima
     vid <- min(Criptomonedas$`Var. (7d) (%)`)
+    #Creando vector que almacenará el nombre de la criptomoneda con la variación mínima
     vic <- c()
+    #[Inicia loop]
     for (ee in 1:nrow(Criptomonedas)) {
+      #Estableciendo condicional que busca la criptomoneda correspondiente a la variacion mínima
       if(Criptomonedas[ee,14] == vid)
+        #Almacenando el nombre de la criptomoneda que cumple con la condición
         vic <- c(vic,Criptomonedas[ee,1])
     }
-    print(paste("La criptomoneda con una menor variacion en 7 dias (%) es :", vic, ", con ", vid))
+    #[Finaliza loop]
+    #Imprimiendo resultado
+    print(paste("La criptomoneda con una menor variación en 7 días (%) es :", vic, ", con ", vid))
   }
 }
-## Probando funcion 
+
+#Probando la función 
 variacionDiasPorcentaje("Mayor")
-variacionDiasPorcentaje("Menor")
 
-#Creando funcion que obtiene la criptomoneda con menor o mayor variacion en 24 horas
+#Se crea un función que obtiene la criptomoneda con menor o mayor variación en 24 horas (%)
+#Varhr: Entrada: String -> Salida: String
+#Ejemplo: Entrada: Mayor -> Salida: La criptomoneda con la mayor variación en 24 horas es: LITECOIN (LTC, L) con una variación de un 17.52 %
 
+#Creando la función
 Varhr <- function(Coin){
+  #Eliminando las filas que contienen NA
   Criptomonedas <- Criptomonedas[-c(11,12,13,14,15),]
+  #Estableciendo la primera condicional
   if(Coin == "Mayor"){
+    #Obteniendo la variación máxima
     Biggest <- max(Criptomonedas$`Var. (24h) (%)`)
+    #Creando vector que almacenará el nombre de la criptomoneda correspondiente a la variación máxima
     MonedaMa <- c()
+    #[Inicia loop]
     for (z in 1:nrow(Criptomonedas)) {
+      #Estableciendo condicional que busca la criptomoneda con la variación mázima
       if(Criptomonedas[z,13] == Biggest){
+        #Almacenando el nombre de la criptomoneda que cumple con la condición
         MonedaMa <- c(MonedaMa,Criptomonedas[z,1])
       }
     }
-    print(paste("La criptomoneda con la mayor variacion en 24 horas es:", MonedaMa, "con una variación de un", Biggest, "%"))
+    #[Finaliza loop]
+    #Imprimiendo resultado
+    print(paste("La criptomoneda con la mayor variación en 24 horas es:", MonedaMa, "con una variación de un", Biggest, "%"))
   }
+  #Estableciendo segunda condicional
   else if(Coin == "Menor"){
+    #Obteniendo la variación mínima
     Smaller <- min(Criptomonedas$`Var. (24h) (%)`)
+    #Creando vector que almacenará la criptomoneda correspondiente a la variación mínima
     MonedaMe <- c()
+    #[Inicia loop]
     for (z in 1:nrow(Criptomonedas)) {
+      #Estableciendo condicional que busca la criptomoneda con la variación mínima
       if(Criptomonedas[z,13] == Smaller){
+        #Almacenando el nombre de la criptomoneda que cumple con la condicón
         MonedaMe <- c(MonedaMe,Criptomonedas[z,1])
       }
     }
-    print(paste("La criptomoneda con la menor variacion en 24 horas es:", MonedaMe, "con una variación de un", Smaller, "%"))
+    #[Finaliza loop]
+    #Imprimiendo resultado
+    print(paste("La criptomoneda con la menor variación en 24 horas es:", MonedaMe, "con una variación de un", Smaller, "%"))
   }
 }
 
-##Probando la funcion
+#Probando la función
+Varhr("Mayor")
 
-Varhr("Menor")
+#Se crea función que obtiene la moneda correspondienten al ratio de minado/emision solicitado
+#Mining: Entrada: String -> Salida: String
+#Ejemplo: Entrada: 1.000 millones al mes -> Salida: La criptomoneda con el ratio de minado/emision de 1.000 millones al mes es: RIPPLE (XRP)
 
-#Creando funcion que obtiene la moneda correspondienten al ratio de minado/emision solicitado
-
+#Creando función
 Mining <- function(h){
+  #Estableciendo la primera condicional
   if(h == "12,5 por bloque"){
+    #Imprimiendo el resultado
     print(paste("Las criptomonedas con el ratio de minado/emision de", h, "son:",Criptomonedas[1,1] ,"y",Criptomonedas[7,1] ))
-  }else if(h == "3 por bloque"){
+  }
+  #Estableciendo la segunda condicional
+  else if(h == "3 por bloque"){
+    #Imprimiendo el resultado
     print(paste("La criptomoneda con el ratio de minado/emision de", h, "es:",Criptomonedas[2,1]))
-  }else if(h == "1.000 millones al mes"){
+  }
+  #Estableciendo la tercera condicional
+  else if(h == "1.000 millones al mes"){
+    #Imprimiendo el resultado
     print(paste("La criptomoneda con el ratio de minado/emision de", h, "es:",Criptomonedas[3,1]))
-  }else if(h == "25 por bloque"){
+  }
+  #Estableciendo la cuarta condicional
+  else if(h == "25 por bloque"){
+    #Imprimiendo el resultado
     print(paste("La criptomoneda con el ratio de minado/emision de", h, "es:",Criptomonedas[5,1]))
-  }else if(h == "Hasta un 5% de inflación por año"){
+  }
+  #Estableciendo la quinta condicional
+  else if(h == "Hasta un 5% de inflación por año"){
+    #Imprimiendo el resultado
     print(paste("La criptomoneda con el ratio de minado/emision de", h, "es:",Criptomonedas[11,1]))
-  }else if(h == "Hasta un 1% de inflación por año"){
+  }
+  #Estableciendo la sexta condicional
+  else if(h == "Hasta un 1% de inflación por año"){
+    #Imprimiendo el resultado
     print(paste("La criptomoneda con el ratio de minado/emision de", h, "es:",Criptomonedas[13,1]))
-  }else if(h == "Hasta 15 millones por año"){
+  }
+  #Estableciendo la séptima condicional
+  else if(h == "Hasta 15 millones por año"){
+    #Imprimiendo el resultado
     print(paste("La criptomoneda con el ratio de minado/emision de", h, "es:",Criptomonedas[15,1]))
-  }else{
+  }
+  #Estableciendo opción ante situación en la que se seleccione una opción no existente
+  else{
+    #Imprimiendo mensaje
     print("No hay criptomoneda alguna con el ratio de minado/emision inidicado")
   }
 }
 
-##Probando la funcion
+#Probando la función
 Mining("1.000 millones al mes")
 
 ############################################### CREANDO FUNCION FINAL #####################################################
 
+#Se crea una función que contiene las subfunciones previas en base a la cual se devuelven las criptomonedas que cumplan con el criterio de filtro establecido
+#Filtrar: Entrada: String,String -> Salida: String
+#Ejemplo: Entrada: capacidad de mercado,40 - 50% -> Salida:La criptomoneda con con una capacidad de mercado entre 40 - 50% es: BITCOIN (BTC) especificamente con una capacidad de mercado de un 44 %
+
+#Creando la función
 Filtrar <- function(variable,opcion){
+  #Almacenando segunda variable
   y <- opcion
+  #Estableciendo condicional acorde al año de lanzamiento
   if(variable == "año"){
+    #Llamando la función correspondiente
     Año(y)
   }
+  #Estableciendo condicional acorde a la capacidad de mercado
   else if(variable == "capacidad de mercado"){
+    #Llamando la función correspondiente
     Cript(y)
   }
+  #Estableciendo condicional acorde a la cantidad máxima
   else if(variable == "Cantidad máxima $M"){
+    #Llamando la función correspondiente
     Mill(y)
   }
+  #Estableciendo la condicional acorde a la cantidad de circulación
   else if(variable == "Cantidad en circulación"){
+    #Llamando la función correspondiente
     Circulacion(y)
   }
+  #Estableciendo la condicional acorde al ratio de minado/emisión
   else if(variable == "Ratio de minado/emisión"){
+    #Llamando la función correspondiente
     Mining(y)
   }
+  #Estableciendo la condicional acorde a las transacciones por segundo
   else if(variable == "Transacciones por segundo"){
+    #Llamando la función correspondiente
     Transg(y)
   }
+  #Estableciendo la condicional acorde al tiempo para el minado de un bloque
   else if(variable == "Tiempo para el minado de un bloque"){
+    #Llamando la función correspondiente
     TimeBloque(y)
   }
+  #Estableciendo la condicional acorde al precio
   else if(variable == "Precio USD"){
+    #Llamando la función correspondiente
     PrecioUSD(y)
   }
+  #Estableciendo la condicional acorde al volumen en 24 horas
   else if(variable == "Volumen 24hr $M"){
+    #Llamando la función correspondiente
     valorHr(y)
   }
+  #Estableciendo la condicional acrode al volumen total
   else if(variable == "Volumen total %"){
+    #Llamando la función correspondiente
     volTotalPorcentaje(y)
   }
+  #Estableciendo la condicional acorde a la variación en 24 horas
   else if(variable == "Variación 24hr %"){
+    #Llamando la función correspondiente
     Varhr(y)
   }
+  #Estableciendo la condicional acorde a la variación en 7 días
   else if(variable == "Variación 7d %"){
+    #Llamando la función correspondiente
     variacionDiasPorcentaje(y)
+    #Estableciendo la ultima opción en caso de que el filtro indicado no sea posible realizar
   }else{
+    #Imprimiendo mensaje
     print("No es posible filtrar acorde a la opcion indicada")
   }
 }
 
-##Probando la funcion
-Filtrar("Variación 7d %","Mayor")
+#Probando la funcion
+Filtrar("capacidad de mercado","40 - 50%")
 
-####################################### OBTENIENDO ESTADISTICAS ###########################################
+################################################ OBTENIENDO ESTADISTICAS ###############################################
 
-#Se obtendrá, orden: 
-# media, moda, mediana, maximo, minimo, desviacion estandar y varianza
+#Las estadísticas de la base de datos creada a obtener serán las siguientes:
+#Media, moda, mediana, maximo, minimo, desviacion estandar y varianza.
+#Estas luego de obtenidas serán almacenadas en una serie de vectores para luego ser unidos en un data.frame para su posterior análisis.
 
-# Estadistica Precio (USD)
+#Instalando y accediendo paquetes para análisis estadístico
 install.packages("modeest")
 library("modeest")
 
+#Obteniendo las estadísticas correspondiente al Precio (USD)
 mediaPrecioUSD <- mean(Criptomonedas$`Precio (USD)`, na.rm = TRUE)
 modaPrecioUSD <- mfv(Criptomonedas$`Precio (USD)`, na_rm = TRUE)
 medianaPrecioUSD <- median(Criptomonedas$`Precio (USD)`, na.rm = TRUE)
@@ -1210,9 +1442,10 @@ minimoPrecioUSD <- min(Criptomonedas$`Precio (USD)`, na.rm = TRUE)
 desviacionEstandarPrecioUSD <- sd(Criptomonedas$`Precio (USD)`, na.rm = TRUE)
 varianzaPrecioUSD <- var(Criptomonedas$`Precio (USD)`, na.rm = TRUE)
 
+#Almacenando resultados en un vector (Nota: se almacena un NA en lugar de la moda debido a que para dicha columna no exite una moda)
 EstPrecioUSD <- c(mediaPrecioUSD, NA, medianaPrecioUSD, maximoPrecioUSD, minimoPrecioUSD, desviacionEstandarPrecioUSD, varianzaPrecioUSD)
 
-# Estadistica Vol. (24h) ($) (M)
+#Obteniendo las estadísticas correspondientes al Vol. (24h) ($) (M)
 mediaVol24h <- mean(Criptomonedas$`Vol. (24h) ($) (M)`, na.rm = TRUE)
 modaVol24h <- mfv(Criptomonedas$`Vol. (24h) ($) (M)`)
 medianaVol24h <- median(Criptomonedas$`Vol. (24h) ($) (M)`, na.rm = TRUE)
@@ -1221,9 +1454,10 @@ minimoVol24h <- min(Criptomonedas$`Vol. (24h) ($) (M)`, na.rm = TRUE)
 desviacionEstandarVol24h <- sd(Criptomonedas$`Vol. (24h) ($) (M)`, na.rm = TRUE)
 varianzaVol24h <- var(Criptomonedas$`Vol. (24h) ($) (M)`, na.rm = TRUE)
 
+#Almacenando resultados en un vector (Nota: se almacena un NA en lugar de la moda debido a que para dicha columna no exite una moda)
 EstVol24h <- c(mediaVol24h, NA, medianaVol24h, maximoVol24h, minimoVol24h, desviacionEstandarVol24h, varianzaVol24h)
 
-# Estadistica Vol. total (%) 
+#Obteniendo estadísticas correspondientes al Vol. total (%)
 mediaVoltotal <- mean(Criptomonedas$`Vol. Total (%)`, na.rm = TRUE)
 modaVoltotal <- mfv(Criptomonedas$`Vol. Total (%)`)
 medianaVoltotal <- median(Criptomonedas$`Vol. Total (%)`, na.rm = TRUE)
@@ -1232,10 +1466,11 @@ minimoVoltotal <- min(Criptomonedas$`Vol. Total (%)`, na.rm = TRUE)
 desviacionEstandarVoltotal <- sd(Criptomonedas$`Vol. Total (%)`, na.rm = TRUE)
 varianzatVoltotal <- var(Criptomonedas$`Vol. Total (%)`, na.rm = TRUE)
 
+#Almacenando resultados en un vector (Nota: se almacena un NA en lugar de la moda debido a que para dicha columna no exite una moda)
 EstVoltotal <- c(mediaVoltotal, NA, medianaVoltotal, maximoVoltotal, minimoVoltotal, desviacionEstandarVoltotal, varianzatVoltotal)
 
 
-# Estadistica Var. (24h) (%) 
+#Obteniendo estadísticas correspondientes a la Var. (24h) (%) 
 mediaVar24h <- mean(Criptomonedas$`Var. (24h) (%)`, na.rm = TRUE)
 modaVar24h <- mfv(Criptomonedas$`Var. (24h) (%)`)
 medianaVar24h <- median(Criptomonedas$`Var. (24h) (%)`, na.rm = TRUE)
@@ -1244,9 +1479,10 @@ minimoVar24h <- min(Criptomonedas$`Var. (24h) (%)`, na.rm = TRUE)
 desviacionEstandarVar24h <- sd(Criptomonedas$`Var. (24h) (%)`, na.rm = TRUE)
 varianzatVar24h <- var(Criptomonedas$`Var. (24h) (%)`, na.rm = TRUE)
 
+#Almacenando resultados en un vector (Nota: se almacena un NA en lugar de la moda debido a que para dicha columna no exite una moda)
 EstVar24h <- c(mediaVar24h, NA, medianaVar24h, maximoVar24h, minimoVar24h, desviacionEstandarVar24h, varianzatVar24h)
 
-# Estadistica Var. (7d) (%) 
+#Obteniendo las estadísticas correspondientes a la Var. (7d) (%)
 mediaVar7d <- mean(Criptomonedas$`Var. (7d) (%)`, na.rm = TRUE)
 modaVar7d <- mfv(Criptomonedas$`Var. (7d) (%)`)
 medianaVar7d <- median(Criptomonedas$`Var. (7d) (%)`, na.rm = TRUE)
@@ -1255,10 +1491,10 @@ minimoVar7d <- min(Criptomonedas$`Var. (7d) (%)`, na.rm = TRUE)
 desviacionEstandarVar7d <- sd(Criptomonedas$`Var. (7d) (%)`, na.rm = TRUE)
 varianzatVar7d <- var(Criptomonedas$`Var. (7d) (%)`, na.rm = TRUE)
 
+#Almacenando resultados en un vector (Nota: se almacena un NA en lugar de la moda debido a que para dicha columna no exite una moda)
 EstVar7d <- c(mediaVar7d, NA, medianaVar7d, maximoVar7d, minimoVar7d, desviacionEstandarVar7d, varianzatVar7d)
 
-#Estadisticas año de lanzamiento
-
+#Obteniendo las estadísticas correspondientes al año de lanzamiento
 MaxYear <- max(Criptomonedas$`Lanzamiento (año)`)
 MinYear <- min(Criptomonedas$`Lanzamiento (año)`)
 ModaYear <- mfv(Criptomonedas$`Lanzamiento (año)`)
@@ -1267,10 +1503,10 @@ PromedioYear <- mean(Criptomonedas$`Lanzamiento (año)`, na.rm = TRUE)
 DesvEstYear <- sd(Criptomonedas$`Lanzamiento (año)`, na.rm = TRUE)
 VarYear <- var(Criptomonedas$`Lanzamiento (año)`, na.rm = TRUE)
 
+#Almacenando resultados en un vector
 EstLanzamiento <- c(PromedioYear,ModaYear,MedianYear,MaxYear,MinYear,DesvEstYear,VarYear)
 
-#Estadisticas capacidad de mercado
-
+#Obteniendo las estadísticas correspondientes a la capacidad de mercado
 PromedioCapacity <- mean(Criptomonedas$`Capacidad de mercado (%)`, na.rm = TRUE)
 ModaCapacity <- mfv(Criptomonedas$`Capacidad de mercado (%)`, na_rm = TRUE)
 MedianCapacity <- median(Criptomonedas$`Capacidad de mercado (%)`, na.rm = TRUE)
@@ -1279,10 +1515,10 @@ MinCapacity <- min(Criptomonedas$`Capacidad de mercado (%)`, na.rm = TRUE)
 DesvEstCapacity <- sd(Criptomonedas$`Capacidad de mercado (%)`, na.rm = TRUE)
 VarCapacity <- var(Criptomonedas$`Capacidad de mercado (%)`, na.rm = TRUE)
 
+#Almacenando los resultados en un vector
 EstCapacidadMercado <- c(PromedioCapacity,ModaCapacity,MedianCapacity,MaxCapacity,MinCapacity,DesvEstCapacity,VarCapacity)
 
-#Estadisticas cantidad máxima
-
+#Obteniendo las estadísticas correspondientes a la cantidad máxima
 PromedioQuantityMax <- mean(Criptomonedas$`Cantidad máxima ($) (M)`, na.rm = TRUE)
 ModaQuantityMax <- mfv(Criptomonedas$`Cantidad máxima ($) (M)`, na.rm = TRUE)
 MedianQuantityMax <- median(Criptomonedas$`Cantidad máxima ($) (M)`, na.rm = T)
@@ -1291,10 +1527,10 @@ MinQuantityMax <- min(Criptomonedas$`Cantidad máxima ($) (M)`, na.rm = T)
 DesvEstQuantityMax <- sd(Criptomonedas$`Cantidad máxima ($) (M)`, na.rm = T)
 VarQuantityMax <- var(Criptomonedas$`Cantidad máxima ($) (M)`, na.rm = T)
 
+#Almacenando los resultados en un vector
 EstQuantityMax <- c(PromedioQuantityMax,ModaQuantityMax,MedianQuantityMax,MaxQuantityMax,MinQuantityMax,DesvEstQuantityMax,VarQuantityMax)
 
-#Estadisticas cantidad en circulacion
-
+#Obteniendo las estadísticas correspondientes a la cantidad en circulación
 PromedioCircQuant <- mean(Criptomonedas$`Cantidad en circulación (>M)`, na.rm = T)
 ModaCircQuantity <- mfv(Criptomonedas$`Cantidad en circulación (>M)`, na_rm = T)
 MedianCircQuantity <- median(Criptomonedas$`Cantidad en circulación (>M)`, na.rm = T)
@@ -1303,10 +1539,10 @@ MinCircQuantity <- min(Criptomonedas$`Cantidad en circulación (>M)`, na.rm = T)
 DesvEstCircQuantity <- sd(Criptomonedas$`Cantidad en circulación (>M)`, na.rm = T)
 VarCircQuantity <- var(Criptomonedas$`Cantidad en circulación (>M)`, na.rm = T)
 
+#Almacenando los resultados en un vector
 EstCircQuantity <- c(PromedioCircQuant,ModaCircQuantity,MedianCircQuantity,MaxCircQuantity,MinCircQuantity,DesvEstCircQuantity,VarCircQuantity)
 
-#Estadisticas transacciones por segundo
-
+#Obteniendo las estadísticas correspondientes a las transacciones por segundo
 PromedioTran <- mean(Criptomonedas$`Transacciones por sg`, na.rm = T)
 ModaTran <- mfv(Criptomonedas$`Transacciones por sg`, na_rm = T)
 MedianTran <- median(Criptomonedas$`Transacciones por sg`, na.rm = T)
@@ -1315,10 +1551,10 @@ MinTran <- min(Criptomonedas$`Transacciones por sg`, na.rm = T)
 DesvEstTran <- sd(Criptomonedas$`Transacciones por sg`, na.rm = T)
 VarTran <- var(Criptomonedas$`Transacciones por sg`, na.rm = T)
 
+#Almacenando los resultados en un vector
 EstTransactions <- c(PromedioTran,ModaTran,MedianTran,MaxTran,MinTran,DesvEstTran,VarTran)
 
-#Estadisticas tiempo para un bloque
-
+#Obteniendo las estadísticas correspondientes al tiempo para un bloque
 PromedioTime <- mean(Criptomonedas$`Tiempo para un bloque (sg)`, na.rm = T)
 ModaTime <- mfv(Criptomonedas$`Tiempo para un bloque (sg)`, na_rm = T)
 MedianTime <- median(Criptomonedas$`Tiempo para un bloque (sg)`, na.rm = T)
@@ -1326,86 +1562,97 @@ MaxTime <- max(Criptomonedas$`Tiempo para un bloque (sg)`, na.rm = T)
 MinTime <- min(Criptomonedas$`Tiempo para un bloque (sg)`, na.rm = T)
 DesvEstTime <- sd(Criptomonedas$`Tiempo para un bloque (sg)`, na.rm = T)
 VarTime <- var(Criptomonedas$`Tiempo para un bloque (sg)`, na.rm = T)
+
+#Promediando la moda debido a que se obtuvieron dos
 MediaModaTime <- mean(ModaTime)
 
+#Almacenando los resultados en un vector
 EstTiempoBloque <- c(PromedioTime,MediaModaTime,MedianTime,MaxTime,MinTime,DesvEstTime,VarTime)
 
-####################################### UNIENDO LAS ESTADISTICAS OBTENIDAS #################################
+################################################# UNIENDO LAS ESTADÍSTICAS OBTENIDAS ###################################
 
-#Creando data frame con los vectores estadisticos
-
+#Creando data frame con los vectores estadísticos creados
 Estadistica <- data.frame(EstLanzamiento,EstCapacidadMercado,EstQuantityMax,EstCircQuantity,EstTransactions,EstTiempoBloque,EstPrecioUSD,EstVol24h,EstVoltotal,EstVar24h,EstVar7d)
 
-#Cambiando filas por columnas
-
+#Cambiando filas por columnas 
 Estadistica <- as.data.frame(t(Estadistica))
 
 #Creando vector con los nombres de las columnas
-
 Head <- c("Media","Moda","Mediana","Máximo","Mínimo","Desviación Estándar","Varianza")
 
 #Cambiando el nommbre de las columnas
-
 colnames(Estadistica) <- Head
 
 #Creando vector con los nombres de las filas
-
 Fil <- c("Lanzamiento (año)","Capacidad de mercado (%)","Cantidad máxima $M","Cantidad en circulación (>M)","Transacciones por sg","Tiempo para un bloque (sg)","Precio $USD","Volumen $M (24h)","Volumen total (%)","Variación 24h (%)","Variación 7d (%)")
 
 #Cambiando el nombre de las filas
-
 Estadistica <- data.frame(Estadistica, row.names = Fil)
 
-##################################### GRAFICANDO INFORMACION OBTENIDA ##########################################################
+########################################## GRAFICANDO INFORMACIÓN SELECCIONADA ##########################################
 
-#Informacion a graficar:
+#Se seleccionó como información a graficar las siguientes:
+#Capacidad de mercado, por medio de un gráfico de torta.
+#Tiempo de minado para un bloque, por medio de un gráfico de barras.
+#Variación de 7d, por medio de un gráfico de lineas.
 
-## Capacidad de mercado -> Torta
-## Tiempo de bloque -> Barra
-## Variacion de 7d -> Lineas
+#Nota: Se eliminaron las criptomonedas que poseen NA's en la información a graficar.
 
-# Grafico: Tiempo para un bloque (sg)
+#Graficando el tiempo de minado para un bloque
+
+#Creando vector que almacena la información de la columna correspondiente
 TiempoBloque <- c(Criptomonedas$`Tiempo para un bloque (sg)`)
+
+#Eliminando criptomonedas con valores NA
 TiempoBloque <- TiempoBloque[-c(4,6,8,9,10,12,14)]
 
+#Creando vector que almacena los nombres de las criptomonedas correspondientes
 Nombres <- c(Criptomonedas$Criptomoneda)
+
+#Eliminando los nombres de las criptomonedas que fueron eliminadas 
 Nombres <- Nombres[-c(4,6,8,9,10,12,14)]
 
+#Graficando la información correspondiente
 GraficoTiempoBloque <- barplot(height = TiempoBloque, names.arg = Nombres, main = "Tiempo de bloque (sg) por Criptomoneda", ylab = "Tiempo de bloque (sg)", xlab = "Criptomoneda", col = rainbow(8))
 
 #Graficando la capacidad de mercado de las criptomonedas en un grafico de tortas
 
-##Creando vector que almacena los porcentajes de cada criptomoneda
+#Creando vector que almacena los porcentajes de cada criptomoneda
 CapacidadMercado <- c(Criptomonedas$`Capacidad de mercado (%)`)
-###Eliminando valor NA
+
+#Eliminando criptomonedas con valores NA
 CapacidadMercado <- CapacidadMercado[-15]
 
-##Creando vector con los nombres de las criptomonedas asociadas a los porcentajes
+#Creando vector con los nombres de las criptomonedas asociadas a los porcentajes
 Etiquetas <- c(Criptomonedas$Criptomoneda)
-###Eliminando valor NA
+
+#Eliminando los nombres de las criptomonedas que fueron eliminadas
 Etiquetas <- Etiquetas[-15]
 
-##Uniendo los valores con la criptomoneda correspondiente 
+#Uniendo los valores con la criptomoneda correspondiente 
 Etiquetas <- paste(Etiquetas,CapacidadMercado)
 
-##Agregando el simbolo de porcentaje a los valores
+#Agregando el simbolo de porcentaje a los valores
 Etiquetas <- paste(Etiquetas, "%", sep = "")
 
-##Creando grafico de torta
+#Graficando la información correspondiente
 GraficoCapacidadMercado <- pie(CapacidadMercado, Etiquetas,main = "Capacidad de mercado", sub = "Evaluación de las distintas criptomonedas", col = rainbow(14), cex = 0.7)
 
-#Graficando la variacion 7d de las criptomonedas en un histograma
+#Graficando la variación 7d de las criptomonedas
 
 ##Creando variable con las distintas variaciones
 Variaciondias <- c(Criptomonedas$`Var. (7d) (%)`)
-##Eliminando las filas que contienen NA
+
+#Eliminando las criptomonedas que contienen NA
 Variaciondias <- Variaciondias[-c(11,12,13,14,15)]
 
-##Creando variable que almacena los nombres de las criptomonedas correspondientes
+#Creando variable que almacena los nombres de las criptomonedas correspondientes
 Names <- c(Criptomonedas$Criptomoneda)
-##Eliminando las filas que contienen Na's
+
+#Eliminando las filas con los nombres de las criptomonedas que fueron eliminadas
 Names <- Names[-c(11,12,13,14,15)]
-##Editando la variable de nombres para que solo permanezcan las abreviaciones de cada criptomoneda
+
+#Editando la variable de nombres para que solo permanezcan las abreviaciones de cada criptomoneda
 Names <- gsub("[()]","",Names)
 Names <- gsub("BITCOIN","",Names)
 Names <- gsub("ETHEREUM","",Names)
@@ -1421,26 +1668,26 @@ Names <- gsub("CARDANO","",Names)
 Names <- gsub("[,]","",Names)
 Names <- trim(Names)
 
-##Creando data frame que contendra los datos para la creación del gráfico
+#Creando data frame que contiene los datos para la creación del gráfico
 data <- data.frame(Names,Variaciondias)
 
-##Instalando paquetes para la creacion y edicion personalizada del gráfico
+#Instalando y accediendo paquetes para la creación y edición personalizada del gráfico
 install.packages("ggplot2")
 library("ggplot2")
 install.packages("extrafont")
 library("extrafont")
 
-##Creando el gráfico de lineas
+#Graficando la información correspondiente
 GraficoVariacion <- ggplot(data, aes(x=Names,y=Variaciondias))+geom_point( size=2, shape=21, fill="white", colour="red") + 
   geom_line(colour = "red",group = FALSE) + 
   theme(text = element_text(size = 10)) +
   ggtitle("Variación % del precio de las distintas criptomonedas en periodos de 7 días") + theme(plot.title = element_text(hjust = 0.5)) + 
   labs(x = "Criptomonedas (Abreviación)", y ="Variación (%)")
 
-############################################### EXTRAYENDO BASE DE DATOS ##############################################
+################################################# EXTRAYENDO BASE DE DATOS ##############################################
 
 #Extrayendo la base de datos principal usada para la creacion de funciones
 write.csv(Criptomonedas, file="Base_de_datos_criptomonedas.csv")
 
-#Extrayendo la base de datos que contiene la estadistica recopilada en base a la base de datos principal
+#Extrayendo la base de datos que contiene la estadística recopilada en base a la base de datos principal
 write.csv(Estadistica, file="Base_de_datos_estadistica_criptomonedas.csv")
