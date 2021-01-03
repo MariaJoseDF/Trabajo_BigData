@@ -1749,6 +1749,14 @@ attr(Criptomonedas$`Cantidad máxima ($) (M)`, "Descripción") <- "Columna que con
 attr(Criptomonedas$`Cantidad en circulación (>M)`, "Descripción") <- "Columna que contiene la cantidad actual en circulación de criptomonedas, encontrándose estrechamente relacionada con la cantidad máxima. Aquellas con NA significan que no se logró obtener dicha información"
 attr(Criptomonedas$`Ratio de minado/emisión`, "Descripción") <- "Columna que contiene el ratio en que se minan y/o emiten nuevas criptomonedas, pudiendo ser: un ratio de minado por bloque, un ratio de emisión mensual/anual o descrito por un % de inflación anual. Aquellas con NA significan que no se logró obtener dicha información"
 attr(Criptomonedas$`Transacciones por sg`, "Descripción") <- "Columna que contiene el máximo de transacciones por segundo en la red que se pueden realizar con cada criptomoneda, donde a mayor el número mayor es la competitividad con los sistemas financieros habituales. Aquellas con NA significan que no se logró obtener dicha información"
+attr(Criptomonedas$`Red`, "Descripción") <- "Columna que contiene la Red de cada Criptomoneda que se refiere a la organización formada a la cual pertenece según su creador o proveedor, permitiendo su funcionamiento."
+attr(Criptomonedas$`Tiempo para un bloque (sg)`, "Descripción") <- "Columna que contiene el tiempo para un bloque (sg) que se refiere al tiempo que un bloque almacena la información financiera sin actualizarse, como las transacciones respecto a la Criptomoneda."
+attr(Criptomonedas$`Precio (USD)`, "Descripción") <- "Columna que contiene el precio (USD) que se refiere al valor monetario en dólares Estadounidenses actuales."
+attr(Criptomonedas$`Vol. (24h) ($) (M)`, "Descripción") <- "Columna que contiene el  vol. (24h) ($) (M) que se refiere al volumen de transacciones que obtiene la Criptomoneda en el mercado, esto en millones de dólares que se generan en un periodo de 24 horas. Mientras más alto más activo es el mercado de la Criptomoneda y viceversa."
+attr(Criptomonedas$`Vol. Total (%)`, "Descripción") <- "Columna que contiene el vol. Total (%) que se refiere al volumen porcentual de transacciones total que obtiene la Criptomoneda en el mercado. Mientras más alto más activo es el mercado de la Criptomoneda y viceversa."
+attr(Criptomonedas$`Var. (24h) (%)`, "Descripción") <- "Columna que contiene la Var. (24h) (%) que se refiere a la variación porcentual del precio en dólares de la Criptomoneda en un periodo de 24 horas."
+attr(Criptomonedas$`Var. (7d) (%)`, "Descripción") <- "Columna que contiene la var. (7d) (%) que se refiere a la variación porcentual del precio en dólares de la Criptomoneda en un periodo de 7 días."
+lapply(Criptomonedas, attr, "Descripción")
 
 #Verificando las descripciones de cada columna en la base de datos criptomonedas
 lapply(Criptomonedas, attr, "Descripción")
