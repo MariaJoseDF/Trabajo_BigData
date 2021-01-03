@@ -1729,3 +1729,4 @@ write.csv(Criptomonedas, file="Base_de_datos_criptomonedas.csv")
 
 #Extrayendo la base de datos que contiene la estadística recopilada en base a la base de datos principal
 write.csv(Estadistica, file="Base_de_datos_estadistica_criptomonedas.csv")
+
