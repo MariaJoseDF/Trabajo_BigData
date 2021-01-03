@@ -1,0 +1,16 @@
+"","Criptomoneda","Lanzamiento (año)","Capacidad de mercado (%)","Cantidad máxima ($) (M)","Cantidad en circulación (>M)","Ratio de minado/emisión","Transacciones por sg","Red","Tiempo para un bloque (sg)","Precio (USD)","Vol. (24h) ($) (M)","Vol. Total (%)","Var. (24h) (%)","Var. (7d) (%)"
+"1","BITCOIN (BTC)",2009,44,21000,17,"12,5 por bloque",7,NA,600,34158.7,86810,29.32,10.51,21.04
+"2","ETHEREUM (ETH)",2015,17,NA,102,"3 por bloque",20,"Ethereum",15,831.93,28810,9.73,10.73,29.6
+"3","RIPPLE (XRP)",2012,8,1e+05,40000,"1.000 millones al mes",1500,"RippleNet",0.1,0.22215,5050,1.7,-3.99,-20.59
+"4","Polkadot (DOT)",2020,1,1000,NA,NA,NA,NA,NA,389.92,6810,2.3,12.73,17.58
+"5","LITECOIN (LTC, L)",2011,3,84000,58,"25 por bloque",56,NA,150,151.581,14200,4.8,17.52,13.96
+"6","Binance Coin (BNB)",2017,1,2e+05,NA,NA,NA,NA,NA,40.2651,665.53,0.22,6.37,23.59
+"7","Bitcoin Cash (BCH)",2017,5,21000,17,"12,5 por bloque",60,NA,600,9.2368,2890,0.98,7.71,82.44
+"8","Tether (USDt, <U+20AE>)",2014,1,2580,NA,NA,NA,NA,NA,1.0013,111150,37.54,0.04,0.44
+"9","Chainlink (LINK)",2017,1,1e+06,NA,NA,NA,NA,NA,12.48,1920,0.65,3.77,16.53
+"10","CARDANO (ADA)",2017,1,45000,NA,NA,NA,NA,NA,0.193787,1750,0.59,7.37,24.14
+"11","EOS (EOS)",2017,1,1000,906,"Hasta un 5% de la inflación por año",2800,"EOS.IO",0.5,NA,NA,NA,NA,NA
+"12","MONERO (XMR)",2014,1,18400,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"13","Stellar (Lumens, XLM)",2014,1,1e+05,18000,"Hasta un 1% de la inflación por año",1000,"Stellar",5,NA,NA,NA,NA,NA
+"14","TRON (TRX, Tronix)",2017,1,1e+05,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"15","Neo (NEO)",2014,NA,1e+05,65,"Hasta 15 millones por año",1000,"NEO",15,NA,NA,NA,NA,NA
