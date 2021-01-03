@@ -1432,3 +1432,10 @@ GraficoVariacion <- ggplot(data, aes(x=Names,y=Variaciondias))+geom_point( size=
   ggtitle("Variación % del precio de las distintas criptomonedas en periodos de 7 días") + theme(plot.title = element_text(hjust = 0.5)) + 
   labs(x = "Criptomonedas (Abreviación)", y ="Variación (%)")
 
+############################################### EXTRAYENDO BASE DE DATOS ##############################################
+
+#Extrayendo la base de datos principal usada para la creacion de funciones
+write.csv(Criptomonedas, file="Base_de_datos_criptomonedas.csv")
+
+#Extrayendo la base de datos que contiene la estadistica recopilada en base a la base de datos principal
+write.csv(Estadistica, file="Base_de_datos_estadistica_criptomonedas.csv")
