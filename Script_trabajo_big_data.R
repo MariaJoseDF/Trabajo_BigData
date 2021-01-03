@@ -1753,6 +1753,14 @@ attr(Criptomonedas$`Transacciones por sg`, "Descripción") <- "Columna que contie
 #Verificando las descripciones de cada columna en la base de datos criptomonedas
 lapply(Criptomonedas, attr, "Descripción")
 
+#Agregando descripción a las distintas columnas de la base de datos estadistica
+attr(Estadistica$Media, "Descripción") <- "Columna que contiene los resultados del cálculo de la media de las distintas columnas de la base de datos criptomonedas, donde se sumó la totalidad de variables en cada columna para posteriormente dividirla en el número de variables"
+attr(Estadistica$Moda, "Descripción") <- "Columna que contiene los resultados del cálculo de la moda de las distintas columnas de la base de datos criptomonedas, donde se seleciona el dato que se repite el mayor numero de veces dentro de la columna"
+attr(Estadistica$Mediana, "Descripción") <- "Columna que contiene los resultados del cálculo de la mediana de las distintas columnas de la base de datos criptomonedas, donde se obtiene el dato de posición central del conjunto de datos"
+
+#Verificando las descripciones de cada columna en la base de datos estadistica
+lapply(Estadistica, attr, "Descripción")
+
 #Extrayendo la base de datos principal usada para la creacion de funciones
 write.csv(Criptomonedas, file="Base_de_datos_criptomonedas.csv")
 
