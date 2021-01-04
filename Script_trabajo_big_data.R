@@ -201,7 +201,7 @@ Lanzamiento <- FALSE
 CapMercado <- FALSE
 CantMax <- FALSE
 
-# Se crea el almacenamiento de la información que se extrae por medio de variables.
+# Se crea el almacenamiento de la información que se extrae por medio de variables en forma de vectores vacios.
 LaunchDate <- c()
 MarketShare <- c()
 Quantity <- c()
