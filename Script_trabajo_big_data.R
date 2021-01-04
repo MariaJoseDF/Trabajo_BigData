@@ -574,7 +574,7 @@ Año <- function(Año){
 }
 
 #Probando la función
-Año("Más reciente")
+Año("Más antigua")
 
 #Se crea función que obtiene la criptomoneda acorde al rango de capacidad de mercado indicado
 #Cript: Entrada: String -> Salida: String
@@ -729,11 +729,11 @@ Cript <- function(a){
     #[Finaliza loop]
   }
   #Imprimiendo resultado
-  print(paste("La criptomoneda con con una capacidad de mercado entre", a, "es:", CriptCapacity, "específicamente con una capacidad de un", ChosenCapacity, "%"))
+  print(paste("La criptomoneda con una capacidad de mercado entre", a, "es:", CriptCapacity, ",específicamente con una capacidad de un", ChosenCapacity, "%"))
 }
 
 #Probando la función
-Cript("40 - 50%")
+Cript("10 - 20%")
 
 #Se crea función que obtiene las criptomonedas acorde a los rangos establecidos de transacciones por segundos
 #Transg: Entrada: String -> Salida: String

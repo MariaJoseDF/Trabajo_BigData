@@ -1,14 +1,14 @@
 "","Criptomoneda","Lanzamiento (año)","Capacidad de mercado (%)","Cantidad máxima ($) (M)","Cantidad en circulación (>M)","Ratio de minado/emisión","Transacciones por sg","Red","Tiempo para un bloque (sg)","Precio (USD)","Vol. (24h) ($) (M)","Vol. Total (%)","Var. (24h) (%)","Var. (7d) (%)"
-"1","BITCOIN (BTC)",2009,44,21000,17,"12,5 por bloque",7,NA,600,31110.6,99580,22.92,-9.65,16.47
-"2","ETHEREUM (ETH)",2015,17,NA,102,"3 por bloque",20,"Ethereum",15,995.52,76760,17.67,16.48,34.33
-"3","RIPPLE (XRP)",2012,8,1e+05,40000,"1.000 millones al mes",1500,"RippleNet",0.1,0.22941,5970,1.37,2.7,-23.06
-"4","Polkadot (DOT)",2020,1,1000,NA,NA,NA,NA,NA,406.8,8180,1.88,3.88,9.57
-"5","LITECOIN (LTC, L)",2011,3,84000,58,"25 por bloque",56,NA,150,154.81,18690,4.3,2.33,13.21
-"6","Binance Coin (BNB)",2017,1,2e+05,NA,NA,NA,NA,NA,39.6151,924.8,0.21,-0.77,10.51
-"7","Bitcoin Cash (BCH)",2017,5,21000,17,"12,5 por bloque",60,NA,600,9.3856,3600,0.83,2.04,62.85
-"8","Tether (USDt, <U+20AE>)",2014,1,2580,NA,NA,NA,NA,NA,1.0005,165910,38.2,-0.07,0.26
-"9","Chainlink (LINK)",2017,1,1e+06,NA,NA,NA,NA,NA,13.58,3320,0.76,8.06,6.9
-"10","CARDANO (ADA)",2017,1,45000,NA,NA,NA,NA,NA,0.213268,3410,0.78,9.45,25.8
+"1","BITCOIN (BTC)",2009,44,21000,17,"12,5 por bloque",7,NA,600,31944.5,93130,45.8,-6,17.83
+"2","ETHEREUM (ETH)",2015,17,NA,102,"3 por bloque",20,"Ethereum",15,1032.99,67770,33.33,11.69,43.51
+"3","RIPPLE (XRP)",2012,8,1e+05,40000,"1.000 millones al mes",1500,"RippleNet",0.1,0.22991,6210,3.06,4.33,-22.14
+"4","Polkadot (DOT)",2020,1,1000,NA,NA,NA,NA,NA,408.56,8870,4.36,3.69,12.86
+"5","LITECOIN (LTC, L)",2011,3,84000,58,"25 por bloque",56,NA,150,155.51,16010,7.87,2.79,16.35
+"6","Binance Coin (BNB)",2017,1,2e+05,NA,NA,NA,NA,NA,39.7897,878.84,0.43,-1.78,12.76
+"7","Bitcoin Cash (BCH)",2017,5,21000,17,"12,5 por bloque",60,NA,600,9.581,3600,1.77,1.9,63.66
+"8","Tether (USDt, <U+20AE>)",2014,1,2580,NA,NA,NA,NA,NA,1.0001,143410,70.54,-0.15,0.17
+"9","Chainlink (LINK)",2017,1,1e+06,NA,NA,NA,NA,NA,13.72,3330,1.64,3.58,11.15
+"10","CARDANO (ADA)",2017,1,45000,NA,NA,NA,NA,NA,0.214673,3430,1.69,8.37,30.09
 "11","EOS (EOS)",2017,1,1000,906,"Hasta un 5% de la inflación por año",2800,"EOS.IO",0.5,NA,NA,NA,NA,NA
 "12","MONERO (XMR)",2014,1,18400,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "13","Stellar (Lumens, XLM)",2014,1,1e+05,18000,"Hasta un 1% de la inflación por año",1000,"Stellar",5,NA,NA,NA,NA,NA
