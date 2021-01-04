@@ -1741,28 +1741,40 @@ GraficoVariacion <- ggplot(data, aes(x=Names,y=Variaciondias))+geom_point( size=
 
 ################################################# EXTRAYENDO BASE DE DATOS ##############################################
 
-#Extrayendo la base de datos principal usada para la creacion de funciones
-write.csv(Criptomonedas, file="Base_de_datos_criptomonedas.csv")
-
-
-attr(Criptomonedas$`Red`, "Descripción") <- "La columna Red se refiere a la organización formada a la cual pertenece la Criptomoneda según su creador o proveedor, permitiendo su funcionamiento."
-attr(Criptomonedas$`Tiempo para un bloque (sg)`, "Descripción") <- "La columna Tiempo para un bloque (sg) se refiere al tiempo que un bloque almacena la información financiera sin actualizarse, como las transacciones respecto a la Criptomoneda."
-attr(Criptomonedas$`Precio (USD)`, "Descripción") <- "La columna Precio (USD) se refiere al valor monetario en dólares Estadounidenses actuales."
-attr(Criptomonedas$`Vol. (24h) ($) (M)`, "Descripción") <- "La columna Vol. (24h) ($) (M) se refiere al volumen de transacciones que obtiene la Criptomoneda en el mercado, esto en millones de dólares que se generan en un periodo de 24 horas. Mientras más alto más activo es el mercado de la Criptomoneda y viceversa."
-attr(Criptomonedas$`Vol. Total (%)`, "Descripción") <- "La columna Vol. Total (%) se refiere al volumen porcentual de transacciones total que obtiene la Criptomoneda en el mercado. Mientras más alto más activo es el mercado de la Criptomoneda y viceversa."
-attr(Criptomonedas$`Var. (24h) (%)`, "Descripción") <- "La columna Var. (24h) (%) se refiere a la variación porcentual del precio en dólares de la Criptomoneda en un periodo de 24 horas."
-attr(Criptomonedas$`Var. (7d) (%)`, "Descripción") <- "La columna Var. (7d) (%) se refiere a la variación porcentual del precio en dólares de la Criptomoneda en un periodo de 7 días."
+#Agregando descripción a las distintas columnas de la base de datos criptomonedas
+attr(Criptomonedas$Criptomoneda, "Descripción") <- "Columna que contiene los nombres de las distintas criptomonedas obtenidas así como sus abreviaciones en paréntesis"
+attr(Criptomonedas$`Lanzamiento (año)`, "Descripción") <- "Columna que contiene los distintos años de lanzamiento de cada criptomoneda"
+attr(Criptomonedas$`Capacidad de mercado (%)`, "Descripción") <- "Columna que contiene las capacidades de mercado en porcentajes de cada criptomoneda, valores resultantes de la transformación a porcentajes de la capitalización de mercado de las criptomonedas donde se multiplican el precio de mercado actual con el número en circulación, mediante esta métrica se obtiene el tamaño relativo de una criptomoneda. Aquellas con NA significan que no se logró establecer dicha información"
+attr(Criptomonedas$`Cantidad máxima ($) (M)`, "Descripción") <- "Columna que contiene la cantidad máxima de de emisión o minado de cada criptomoneda, es decir su límite de oferta. Aquellas con NA significan que no poseen limite alguno"
+attr(Criptomonedas$`Cantidad en circulación (>M)`, "Descripción") <- "Columna que contiene la cantidad actual en circulación de criptomonedas, encontrándose estrechamente relacionada con la cantidad máxima. Aquellas con NA significan que no se logró obtener dicha información"
+attr(Criptomonedas$`Ratio de minado/emisión`, "Descripción") <- "Columna que contiene el ratio en que se minan y/o emiten nuevas criptomonedas, pudiendo ser: un ratio de minado por bloque, un ratio de emisión mensual/anual o descrito por un % de inflación anual. Aquellas con NA significan que no se logró obtener dicha información"
+attr(Criptomonedas$`Transacciones por sg`, "Descripción") <- "Columna que contiene el máximo de transacciones por segundo en la red que se pueden realizar con cada criptomoneda, donde a mayor el número mayor es la competitividad con los sistemas financieros habituales. Aquellas con NA significan que no se logró obtener dicha información"
+attr(Criptomonedas$`Red`, "Descripción") <- "Columna que contiene la Red de cada Criptomoneda que se refiere a la organización formada a la cual pertenece según su creador o proveedor, permitiendo su funcionamiento."
+attr(Criptomonedas$`Tiempo para un bloque (sg)`, "Descripción") <- "Columna que contiene el tiempo para un bloque (sg) que se refiere al tiempo que un bloque almacena la información financiera sin actualizarse, como las transacciones respecto a la Criptomoneda."
+attr(Criptomonedas$`Precio (USD)`, "Descripción") <- "Columna que contiene el precio (USD) que se refiere al valor monetario en dólares Estadounidenses actuales."
+attr(Criptomonedas$`Vol. (24h) ($) (M)`, "Descripción") <- "Columna que contiene el  vol. (24h) ($) (M) que se refiere al volumen de transacciones que obtiene la Criptomoneda en el mercado, esto en millones de dólares que se generan en un periodo de 24 horas. Mientras más alto más activo es el mercado de la Criptomoneda y viceversa."
+attr(Criptomonedas$`Vol. Total (%)`, "Descripción") <- "Columna que contiene el vol. Total (%) que se refiere al volumen porcentual de transacciones total que obtiene la Criptomoneda en el mercado. Mientras más alto más activo es el mercado de la Criptomoneda y viceversa."
+attr(Criptomonedas$`Var. (24h) (%)`, "Descripción") <- "Columna que contiene la Var. (24h) (%) que se refiere a la variación porcentual del precio en dólares de la Criptomoneda en un periodo de 24 horas."
+attr(Criptomonedas$`Var. (7d) (%)`, "Descripción") <- "Columna que contiene la var. (7d) (%) que se refiere a la variación porcentual del precio en dólares de la Criptomoneda en un periodo de 7 días."
 lapply(Criptomonedas, attr, "Descripción")
 
-#Extrayendo la base de datos que contiene la estadística recopilada en base a la base de datos principal
-write.csv(Estadistica, file="Base_de_datos_estadistica_criptomonedas.csv")
+#Verificando las descripciones de cada columna en la base de datos criptomonedas
+lapply(Criptomonedas, attr, "Descripción")
 
-
+#Agregando descripción a las distintas columnas de la base de datos estadistica
+attr(Estadistica$Media, "Descripción") <- "Columna que contiene los resultados del cálculo de la media de las distintas columnas de la base de datos criptomonedas, donde se sumó la totalidad de variables en cada columna para posteriormente dividirla en el número de variables"
+attr(Estadistica$Moda, "Descripción") <- "Columna que contiene los resultados del cálculo de la moda de las distintas columnas de la base de datos criptomonedas, donde se seleciona el dato que se repite el mayor numero de veces dentro de la columna"
+attr(Estadistica$Mediana, "Descripción") <- "Columna que contiene los resultados del cálculo de la mediana de las distintas columnas de la base de datos criptomonedas, donde se obtiene el dato de posición central del conjunto de datos"
 attr(Estadistica$Máximo, "Descripción") <- "Columna que contiene el mayor valor alcanzado por el conjunto de datos de las columnas de la tabla llamada Criptomoneda."
 attr(Estadistica$Mínimo, "Descripción") <- "Columna que contiene el menor valor alcanzado por el conjunto de datos de las columnas de la tabla llamada Criptomoneda."
 attr(Estadistica$Desviación.Estándar, "Descripción") <- "Columna que contiene la desviación estándar por el conjunto de datos de las columnas de la tabla llamada Criptomoneda. Esta indica qué tan dispersos están los datos con respecto a la media, siendo la raíz de la varianza. Mientras mayor sea la desviación estándar, mayor será la dispersión de los datos."
 attr(Estadistica$Varianza, "Descripción") <- "Columna que contiene la Varianza por el conjunto de datos de las columnas de la tabla llamada Criptomoneda. Representa la variabilidad del conjunto de datos respecto a su media."
+
+#Verificando las descripciones de cada columna en la base de datos estadistica
 lapply(Estadistica, attr, "Descripción")
 
+#Extrayendo la base de datos principal usada para la creacion de funciones
+write.csv(Criptomonedas, file="Base_de_datos_criptomonedas.csv")
 
-
+#Extrayendo la base de datos que contiene la estadística recopilada en base a la base de datos principal
+write.csv(Estadistica, file="Base_de_datos_estadistica_criptomonedas.csv")
