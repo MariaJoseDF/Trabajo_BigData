@@ -1779,3 +1779,38 @@ write.csv(Criptomonedas, file="Base_de_datos_criptomonedas.csv")
 #Extrayendo la base de datos que contiene la estadística recopilada en base a la base de datos principal
 write.csv(Estadistica, file="Base_de_datos_estadistica_criptomonedas.csv")
 
+############################################################## ANÁLISIS DE LA ESTADÍSTICA OBTENIDA ################################################
+
+#A continuación se presenta la redacción del analísis de la tabla estadística y los gráficos:
+
+  #Transacciones por segundo: las transacciones por segundo hacen referencia a el número de transacciones en la red que se es posible realizar 
+  #con las criptomonedas en un espacio temporal de un segundo, en el caso de la información extraída las criptomonedas analizadas poseen una media 
+  #de 805.375 transacciones por segundo con una varianza de 986879.1 indicando que hay grandes diferencias entre las diferentes criptomonedas donde 
+  #los datos se encuentran alejados de la media, significando la inexistencia de un promedio sostenible. Sin embargo esta media permite observar 
+  #que el mercado de criptomonedas se comporta de manera distinta al sistema financiero convencional, donde a modo de ejemplificación VISA maneja 
+  #unas 1667 transacciones por segundo aproximadamente, significando - en términos de transacciones - una baja competitividad con los sistemas 
+  #financieros actuales, a pesar de esto se destaca el máximo de 2800 transacciones asociado a la criptomoneda EOS, nivel de transacciones que 
+  #se especula se encuentra ligado al bajo tiempo requerido para el minado de un bloque.
+
+  #Cantidad máxima y cantidad en circulación: todas las criptomonedas, a excepción de Etherum, poseen un límite de minado/emisión el cual es 
+  #en promedio 128141.4 millones número que comparado con la cantidad en circulación promedio a la fecha que es superior a 7395.625 millones indica 
+  #que aún no alcanzan su máximo del mercado por lo cual aún no son escasas y el mercado no se encuentra saturado, algo que puede ser observado en 
+  #las altas desviaciones estándar de 257267.8 y 14576.29 respectivamente.  
+
+  #Tiempo de minado de bloque (sg): el tiempo de minado de un bloque hace referencia al tiempo en que un bloque almacena la información financiera 
+  #sin actualizarse, pudiendo almacenar una variedad de información como la transacción misma, la fecha, la persona, el lugar, entre otros. En el 
+  #caso de la información extraída el promedio de este tiempo para las criptomonedas es de 173.2 segundos o 2.8 minutos, con una varianza de 71855.61 
+  #significando que los datos se encuentran alejados de la media significando que las criptomonedas poseen grandes diferencias de infraestructura 
+  #entre sí, de igual manera el máximo es de 600 segundos, tiempo asociado a Bitcoin y Bitcoin Cash, mientras que el mínimo es de 0.1 asociado a 
+  #Ripple, esto se interpreta como un nivel de ineficiencia por parte de Bitcoin ante los resultados observados, pero, no debe deben ser dejadas a 
+  #un lado las diferentes estructuras de cada criptomoneda por lo que dicha ineficiencia es relativa. 
+
+  #Variación del precio en 7 días: los precios de las criptomonedas como un todo variaron en promedio un 20.24% con una desviación estándar de 
+  #27.50702 significando que al contrario de las otras variables en esta no se aprecia una baja diferencia en la variación de los precios entre 
+  #la variedad de criptomonedas lo cual indica estabilidad económica del mercado de criptomonedas donde todas las criptomonedas se ven afectadas 
+  #de maneras similares. De igual manera se puede observar a Bitcoin Cash con un aumento de precio de un 84.23% y Ripple con una caída de un 21.74%, 
+  #el aumento de precio de Bitcoin Cash se encuentra relacionado al respaldo de y promoción de su uso como medio de intercambio en diciembre de 2020 
+  #por parte del empresario Kim Dotcom, mientras que la caída de Ripple se encuentra directamente relacionada a la denuncia presentada por la 
+  #Comisión de Bolsa y Valores de EE.UU, denuncia debido a la cual Coinbase anunció la suspensión de todas las operaciones con la criptomoneda 
+  #a partir del 19 de enero de 2021, estando entonces esta caída estrechamente relacionada con la coyuntura económica.
+
