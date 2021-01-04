@@ -915,7 +915,7 @@ Circulacion <- function(Circulacion){
     }
     #Finaliza Loop 
     #Se imprime el resultado
-    print(paste("La criptomoneda con una mayor  :", CmaC, ", con (>M)", MaC))
+    print(paste("La criptomoneda con una mayor cantidad en circulación es:", CmaC, ", con (>M)", MaC))
   }
   #Estableciendo la segunda condicional
   else if(Circulacion == "Menor"){
@@ -932,7 +932,7 @@ Circulacion <- function(Circulacion){
     }
     #Finaliza Loop 
     #Se imprime el resultado
-    print(paste("La criptomoneda con una menor Cantidad en circulacion es :", CmiC, ", con  (>M)", MiC))
+    print(paste("La criptomoneda con una menor cantidad en circulación es :", CmiC, ", con  (>M)", MiC))
   }
 }
 ## Probando la función 
@@ -1475,7 +1475,7 @@ Filtrar <- function(variable,opcion){
   }
 }
 
-#Probando la funcion
+#Probando la función
 Filtrar("capacidad de mercado","40 - 50%")
 
 ################################################ OBTENIENDO ESTADISTICAS ###############################################
